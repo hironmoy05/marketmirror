@@ -1,0 +1,20 @@
+<svg id="un_check" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M1.2,4.428a.7.7,0,0,0-1,1L3.724,8.94a.7.7,0,0,0,1,0L12.458,1.2a.7.7,0,1,0-1-1L4.221,7.448Z" fill="#e1e1e1"/>
+    </clipPath>
+  </defs>
+  <g id="base" fill="none" stroke="#e1e1e1" stroke-miterlimit="10" stroke-width="1">
+    <rect width="24" height="24" rx="4" stroke="none"/>
+    <rect x="0.5" y="0.5" width="23" height="23" rx="3.5" fill="none"/>
+  </g>
+  <g id="check" transform="translate(5.668 7.75)" opacity="0">
+    <g id="Group_16" data-name="Group 16">
+      <g id="Mask_Group_16" data-name="Mask Group 16" clip-path="url(#clip-path)">
+        <g id="COLOR_black" data-name="COLOR/ black" transform="translate(-2.111 -4.221)">
+          <rect id="Rectangle" width="16.886" height="16.886" fill="#e1e1e1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

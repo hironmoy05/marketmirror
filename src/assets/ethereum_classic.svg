@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.2" height="26.2" viewBox="0 0 26.2 26.2">
+  <g id="ethereum_classic" transform="translate(-29.9 -19.9)">
+    <g id="Icon" transform="translate(30 20)">
+      <g id="ether">
+        <circle id="Oval" cx="13" cy="13" r="13" fill="rgba(50,90,151,0.1)" stroke="#eaeaea" stroke-width="0.2"/>
+        <g id="layer5" transform="translate(7.5 3.5)">
+          <g id="g1627">
+            <path id="path1599" d="M0,10.651c2.128,1.13,4.348,2.313,6.062,3.228l6.013-3.228C9.9,13.886,8.084,16.578,6.062,19.558,4.037,16.585,1.8,13.3,0,10.651Zm.231-.892L6.069,6.644l5.762,3.092L6.072,12.855ZM6.062,5.646,0,8.838,6.036,0l6.039,8.857L6.062,5.646Z" fill="#3ab83a"/>
+            <path id="path1593" d="M182.726,13.879l6.013-3.228c-2.177,3.234-6.013,8.907-6.013,8.907Zm.007-7.235,5.762,3.092-5.758,3.119Zm-.007-1L182.7,0l6.039,8.857Z" transform="translate(-176.664)" fill="#0b8311"/>
+            <path id="path1603" d="M7,294.82l5.838.479,5.762-.5-5.758,3.119Z" transform="translate(-6.769 -285.061)" fill="#0b8311"/>
+            <path id="path1606" d="M183.7,295.3l5.762-.5-5.758,3.119,0-2.62Z" transform="translate(-177.631 -285.061)" fill="#146714"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

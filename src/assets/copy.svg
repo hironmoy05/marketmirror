@@ -1,0 +1,17 @@
+<svg id="copy" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M10,22a3,3,0,0,1-3-3V10a3,3,0,0,1,3-3h9a3,3,0,0,1,3,3v9a3,3,0,0,1-3,3ZM3,15a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0h9a3,3,0,0,1,3,3V5H13V3a1,1,0,0,0-1-1H3A1,1,0,0,0,2,3v9a1,1,0,0,0,1,1H5v2Z" transform="translate(2 2)"/>
+    </clipPath>
+  </defs>
+  <rect id="Icons_Copy_background" data-name="Icons/Copy background" width="26" height="26" fill="none"/>
+  <rect id="base" width="26" height="26" fill="none"/>
+  <g id="Group_72" data-name="Group 72">
+    <path id="Shape-2" data-name="Shape" d="M10,22a3,3,0,0,1-3-3V10a3,3,0,0,1,3-3h9a3,3,0,0,1,3,3v9a3,3,0,0,1-3,3ZM3,15a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0h9a3,3,0,0,1,3,3V5H13V3a1,1,0,0,0-1-1H3A1,1,0,0,0,2,3v9a1,1,0,0,0,1,1H5v2Z" transform="translate(2 2)"/>
+    <g id="Mask_Group_72" data-name="Mask Group 72" clip-path="url(#clip-path)">
+      <g id="_Color" data-name="↳ 🎨Color">
+        <rect id="Color" width="26" height="26" fill="#013567"/>
+      </g>
+    </g>
+  </g>
+</svg>

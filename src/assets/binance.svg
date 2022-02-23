@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26.2" height="26.2" viewBox="0 0 26.2 26.2">
+  <g id="binance" transform="translate(-29.9 -19.9)">
+    <g id="Icon" transform="translate(30 20)">
+      <g id="ether">
+        <circle id="Oval" cx="13" cy="13" r="13" fill="rgba(234,238,244,0.49)" stroke="#eaeaea" stroke-width="0.2"/>
+        <g id="Layer_2" data-name="Layer 2" transform="translate(5.181 5.181)">
+          <g id="Layer_1" data-name="Layer 1">
+            <path id="Path_2987" data-name="Path 2987" d="M4.782,6.571,7.819,3.534l3.038,3.038,1.767-1.767L7.819,0l-4.8,4.8L4.782,6.571M0,7.819,1.767,6.051,3.534,7.818,1.767,9.585ZM4.782,9.067,7.819,12.1l3.038-3.038,1.768,1.766h0L7.819,15.637l-4.8-4.8,0,0,1.77-1.765M12.1,7.819,13.87,6.052l1.767,1.767L13.87,9.586Z" fill="#f3ba2f"/>
+            <path id="Path_2988" data-name="Path 2988" d="M967.522,965.356h0l-2.166-2.166-1.6,1.6h0l-.184.184-.379.379,0,0,0,0,2.164,2.164,2.166-2.166h0" transform="translate(-957.538 -957.538)" fill="#f3ba2f"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

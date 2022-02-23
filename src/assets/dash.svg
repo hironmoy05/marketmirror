@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="dash" transform="translate(-30 -20)">
+    <g id="Icon" transform="translate(30 20)">
+      <g id="ether">
+        <circle id="Oval" cx="13" cy="13" r="13" fill="#2856d0"/>
+        <path id="Shape" d="M.4,10.354l.836-2.585H11.855l1.671-5.185h3.7L15.569,7.769s-1.022,2.585-3.451,2.585ZM0,6.377l.82-2.4H7.1l-.8,2.4ZM13.526,2.584H2.925L3.745,0H15.4c2.554,0,1.827,2.584,1.827,2.584Z" transform="translate(4.364 7.955)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

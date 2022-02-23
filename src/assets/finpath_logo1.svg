@@ -1,0 +1,22 @@
+<svg id="finpath_logo1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="215" height="62.742" viewBox="0 0 215 62.742">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1.164" x2="0.5" y2="-0.054" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1fdecc"/>
+      <stop offset="1" stop-color="#1aa9e9"/>
+    </linearGradient>
+  </defs>
+  <g id="Group_2034" data-name="Group 2034" transform="translate(64 -150.364)">
+    <text id="Angular" transform="translate(81 196.242)" fill="#fff" font-size="30" font-family="Rubik-SemiBold, Rubik" font-weight="600" letter-spacing="0.1em"><tspan x="-69.45" y="0">FIN</tspan><tspan y="0" letter-spacing="0.03em">PATH</tspan></text>
+    <g id="Group_2039" data-name="Group 2039" transform="translate(-64 150.364)">
+      <path id="Union_15" data-name="Union 15" d="M3.794,58.948A12.863,12.863,0,0,1,0,49.789V32.3a10.052,10.052,0,0,0,8.1,9.617V53.635a9.151,9.151,0,0,0,7.172,8.9,13.02,13.02,0,0,1-2.314.206A12.864,12.864,0,0,1,3.794,58.948ZM8.095,40.3A10.008,10.008,0,0,1,0,30.479V10A10.011,10.011,0,0,1,10,0H52.743a10.011,10.011,0,0,1,10,10v4.09a6.008,6.008,0,0,0-6-5.994H14.1a6.007,6.007,0,0,0-6,6V25.3H25.906v8.1H14.168a6.093,6.093,0,0,0-5.951,4.859v0l0,0q-.061-.077-.12-.155v2.2Z" transform="translate(0 0)" fill="#fff"/>
+    </g>
+    <rect id="Rectangle_2166" data-name="Rectangle 2166" width="6.072" height="13.358" transform="translate(-37.689 199.749)" fill="#ffb50a"/>
+    <path id="Path_2918" data-name="Path 2918" d="M0,0H6.072L3.036,3.036,0,6.072Z" transform="translate(-34.653 194.848) rotate(45)" fill="#ffb50a"/>
+    <path id="Path_2919" data-name="Path 2919" d="M0,0H6.072L3.036,3.036,0,6.072Z" transform="translate(-24.533 186.55) rotate(45)" fill="#ffb50a"/>
+    <path id="Path_2920" data-name="Path 2920" d="M0,0H6.072L3.036,3.036,0,6.072Z" transform="translate(-14.413 178.454) rotate(45)" fill="#ffb50a"/>
+    <path id="Path_2921" data-name="Path 2921" d="M0,0H6.072L3.036,3.036,0,6.072Z" transform="translate(-4.293 162.667) rotate(45)" fill="#ffb50a"/>
+    <rect id="Rectangle_2167" data-name="Rectangle 2167" width="6.072" height="21.454" transform="translate(-27.569 191.653)" fill="#ffb50a"/>
+    <rect id="Rectangle_2168" data-name="Rectangle 2168" width="6.072" height="29.55" transform="translate(-17.449 183.557)" fill="#ffb50a"/>
+    <rect id="Rectangle_2169" data-name="Rectangle 2169" width="6.072" height="45.336" transform="translate(-7.329 167.77)" fill="#ffb50a"/>
+  </g>
+</svg>

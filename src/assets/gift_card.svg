@@ -1,0 +1,9 @@
+<svg id="gift_card" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="BG-5" width="24" height="24" rx="4" fill="#fff"/>
+  <g id="Layer_2" data-name="Layer 2" transform="translate(4.414 4.414)">
+    <g id="invisible_box" data-name="invisible box" transform="translate(-0.333 -0.333)">
+      <rect id="Rectangle_2201" data-name="Rectangle 2201" width="16" height="16" transform="translate(-0.081 -0.081)" fill="none"/>
+    </g>
+  </g>
+  <path id="Icon_material-card-giftcard" data-name="Icon material-card-giftcard" d="M17.4,5.994H15.656a2.121,2.121,0,0,0,.144-.749A2.324,2.324,0,0,0,13.4,3a2.442,2.442,0,0,0-2,1.011l-.4.5L10.6,4a2.456,2.456,0,0,0-2-1A2.324,2.324,0,0,0,6.2,5.246a2.121,2.121,0,0,0,.144.749H4.6a1.539,1.539,0,0,0-1.592,1.5L3,15.725a1.546,1.546,0,0,0,1.6,1.5H17.4a1.546,1.546,0,0,0,1.6-1.5V7.491A1.546,1.546,0,0,0,17.4,5.994Zm-4-1.5a.778.778,0,0,1,.8.749.8.8,0,0,1-1.6,0A.778.778,0,0,1,13.4,4.5Zm-4.8,0a.778.778,0,0,1,.8.749.8.8,0,0,1-1.6,0A.778.778,0,0,1,8.6,4.5Zm8.8,11.228H4.6V13.674H17.4Zm0-3.743H4.6V7.491H8.664L7,9.61l1.3.876L10.2,8.06,11,7.042l.8,1.018,1.9,2.425L15,9.61,13.336,7.491H17.4Z" transform="translate(1 1.889)" fill="#013567" stroke="#fff" stroke-width="0.4"/>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1.164" x2="0.5" y2="-0.054" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#1fdecc"/>
+      <stop offset="1" stop-color="#1aa9e9"/>
+    </linearGradient>
+  </defs>
+  <g id="profile_logo" transform="translate(-23 -53)">
+    <path id="Subtraction_11" data-name="Subtraction 11" d="M-8282-2821a40,40,0,0,1,40,40,40,40,0,0,1-40,40,40,40,0,0,1-40-40A40,40,0,0,1-8282-2821Z" transform="translate(8345 2874)" fill="#fff"/>
+    <g id="Group_2034" data-name="Group 2034" transform="translate(38 68)">
+      <g id="Group_2039" data-name="Group 2039" transform="translate(0 0)">
+        <path id="Union_15" data-name="Union 15" d="M0,39.489V23.456a10.078,10.078,0,0,0,6.422,9.272v9.812a7.26,7.26,0,0,0,5.688,7.06A10.282,10.282,0,0,1,0,39.489Zm6.419-8.045A10,10,0,0,1,0,22.1V10A10.011,10.011,0,0,1,10,0H39.763a10.011,10.011,0,0,1,10,10v2.415a6.008,6.008,0,0,0-6-5.994H12.421a6.007,6.007,0,0,0-6,6v7.645H20.547v6.421H11.237a4.822,4.822,0,0,0-4.41,2.884h0q-.213-.283-.4-.577v2.653Z" transform="translate(0 0)" fill="#013567"/>
+      </g>
+      <rect id="Rectangle_2166" data-name="Rectangle 2166" width="4.816" height="10.595" transform="translate(20.868 39.168)" fill="#ffb50a"/>
+      <path id="Path_2918" data-name="Path 2918" d="M0,0H4.816L2.408,2.408,0,4.816Z" transform="translate(23.276 35.282) rotate(45)" fill="#ffb50a"/>
+      <path id="Path_2919" data-name="Path 2919" d="M0,0H4.816L2.408,2.408,0,4.816Z" transform="translate(31.303 28.7) rotate(45)" fill="#ffb50a"/>
+      <path id="Path_2920" data-name="Path 2920" d="M0,0H4.816L2.408,2.408,0,4.816Z" transform="translate(39.329 22.279) rotate(45)" fill="#ffb50a"/>
+      <path id="Path_2921" data-name="Path 2921" d="M0,0H4.816L2.408,2.408,0,4.816Z" transform="translate(47.355 9.758) rotate(45)" fill="#ffb50a"/>
+      <rect id="Rectangle_2167" data-name="Rectangle 2167" width="4.816" height="17.016" transform="translate(28.895 32.747)" fill="#ffb50a"/>
+      <rect id="Rectangle_2168" data-name="Rectangle 2168" width="4.816" height="23.437" transform="translate(36.921 26.326)" fill="#ffb50a"/>
+      <rect id="Rectangle_2169" data-name="Rectangle 2169" width="4.816" height="35.958" transform="translate(44.947 13.805)" fill="#ffb50a"/>
+    </g>
+  </g>
+</svg>

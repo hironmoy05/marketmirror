@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="mobile" transform="translate(-133 -4665)">
+    <g id="Group_1042" data-name="Group 1042">
+      <g id="Rectangle_2051" data-name="Rectangle 2051" transform="translate(133 4665)" fill="#fff" stroke="#b3bcc9" stroke-width="1" opacity="0">
+        <rect width="16" height="16" stroke="none"/>
+        <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
+      </g>
+    </g>
+    <g id="Icon_feather-smartphone" data-name="Icon feather-smartphone" transform="translate(129.5 4664)">
+      <path id="Path_2019" data-name="Path 2019" d="M8.724,3h6.119a1.224,1.224,0,0,1,1.224,1.224v9.79a1.224,1.224,0,0,1-1.224,1.224H8.724A1.224,1.224,0,0,1,7.5,14.014V4.224A1.224,1.224,0,0,1,8.724,3Z" fill="none" stroke="#003567" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_2020" data-name="Path 2020" d="M19.316,39h0" transform="translate(-7.533 -26.211)" fill="none" stroke="#003567" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

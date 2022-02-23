@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="30" height="30" viewBox="0 0 30 30">
+  <defs>
+    <filter id="Rectangle_2129" x="0" y="0" width="30" height="30" filterUnits="userSpaceOnUse">
+      <feOffset dy="1" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="google_" data-name="google+" transform="translate(-9 -10)">
+    <g transform="matrix(1, 0, 0, 1, 9, 10)" filter="url(#Rectangle_2129)">
+      <rect id="Rectangle_2129-2" data-name="Rectangle 2129" width="24" height="24" rx="4" transform="translate(3 2)" fill="#fff"/>
+    </g>
+    <path id="Path_279" d="M5.86,11.641A5.748,5.748,0,0,1,1.719,9.962a5.846,5.846,0,0,1,0-8.281A5.744,5.744,0,0,1,5.86,0,5.418,5.418,0,0,1,9.765,1.564l-1.6,1.523a2.793,2.793,0,0,0-.878-.625A3.661,3.661,0,0,0,5.86,2.149,3.487,3.487,0,0,0,3.3,3.243a3.612,3.612,0,0,0-1,2.579A3.612,3.612,0,0,0,3.3,8.4a3.492,3.492,0,0,0,2.559,1.1,3.309,3.309,0,0,0,2.462-.939A3.372,3.372,0,0,0,9.18,6.993H5.86V5h5.469a1.459,1.459,0,0,1,.077.469l.04.509A5.73,5.73,0,0,1,9.9,10.058a5.508,5.508,0,0,1-3.865,1.585ZM15,8.32V6.641H13.36V5H15V3.321H16.68V5h1.68V6.641H16.68V8.32Z" transform="translate(16 18.667)" fill="#fe1d1d"/>
+  </g>
+</svg>

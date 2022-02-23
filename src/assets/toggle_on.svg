@@ -1,0 +1,28 @@
+<svg id="toggle_on" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="24" viewBox="0 0 48 24">
+  <defs>
+    <filter id="Oval" x="15" y="-9" width="42" height="42" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#35495d" flood-opacity="0.294"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Oval)">
+        <circle id="Oval-2" data-name="Oval" cx="12" cy="12" r="12" fill="#1a66e9"/>
+      </g>
+    </clipPath>
+  </defs>
+  <g id="Controls_Switches_On" data-name="Controls/Switches/On" transform="translate(11.368 7.294)">
+    <rect id="Background" width="33" height="14" rx="7" transform="translate(-11.368 -1.747)" fill="rgba(26,102,233,0.1)"/>
+  </g>
+  <g id="Group_1103" data-name="Group 1103" transform="translate(24)">
+    <circle id="Oval-3" data-name="Oval" cx="12" cy="12" r="12" fill="#1a66e9"/>
+    <g id="Group_1102" data-name="Group 1102" clip-path="url(#clip-path)">
+      <g id="_Color" data-name="↳Color" transform="translate(-0.001 0)">
+        <rect id="_Color_background" data-name="↳Color background" width="24.07" height="24.07" fill="#1a66e9"/>
+        <rect id="Background-2" data-name="Background" width="24.07" height="24.07" fill="#1a66e9"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M2.414,7,7.707,1.707A1,1,0,0,0,6.293.293l-6,6a1,1,0,0,0,0,1.414l6,6a1,1,0,1,0,1.414-1.414Z" transform="translate(8 5)" fill="#013567"/>
+    </clipPath>
+  </defs>
+  <g id="dropdown" transform="translate(0 24) rotate(-90)">
+    <rect id="Rectangle_2060" data-name="Rectangle 2060" width="24" height="24" fill="#013567" opacity="0"/>
+    <g id="left_icon" data-name="left icon">
+      <path id="Shape-2" data-name="Shape" d="M2.414,7,7.707,1.707A1,1,0,0,0,6.293.293l-6,6a1,1,0,0,0,0,1.414l6,6a1,1,0,1,0,1.414-1.414Z" transform="translate(8 5)" fill="#013567"/>
+      <g id="Mask_Group_7" data-name="Mask Group 7" clip-path="url(#clip-path)">
+        <g id="COLOR_black" data-name="COLOR/ black">
+          <rect id="Rectangle" width="24" height="24" fill="#013567"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg id="term" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="BG-5" width="24" height="24" rx="4" fill="#fff"/>
+  <g id="Icon_feather-file-text" data-name="Icon feather-file-text" transform="translate(0 1)">
+    <g id="Path_2922" data-name="Path 2922" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14.125,3h-6.5A1.613,1.613,0,0,0,6,4.6V17.4A1.613,1.613,0,0,0,7.625,19h9.75A1.613,1.613,0,0,0,19,17.4V7.8Z" stroke="none"/>
+      <path d="M 7.625 4 C 7.280370712280273 4 7 4.269159317016602 7 4.600000381469727 L 7 17.39999961853027 C 7 17.7308406829834 7.280370712280273 18 7.625 18 L 17.375 18 C 17.71962928771973 18 18 17.7308406829834 18 17.39999961853027 L 18 8.21876049041748 L 13.71532154083252 4 L 7.625 4 M 7.625 3 L 14.125 3 L 19 7.800000190734863 L 19 17.39999961853027 C 19 18.28366088867188 18.2724609375 19 17.375 19 L 7.625 19 C 6.7275390625 19 6 18.28366088867188 6 17.39999961853027 L 6 4.600000381469727 C 6 3.716339111328125 6.7275390625 3 7.625 3 Z" stroke="none" fill="#013567"/>
+    </g>
+    <path id="Path_2923" data-name="Path 2923" d="M21,3.75V7.808h3.987" transform="translate(-6.987)" fill="none" stroke="#013567" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_2924" data-name="Path 2924" d="M18.295,19.5H12" transform="translate(-2.795 -7.7)" fill="none" stroke="#013567" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_2925" data-name="Path 2925" d="M18.295,25.5H12" transform="translate(-2.795 -10.5)" fill="none" stroke="#013567" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    <path id="Path_2926" data-name="Path 2926" d="M13.6,13.5H12" transform="translate(-2.795 -4.9)" fill="none" stroke="#013567" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

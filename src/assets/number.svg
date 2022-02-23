@@ -1,0 +1,14 @@
+<svg id="number" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="BG-5" width="24" height="24" rx="4" fill="#fff"/>
+  <g id="Layer_2" data-name="Layer 2" transform="translate(4 4)">
+    <g id="invisible_box" data-name="invisible box">
+      <rect id="Rectangle_2185" data-name="Rectangle 2185" width="16" height="16" fill="none"/>
+    </g>
+    <g id="Layer_6" data-name="Layer 6" transform="translate(1.146 1.615)">
+      <g id="Group_2049" data-name="Group 2049">
+        <path id="Path_2958" data-name="Path 2958" d="M8.458,18.938H6.2V25.4H4.26V18.938H2V17H8.458Z" transform="translate(5.75 -13.125)" fill="#013567"/>
+        <path id="Path_2959" data-name="Path 2959" d="M14,5H24.333V6.938h-4.2V17.271H18.2V6.938H14Z" transform="translate(-14 -5)" fill="#013567"/>
+      </g>
+    </g>
+  </g>
+</svg>

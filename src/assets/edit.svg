@@ -1,0 +1,9 @@
+<svg id="edit" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_1980" data-name="Group 1980" transform="translate(-19 -54)">
+    <rect id="Rectangle_2060" data-name="Rectangle 2060" width="24" height="24" transform="translate(19 54)" fill="#fff" opacity="0"/>
+    <g id="Icon_feather-edit" data-name="Icon feather-edit" transform="translate(20 55.182)">
+      <path id="Path_2028" data-name="Path 2028" d="M9.993,6H4.554A1.554,1.554,0,0,0,3,7.554V18.433a1.554,1.554,0,0,0,1.554,1.554H15.433a1.554,1.554,0,0,0,1.554-1.554V12.993" transform="translate(0 -1.502)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+      <path id="Path_2029" data-name="Path 2029" d="M20.317,3.31a1.68,1.68,0,1,1,2.376,2.376l-7.525,7.525L12,14l.792-3.168Z" transform="translate(-4.519)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+    </g>
+  </g>
+</svg>

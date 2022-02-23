@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="138" height="138" viewBox="0 0 138 138">
+  <g id="reset_successfully" transform="translate(-93.561 -45)">
+    <g id="Rectangle_99" data-name="Rectangle 99" transform="translate(103.556 55)" fill="rgba(90,236,155,0.01)" stroke="#013567" stroke-linecap="round" stroke-width="6">
+      <rect width="118" height="118" rx="59" stroke="none"/>
+      <rect x="3" y="3" width="112" height="112" rx="56" fill="none"/>
+    </g>
+    <g id="Rectangle_2053" data-name="Rectangle 2053" transform="translate(93.561 45)" fill="none" stroke="#013567" stroke-linecap="round" stroke-width="1" stroke-dasharray="1 10">
+      <rect width="138" height="138" rx="69" stroke="none"/>
+      <rect x="0.5" y="0.5" width="137" height="137" rx="68.5" fill="none"/>
+    </g>
+    <path id="Icon_material-lock-outline" data-name="Icon material-lock-outline" d="M42,19.5H39.433V14.359a12.859,12.859,0,0,0-25.718,0V19.5H11.144A5.159,5.159,0,0,0,6,24.646V50.364a5.159,5.159,0,0,0,5.144,5.144H42a5.159,5.159,0,0,0,5.144-5.144V24.646A5.159,5.159,0,0,0,42,19.5ZM18.6,14.359a7.973,7.973,0,1,1,15.945,0V19.5H18.6Zm23.4,36H11.144V24.646H42Z" transform="translate(135.529 85.5)" fill="#013567"/>
+    <path id="Path_2021" data-name="Path 2021" d="M127.438,4153.184l4.247,3.811,7.618-8.556" transform="translate(28.586 -4029.638)" fill="none" stroke="#013567" stroke-linecap="round" stroke-width="4"/>
+  </g>
+</svg>

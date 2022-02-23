@@ -1,0 +1,12 @@
+<svg id="eye_hide" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Rectangle_2108" data-name="Rectangle 2108" fill="#fff" stroke="#b3bcc9" stroke-width="1" opacity="0">
+    <rect width="16" height="16" stroke="none"/>
+    <rect x="0.5" y="0.5" width="15" height="15" fill="none"/>
+  </g>
+  <g id="Group_1888" data-name="Group 1888" transform="translate(2.855 2.706)">
+    <g id="Icon_feather-eye-off" data-name="Icon feather-eye-off">
+      <path id="Path_2004" data-name="Path 2004" d="M9.793,12.824a4.93,4.93,0,0,1-2.908,1.009C3.458,13.833,1.5,9.916,1.5,9.916A9.032,9.032,0,0,1,3.977,7.008m1.88-.891A4.465,4.465,0,0,1,6.885,6c3.427,0,5.385,3.917,5.385,3.917a9.057,9.057,0,0,1-1.057,1.562m-3.29-.524A1.469,1.469,0,1,1,5.847,8.879" transform="translate(-1.5 -4.531)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_2005" data-name="Path 2005" d="M1.5,1.5,12.271,12.27" transform="translate(-1.5 -1.5)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

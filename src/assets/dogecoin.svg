@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26">
+  <g id="dogecoin" transform="translate(-30.5 -20)">
+    <g id="Icon" transform="translate(30.5 20)">
+      <g id="ether" transform="translate(-0.5)">
+        <g id="dogecoin-2" data-name="dogecoin" transform="translate(0.5)">
+          <path id="Path_2985" data-name="Path 2985" d="M882.978,659H881.12v3.662h2.922V664.2H881.12v3.662h1.948c.5,0,4.11.057,4.1-4.26S883.672,659,882.978,659Z" transform="translate(-869.665 -650.433)" fill="#c2a633"/>
+          <path id="Path_2986" data-name="Path 2986" d="M13,0A13,13,0,1,0,26,13,13,13,0,0,0,13,0Zm.511,20.021H8.8V13.762H7.143V12.229H8.8V5.97h4.041c.956,0,7.287-.2,7.287,7.143,0,7.463-6.62,6.908-6.62,6.908Z" fill="#c2a633"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

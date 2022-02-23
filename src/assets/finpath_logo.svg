@@ -1,0 +1,9 @@
+<svg id="finpath_logo" xmlns="http://www.w3.org/2000/svg" width="161.333" height="204.242" viewBox="0 0 161.333 204.242">
+  <g id="Group_2034" data-name="Group 2034" transform="translate(-105 -335.758)">
+    <text id="Angular" transform="translate(186 532)" fill="#fff" font-size="30" font-family="Rubik-SemiBold, Rubik" font-weight="600" letter-spacing="0.23em"><tspan x="-69.45" y="0">FIN</tspan><tspan y="0" letter-spacing="0.08em">PATH</tspan></text>
+    <g id="Group_2038" data-name="Group 2038" transform="translate(-145.039 25.719)">
+      <path id="Union_15" data-name="Union 15" d="M30,158.164a29.976,29.976,0,0,1-30-30V93.41a20,20,0,0,0,20,19.713h.611v21.855a23.069,23.069,0,0,0,19.519,22.9,30.449,30.449,0,0,1-4.176.288Zm-9.391-52.123H20a20,20,0,0,1-20-20V20A20,20,0,0,1,20,0H139.732a20,20,0,0,1,20,20V30.408a10.011,10.011,0,0,0-10-10H30.611a10.011,10.011,0,0,0-10,10V63.776H65.954V84.184H36.068A15.475,15.475,0,0,0,20.611,99.642v6.4Z" transform="translate(250.039 310.039)" fill="#fff"/>
+      <path id="Union_36" data-name="Union 36" d="M82.488,131.25V13.278H98.33V131.25Zm-26.4,0V54.358H71.928V131.25Zm-26.4,0V75.423H45.526V131.25Zm-26.4,0V96.491H19.123V131.25ZM11.2,94.91H0L11.2,83.737,22.4,94.91ZM37.6,73.317H26.4L37.6,62.146l11.2,11.171Zm26.4-21.066H52.8l11.2-11.173,11.2,11.173Zm26.4-41.08h-11.2L90.41,0l11.2,11.171Z" transform="translate(309.763 336.954)" fill="#ffb50a"/>
+    </g>
+  </g>
+</svg>

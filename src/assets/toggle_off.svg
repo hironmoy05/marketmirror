@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="51" height="36" viewBox="0 0 51 36">
+  <defs>
+    <filter id="Oval" x="19" y="-4" width="42" height="42" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#35495d" flood-opacity="0.294"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Oval-2" x="-3" y="-3" width="42" height="42" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-color="#35495d" flood-opacity="0.294"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ababab"/>
+      <stop offset="1" stop-color="#b5b5b5"/>
+    </linearGradient>
+    <filter id="Oval-3" x="0" y="0" width="36" height="36" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="2" result="blur-3"/>
+      <feFlood flood-color="#35495d" flood-opacity="0.294"/>
+      <feComposite operator="in" in2="blur-3"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Oval-2)">
+        <circle id="Oval-4" data-name="Oval" cx="12" cy="12" r="12" fill="#d8d8d8"/>
+      </g>
+    </clipPath>
+  </defs>
+  <g id="toggle_off" transform="translate(6 6)">
+    <g id="Controls_Switches_On" data-name="Controls/Switches/On" transform="translate(0.268 19.14)">
+      <rect id="Background" width="45" height="18" rx="9" transform="translate(-0.267 -16.593)" fill="url(#linear-gradient)"/>
+    </g>
+    <g id="Group_1103" data-name="Group 1103" transform="translate(-328 -485)">
+      <g transform="matrix(1, 0, 0, 1, 322, 479)" filter="url(#Oval-3)">
+        <circle id="Oval-5" data-name="Oval" cx="12" cy="12" r="12" transform="translate(6 6)" fill="#d8d8d8"/>
+      </g>
+      <g id="Group_1102" data-name="Group 1102" transform="translate(328 485)" clip-path="url(#clip-path)">
+        <g id="_Color" data-name="↳Color" transform="translate(0 0)">
+          <rect id="_Color_background" data-name="↳Color background" width="24.07" height="24.07" fill="rgba(0,0,0,0)"/>
+          <rect id="Background-2" data-name="Background" width="24.07" height="24.07" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

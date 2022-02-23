@@ -1,0 +1,17 @@
+<svg id="check" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Shape" d="M1.2,4.428a.7.7,0,0,0-1,1L3.724,8.94a.7.7,0,0,0,1,0L12.458,1.2a.7.7,0,1,0-1-1L4.221,7.448Z" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <rect id="base" width="24" height="24" rx="4" fill="#1DDB5C"/>
+  <g id="check-2" data-name="check" transform="translate(5.668 7.75)">
+    <g id="Group_16" data-name="Group 16">
+      <g id="Mask_Group_16" data-name="Mask Group 16" clip-path="url(#clip-path)">
+        <g id="COLOR_black" data-name="COLOR/ black" transform="translate(-2.111 -4.221)">
+          <rect id="Rectangle" width="16.886" height="16.886" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

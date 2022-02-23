@@ -1,0 +1,22 @@
+<svg id="logout" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <rect id="BG-5" width="24" height="24" rx="4" fill="#fff"/>
+  <g id="Layer_2" data-name="Layer 2" transform="translate(4.102 4.102)">
+    <g id="invisible_box" data-name="invisible box">
+      <rect id="Rectangle_2190" data-name="Rectangle 2190" width="16" height="16" transform="translate(-0.102 -0.102)" fill="none"/>
+    </g>
+    <g id="Q3_icons" data-name="Q3 icons" transform="translate(0.658 -1.342)">
+      <g id="Group_2056" data-name="Group 2056" transform="translate(6.826 6.239)">
+        <rect id="Rectangle_2191" data-name="Rectangle 2191" width="8" height="1" rx="0.5" transform="translate(0 3)" fill="#fe1d1d"/>
+        <path id="Union_102" data-name="Union 102" d="M2.974,6.681.146,3.852a.5.5,0,0,1-.139-.439.5.5,0,0,1,.139-.439L2.974.145a.5.5,0,0,1,.707.707L1.121,3.413l2.561,2.56a.5.5,0,0,1-.707.707Z" transform="translate(8.414 6.828) rotate(180)" fill="#fe1d1d"/>
+      </g>
+      <g id="Rectangle_2204" data-name="Rectangle 2204" transform="translate(0.24 1.24)" fill="none" stroke="#fe1d1d" stroke-linecap="round" stroke-width="1" stroke-dasharray="19">
+        <rect width="10" height="16" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="9" height="15" rx="0.5" fill="none"/>
+      </g>
+      <g id="Rectangle_2205" data-name="Rectangle 2205" transform="translate(0.24 1.24)" fill="none" stroke="#fe1d1d" stroke-linecap="round" stroke-width="1" stroke-dasharray="29 28">
+        <rect width="10" height="16" rx="1" stroke="none"/>
+        <rect x="0.5" y="0.5" width="9" height="15" rx="0.5" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>
