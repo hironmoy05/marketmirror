@@ -6,14 +6,29 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {View, Text} from 'react-native';
+import React, {Fragment} from 'react';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {StackNavigator} from './src/navigation/stackNavigator';
+import {Provider} from 'react-redux';
+import {store, persistor} from './src/store/configureStore';
+import {PersistGate} from 'redux-persist/integration/react';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
 const App = () => {
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
+    <Fragment>
+      <NavigationContainer>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <RootSiblingParent>
+              <StackNavigator />
+            </RootSiblingParent>
+          </PersistGate>
+        </Provider>
+      </NavigationContainer>
+      <StatusBar style="auto" />
+    </Fragment>
   );
 };
 
