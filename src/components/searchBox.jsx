@@ -1,9 +1,10 @@
 import React from 'react';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {useNavigation, StackActions} from '@react-navigation/native';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Pressable} from 'react-native';
 
 import Cross from '../assets/cross.svg';
+import Search from '../assets/search1.svg';
 import {calcWidth} from '../responsive';
 
 export const SearchBox = () => {
@@ -25,8 +26,10 @@ export const SearchBox = () => {
           justifyContent: 'space-between',
           width: '95%',
         }}>
-        {/* <Image source={require('../assets/fonts/search.png')} /> */}
-        <View style={{left: calcWidth(-25)}}>
+        <Pressable style={{left: 1, top: 2}}>
+          <Search />
+        </Pressable>
+        <View style={{left: calcWidth(-23)}}>
           <Text>Search here</Text>
         </View>
         <View>

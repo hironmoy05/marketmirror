@@ -1,12 +1,14 @@
 import Styled from 'styled-components/native';
-import { Button } from 'react-native-paper';
-import { SafeAreaView } from 'react-native';
+import {Button} from 'react-native-paper';
+import {SafeAreaView} from 'react-native';
+
+import colors from '../../../config/colors';
 
 export const Item = Styled.View`
     flex: 1;
-    background-color: #013567;
+    background-color: ${colors.primary};
 `;
-    
+
 export const SafeArea = Styled(SafeAreaView)`
     flex: 1;
 `;
@@ -18,7 +20,7 @@ export const Container = Styled.View`
     padding: 30px;
     margin-top: auto
 `;
-    
+
 export const Frame = Styled.View`
     display: flex;
     align-items: center;
@@ -28,7 +30,7 @@ export const Frame = Styled.View`
 export const RegularButton = Styled(Button)`
     background-color: #fff;
 `;
-    
+
 export const Title = Styled.Text`
     color: #fff;
     font-size: 37px;
@@ -50,7 +52,7 @@ export const SubTitle = Styled.Text`
 
 export const ButtonText = Styled.Text`
     font-size: 16px;
-    color: #013567;
+    color: ${colors.primaryDark};
     font-weight: 700;
 `;
 

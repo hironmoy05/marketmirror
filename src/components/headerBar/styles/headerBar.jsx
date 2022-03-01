@@ -1,8 +1,10 @@
 import Styled from 'styled-components';
 
+import colors from '../../../config/colors';
+
 export const Inner = Styled.View`
     padding-top: 5%;
-    background-color: #013567; 
+    background-color: ${colors.primaryDark}; 
     padding-bottom: ${props => props.profileContainer ? '5%' : '15%'}; 
     border-bottom-left-radius: 25px; 
     border-bottom-right-radius: 25px;

@@ -1,11 +1,13 @@
 import Styled from 'styled-components/native';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
+
+import colors from '../../../config/colors';
 
 export const Item = Styled.View`
     flex: 1;
-    background-color: #013567;
+    background-color: ${colors.primary};
 `;
-    
+
 export const SafeArea = Styled(SafeAreaView)`
     flex: 1;
 `;

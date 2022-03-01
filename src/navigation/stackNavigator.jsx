@@ -5,6 +5,7 @@ import {
   HomeScreen,
   LoginScreen,
   RegisterationScreen,
+  DetailPageScreen,
   CryptoBalanceScreen,
   BuyCoinScreen,
   SellCoinScreen,
@@ -47,6 +48,11 @@ export const StackNavigator = () => {
         name="Search"
         component={SearchScreen}
         options={{animation: 'fade'}}
+      />
+      <Stack.Screen
+        name="DetailPage"
+        component={DetailPageScreen}
+        options={{animation: 'slide_from_right'}}
       />
       <Stack.Screen name="CryptoBalance" component={CryptoBalanceScreen} />
       <Stack.Screen name="BuyCoin" component={BuyCoinScreen} />

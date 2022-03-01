@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2020 (64-Bit Evaluation Version) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1.08412in" height="1.58366in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 215.89 315.36"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:white;stroke-width:5.53;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .fil2 {fill:none}
+    .fil1 {fill:#0269CA}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_2528989618176">
+   <path class="fil0" d="M107.6 0c58.14,0 107,47.2 108.28,105.91 -0.59,55.65 -33.88,134.97 -107.74,209.45 -77.55,-75.01 -109.73,-155.5 -108.08,-209.81 2.26,-56.6 49.4,-105.55 107.54,-105.55z"/>
+   <circle class="fil1" cx="107.6" cy="108.31" r="84.52"/>
+   <g>
+    <rect class="fil2 str0" x="53.65" y="143.71" width="107.9" height="10.4"/>
+    <polyline class="fil2 str0" points="61.59,97.32 61.59,143.71 153.8,143.71 153.8,97.32 "/>
+    <rect class="fil2 str0" x="118.36" y="107.92" width="22.86" height="35.79"/>
+    <rect class="fil2 str0" x="74.28" y="108.09" width="32.27" height="21.35"/>
+    <path class="fil2 str0" d="M82.87 55.62l-13.25 0 -7.95 12.93 -8.02 13.05m107.73 0l-15.63 -25.98 -13.59 0m21.74 13.41l-13.82 0m-65.19 0.5l-13.82 0m100.31 19.87c0,0.08 0,0.16 0,0.23 0,4.24 -3.49,7.68 -7.79,7.68 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -3.83,0 -7.02,-2.73 -7.67,-6.33 -0.65,3.6 -3.83,6.33 -7.67,6.33 -4.3,0 -7.79,-3.44 -7.79,-7.68 0,-0.08 0,-0.16 0,-0.23l-0.14 0 0 -7.8 107.73 0 0 0 0 7.8 -0 0z"/>
+    <rect class="fil2 str0" x="83.21" y="46.57" width="48.62" height="18.44" rx="9.22" ry="9.22"/>
+    <path class="fil2 str0" d="M79.56 129.44l5.55 -8.77m4.86 8.77l7.74 -12.07"/>
+    <line class="fil2 str0" x1="123.86" y1="126.05" x2="118.36" y2= "126.05" />
+   </g>
+  </g>
+ </g>
+</svg>

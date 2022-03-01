@@ -47,10 +47,10 @@ export const SplashContainer = ({navigation}) => {
             if (response[2][1] === null || response[2][1].length <= 0) {
               navigation.navigate('HomeScreen');
             } else {
-              navigation.navigate('Login');
+              navigation.replace('Login');
             }
           } else {
-            navigation.navigate('Drawer');
+            navigation.replace('Drawer');
           }
         },
       );

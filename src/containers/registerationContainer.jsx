@@ -6,7 +6,7 @@ import Country from '../assets/country.svg';
 import VerifyCheck from '../assets/verify_check.svg';
 import User from '../assets/user.svg';
 import Mobile from '../assets/mobile.svg';
-import LogoSplash from '../assets/logo_splash_2.svg';
+import LogoTop from '../assets/mm_logo_top.svg';
 import Toast from 'react-native-root-toast';
 import {BASE_URL, USER_REGISTER} from '../constants/urls';
 import {
@@ -45,9 +45,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useFormikContext} from 'formik';
 import {set} from 'lodash';
 import {signoutRequest} from '../store/api';
+import AppText from '../components/appText';
+import colors from '../config/colors';
+import {color} from 'react-native-reanimated';
 
 const validateSchema = Yup.object().shape({
-  name: Yup.string().required().min(5).max(12).label('Name'),
+  name: Yup.string().required().min(4).max(20).label('Name'),
   email: Yup.string().required().email().label('Email'),
   password: Yup.string()
     .min(6, 'Required')
@@ -76,6 +79,7 @@ export const RegisterationContainer = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedState, setSelectedState] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
@@ -90,6 +94,7 @@ export const RegisterationContainer = ({navigation}) => {
   const [nameInputColor, setNameInputColor] = useState(false);
   const [regEmailInputColor, setRegEmailInputColor] = useState(false);
   const [selectCountryInputColor, setSelectCountryInputColor] = useState(false);
+  const [selectStateInputColor, setSelectStateInputColor] = useState(false);
   const [phoneNumberInputColor, setPhoneNumberInputColor] = useState(false);
   const [regPasswordInputColor, setRegPasswordInputColor] = useState(false);
   const [regRetypePasswordInputColor, setRegRetypePasswordInputColor] =
@@ -108,6 +113,14 @@ export const RegisterationContainer = ({navigation}) => {
     'Australia',
     'America',
     'New Zealand',
+  ];
+
+  const selectState = [
+    'Bihar',
+    'Haryana',
+    'Karnataka',
+    'Maharashtra',
+    'Uttar Pradesh',
   ];
 
   function getEmail(email) {
@@ -151,6 +164,8 @@ export const RegisterationContainer = ({navigation}) => {
   };
 
   const url = BASE_URL + USER_REGISTER;
+
+  console.log(phoneNumber);
 
   const handleSubmitButton = (name, email, password) => {
     setErrorText('');
@@ -283,6 +298,9 @@ export const RegisterationContainer = ({navigation}) => {
     selectedCountry
       ? setSelectCountryInputColor(true)
       : setRegEmailInputColor(false);
+    selectedState
+      ? setSelectStateInputColor(true)
+      : setRegEmailInputColor(false);
     phoneNumber
       ? setPhoneNumberInputColor(true)
       : setPhoneNumberInputColor(false);
@@ -301,6 +319,7 @@ export const RegisterationContainer = ({navigation}) => {
     userName &&
     userEmail &&
     selectedCountry &&
+    selectedState &&
     phoneNumber &&
     password &&
     retypePassword
@@ -311,6 +330,7 @@ export const RegisterationContainer = ({navigation}) => {
     userName,
     userEmail,
     selectedCountry,
+    selectedState,
     phoneNumber,
     password,
     retypePassword,
@@ -592,10 +612,10 @@ export const RegisterationContainer = ({navigation}) => {
             justifyContent: 'center',
             alignContent: 'center',
           }}>
-          <View style={{height: deviceHeight + 150}}>
+          <View style={{height: deviceHeight + 250}}>
             <Login>
               <Login.SmallLogoBox>
-                <LogoSplash />
+                <LogoTop width={200} height={80} />
               </Login.SmallLogoBox>
             </Login>
 
@@ -638,7 +658,7 @@ export const RegisterationContainer = ({navigation}) => {
                       </Login.IconBox>
                       <Login.NameTextInput
                         nameInputColor={values.name ? true : false}
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="Please enter your Name"
                         // value={userName}
                         onBlur={() => setFieldTouched('name')}
@@ -680,7 +700,7 @@ export const RegisterationContainer = ({navigation}) => {
                       </Pressable>
                       <Login.RegEmailTextInput
                         regEmailInputColor={values.email ? true : false}
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="username@email.com"
                         keyboardType="email-address"
                         // value={userEmail}
@@ -715,7 +735,9 @@ export const RegisterationContainer = ({navigation}) => {
                           }>
                           <Picker.Item
                             style={{
-                              color: values.country ? '#013567' : '#C9C9C9',
+                              color: values.country
+                                ? colors.primaryDark
+                                : colors.lightGrey3,
                             }}
                             label={'Select Country'}
                             enabled={false}
@@ -739,6 +761,96 @@ export const RegisterationContainer = ({navigation}) => {
                         </Text>
                       )
                     ) : null}
+                    <Login.FormBox>
+                      <Login.Label>State</Login.Label>
+                      <Login.IconBox down={down}>
+                        <Country />
+                      </Login.IconBox>
+                      <Registeration.Frame
+                        selectCountryInputColor={selectStateInputColor}>
+                        <Picker
+                          ref={pickerRef}
+                          style={
+                            ({fontFamily: 'Opens Sans Serif'},
+                            {marginLeft: -13})
+                          }
+                          selectedValue={selectedState}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setSelectedState(itemValue)
+                          }>
+                          <Picker.Item
+                            style={{
+                              color: values.state
+                                ? colors.primaryDark
+                                : colors.lightGrey3,
+                            }}
+                            label={'Select State'}
+                            enabled={false}
+                          />
+                          {selectState.map((list, i) => (
+                            <Picker.Item
+                              style={{color: '#212121', fontSize: 14}}
+                              key={i}
+                              label={list}
+                              value={list.toString()}
+                            />
+                          ))}
+                        </Picker>
+                      </Registeration.Frame>
+                    </Login.FormBox>
+
+                    {visibility ? (
+                      selectedState ? null : (
+                        <Text style={{color: 'red'}}>
+                          State is required field
+                        </Text>
+                      )
+                    ) : null}
+                    {/* <Login.FormBox>
+                      <Login.Label>State</Login.Label>
+                      <Login.IconBox down={down}>
+                        <Country />
+                      </Login.IconBox>
+                      <Registeration.Frame
+                        selectCountryInputColor={selectCountryInputColor}>
+                        <Picker
+                          ref={pickerRef}
+                          style={
+                            ({fontFamily: 'Opens Sans Serif'},
+                            {marginLeft: -13})
+                          }
+                          selectedValue={selectedCountry}
+                          onValueChange={(itemValue, itemIndex) =>
+                            setSelectedCountry(itemValue)
+                          }>
+                          <Picker.Item
+                            style={{
+                              color: values.country
+                                ? colors.primaryDark
+                                : colors.lightGrey3,
+                            }}
+                            label={'Select Country'}
+                            enabled={false}
+                          />
+                          {selectCountry.map((list, i) => (
+                            <Picker.Item
+                              style={{color: '#212121', fontSize: 14}}
+                              key={i}
+                              label={list}
+                              value={list.toString()}
+                            />
+                          ))}
+                        </Picker>
+                      </Registeration.Frame>
+                    </Login.FormBox>
+
+                    {visibility ? (
+                      selectedCountry ? null : (
+                        <Text style={{color: 'red'}}>
+                          Country is required field
+                        </Text>
+                      )
+                    ) : null} */}
 
                     <Login.FormBox>
                       <Login.Label>Mobile</Login.Label>
@@ -751,9 +863,11 @@ export const RegisterationContainer = ({navigation}) => {
                           style={styles.phoneTextPosition}
                           onPress={() => setIsPhoneVerify(true)}>
                           {phoneOtpVerified ? (
-                            <View style={{top: 4}}>
+                            <Pressable
+                              onPress={() => setIsPhoneVerify(false)}
+                              style={{top: 4}}>
                               <VerifyCheck />
-                            </View>
+                            </Pressable>
                           ) : (
                             <Text
                               style={
@@ -796,7 +910,7 @@ export const RegisterationContainer = ({navigation}) => {
                       </Login.IconBox>
                       <Login.RegPasswordTextInput
                         regPasswordInputColor={values.password ? true : false}
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="Please enter password"
                         secureTextEntry={true}
                         // value={password}
@@ -820,7 +934,7 @@ export const RegisterationContainer = ({navigation}) => {
                         regRetypePasswordInputColor={
                           values.retypePassword ? true : false
                         }
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="Retype password"
                         // value={retypePassword}
                         onBlur={() => setFieldTouched('retypePassword')}
@@ -843,37 +957,28 @@ export const RegisterationContainer = ({navigation}) => {
                       ]}>
                       <CheckBox
                         // disabled={toggleCheckBox}
-                        tintColors={{true: '#013567', false: '#121212'}}
+                        tintColors={{
+                          true: colors.primaryDark,
+                          false: '#121212',
+                        }}
                         value={toggleCheckBox}
                         onValueChange={() => setToggleCheckBox(!toggleCheckBox)}
                       />
                       <Text
                         style={[
                           {width: '80%'},
-                          {color: '#707070'},
+                          {color: colors.lightGrey},
                           {marginLeft: '6%'},
                         ]}>
                         By registering an account you agree to our
                         <Pressable
                           onPress={() => console.log('Terms and Conditions')}>
-                          <Text
-                            style={[
-                              {color: '#013567'},
-                              {fontFamily: 'Open Sans Bold'},
-                            ]}>
-                            Terms of Service
-                          </Text>
+                          <Text style={styles.termsText}>Terms of Service</Text>
                         </Pressable>{' '}
                         and
                         <Pressable
                           onPress={() => console.log('Privacy Policy')}>
-                          <Text
-                            style={[
-                              {color: '#013567'},
-                              {fontFamily: 'Open Sans Bold'},
-                            ]}>
-                            Privacy Policy
-                          </Text>
+                          <Text style={styles.termsText}>Privacy Policy</Text>
                         </Pressable>
                       </Text>
                     </View>
@@ -923,7 +1028,7 @@ export const RegisterationContainer = ({navigation}) => {
               </Login.RegisterTextBox>
               <Login.RegisterTextBox>
                 <Pressable onPress={() => navigation.navigate('Login')}>
-                  <Login.ForgotText>Login here</Login.ForgotText>
+                  <AppText style={styles.linkText}>Login here</AppText>
                 </Pressable>
               </Login.RegisterTextBox>
             </Login.LoginBox>
@@ -938,7 +1043,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 15,
-    color: '#013567',
+    color: colors.primaryDark,
   },
   button: {
     marginTop: 30,
@@ -971,14 +1076,14 @@ const styles = StyleSheet.create({
 
   textVerifyShown: {
     fontFamily: 'Open Sans Bold',
-    color: '#013567',
+    color: colors.primaryDark,
     letterSpacing: 2,
   },
 
   popup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     paddingTop: 30,
     paddingBottom: 20,
     paddingLeft: 40,
@@ -1016,7 +1121,7 @@ const styles = StyleSheet.create({
     // height: 45,
     backgroundColor: '#0135671A',
     borderWidth: 1,
-    borderColor: '#013567',
+    borderColor: colors.primaryDark,
     borderRadius: 5,
     marginRight: 10,
     marginTop: 10,
@@ -1036,7 +1141,7 @@ const styles = StyleSheet.create({
     marginTop: 'auto',
     padding: 8,
     borderRadius: 5,
-    backgroundColor: '#013567',
+    backgroundColor: colors.primaryDark,
     marginTop: 20,
   },
   number: {
@@ -1064,7 +1169,7 @@ const styles = StyleSheet.create({
   buttonStyle: {
     backgroundColor: '#7DE24E',
     borderWidth: 0,
-    color: '#FFFFFF',
+    color: color.white,
     borderColor: '#7DE24E',
     height: 40,
     alignItems: 'center',
@@ -1075,7 +1180,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonTextStyle: {
-    color: '#FFFFFF',
+    color: colors.white,
     paddingVertical: 10,
     fontSize: 16,
   },
@@ -1090,5 +1195,20 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 18,
     padding: 30,
+  },
+  termsText: {
+    fontFamily: 'Open Sans Bold',
+    color: colors.primaryDark,
+    top: 3,
+    marginLeft: 2,
+  },
+  linkText: {
+    fontFamily: 'Open Sans Bold',
+    fontSize: 15,
+    color: colors.primaryDark,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.primaryDark,
+    textDecorationStyle: 'solid',
+    top: 5,
   },
 });

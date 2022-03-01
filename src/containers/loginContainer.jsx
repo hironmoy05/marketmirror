@@ -7,7 +7,7 @@ import EyeHide from '../assets/eye_hide.svg';
 import Facebook from '../assets/facebook.svg';
 import GooglePlus from '../assets/google+.svg';
 import ResetSuccessfully from '../assets/reset_successfully.svg';
-import LogoSplash from '../assets/logo_splash_2.svg';
+import LogoTop from '../assets/mm_logo_top.svg';
 import RNRestart from 'react-native-restart';
 import {
   ScrollView,
@@ -21,7 +21,9 @@ import {
   BackHandler,
   Keyboard,
   SafeAreaView,
+  LogBox,
 } from 'react-native';
+
 import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {deviceHeight, deviceWidth, PixelDeviceHeight} from '../responsive';
@@ -43,6 +45,9 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import ErrorMessage from '../components/errorMessage';
+import colors from '../config/colors';
+import AppText from '../components/appText';
+import {color} from 'react-native-reanimated';
 
 const validateSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -51,6 +56,10 @@ const validateSchema = Yup.object().shape({
 const validateSchema2 = Yup.object().shape({
   resetEmail: Yup.string().required().email().label('ResetEmail'),
 });
+
+LogBox.ignoreLogs([
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+]);
 
 export const LoginContainer = ({navigation}) => {
   const dispatch = useDispatch();
@@ -283,7 +292,7 @@ export const LoginContainer = ({navigation}) => {
 
   return (
     <SafeAreaView
-      style={{position: 'relative', flex: 1, backgroundColor: '#fff'}}>
+      style={{position: 'relative', flex: 1, backgroundColor: colors.white}}>
       {/* First Modal:  Email verify modal */}
       <Modal
         isVisible={firstModalVisible}
@@ -324,7 +333,7 @@ export const LoginContainer = ({navigation}) => {
             </Login.IconBox>
             <Login.RegEmailTextInput
               regEmailInputColor={regEmailInputColor}
-              placeholderTextColor="#C9C9C9"
+              placeholderTextColor={colors.lightGrey3}
               placeholder="username@email.com"
               keyboardType="email-address"
               name="userEmail"
@@ -340,11 +349,15 @@ export const LoginContainer = ({navigation}) => {
               onPress={() => dispatch(verifyEmail(recoverUserEmail))}
               style={[
                 styles.button,
-                {backgroundColor: recoverUserEmail ? '#013567' : '#707070'},
+                {
+                  backgroundColor: recoverUserEmail
+                    ? colors.primary
+                    : colors.lightGrey,
+                },
               ]}>
               <Text
                 style={{
-                  color: '#fff',
+                  color: colors.white,
                   fontSize: 18,
                   fontFamily: 'Open Sans Bold',
                 }}>
@@ -491,14 +504,24 @@ export const LoginContainer = ({navigation}) => {
             onPress={() => {
               const otp = one + two + three + four + five + six;
               dispatch(verifyOtp(recoverUserEmail, otp));
+              setOne('');
+              setTwo('');
+              setThree('');
+              setFour('');
+              setFive('');
+              setSix('');
             }}
             style={[
               styles.otpButton,
-              {backgroundColor: `${modalOtpBtn ? '#013567' : '#A8A8A8'}`},
+              {
+                backgroundColor: `${
+                  modalOtpBtn ? colors.primary : colors.lightGrey2
+                }`,
+              },
             ]}>
             <Text
               style={{
-                color: '#fff',
+                color: colors.white,
                 fontSize: 18,
                 fontFamily: 'Open Sans Bold',
               }}>
@@ -542,7 +565,7 @@ export const LoginContainer = ({navigation}) => {
             </Login.IconBox>
             <Login.PasswordTextInput
               passwordInputColor={newPasswordInputColor}
-              placeholderTextColor="#C9C9C9"
+              placeholderTextColor={colors.lightGrey3}
               placeholder="Please enter new password"
               keyboardType="default"
               // forwardRef={passwordRef}
@@ -582,7 +605,7 @@ export const LoginContainer = ({navigation}) => {
             </Login.IconBox>
             <Login.PasswordTextInput
               passwordInputColor={confirmNewPasswordInputColor}
-              placeholderTextColor="#C9C9C9"
+              placeholderTextColor={colors.lightGrey3}
               placeholder="Please enter new password"
               keyboardType="default"
               // forwardRef={passwordRef}
@@ -638,13 +661,13 @@ export const LoginContainer = ({navigation}) => {
               styles.otpButton,
               {
                 backgroundColor: `${
-                  resetPasswordInputColor ? '#013567' : '#A8A8A8'
+                  resetPasswordInputColor ? colors.primary : colors.lightGrey2
                 }`,
               },
             ]}>
             <Text
               style={{
-                color: '#fff',
+                color: colors.white,
                 fontSize: 18,
                 fontFamily: 'Open Sans Bold',
               }}>
@@ -701,7 +724,18 @@ export const LoginContainer = ({navigation}) => {
             </Text>
           </View>
           <View style={styles.success}>
-            <Pressable onPress={() => setFourthModalVisible(false)}>
+            <Pressable
+              onPress={() => {
+                setFourthModalVisible(false), setRecoverUserEmail('');
+                setOne('');
+                setTwo('');
+                setThree('');
+                setFour('');
+                setFive('');
+                setSix('');
+                setNewPassword('');
+                setConfirmNewPassword('');
+              }}>
               <Text style={styles.successText}>Go to Login</Text>
             </Pressable>
           </View>
@@ -717,7 +751,7 @@ export const LoginContainer = ({navigation}) => {
           <View style={{height: deviceHeight}}>
             <Login>
               <Login.SmallLogoBox>
-                <LogoSplash />
+                <LogoTop width={200} height={80} />
               </Login.SmallLogoBox>
             </Login>
             <Login.LoginContainer>
@@ -748,7 +782,7 @@ export const LoginContainer = ({navigation}) => {
                       </Login.IconBox>
                       <Login.EmailTextInput
                         emailInputColor={values.email ? true : false}
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="username@email.com"
                         keyboardType="email-address"
                         returnKeyType="next"
@@ -773,7 +807,7 @@ export const LoginContainer = ({navigation}) => {
                       </Login.IconBox>
                       <Login.PasswordTextInput
                         passwordInputColor={values.password ? true : false}
-                        placeholderTextColor="#C9C9C9"
+                        placeholderTextColor={colors.lightGrey3}
                         placeholder="Please enter password"
                         keyboardType="default"
                         onSubmitEditing={Keyboard.dismiss}
@@ -812,7 +846,7 @@ export const LoginContainer = ({navigation}) => {
                         <Text
                           style={{
                             fontFamily: 'Open Sans Bold',
-                            color: '#fff',
+                            color: colors.white,
                             fontSize: 18,
                             textAlign: 'center',
                           }}>
@@ -851,7 +885,7 @@ export const LoginContainer = ({navigation}) => {
                 <Login.RegisterTextBox>
                   <Pressable
                     onPress={() => navigation.navigate('Registeration')}>
-                    <Login.ForgotText>Register here</Login.ForgotText>
+                    <AppText style={styles.linkText}>Register here</AppText>
                   </Pressable>
                 </Login.RegisterTextBox>
               </Login.RegisterBox>
@@ -872,7 +906,7 @@ const styles = StyleSheet.create({
   popup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
     paddingTop: 30,
     paddingBottom: 20,
     paddingLeft: 40,
@@ -891,7 +925,7 @@ const styles = StyleSheet.create({
     color: '#212121',
   },
   subTitle: {
-    color: '#707070',
+    color: colors.lightGrey,
     marginTop: 3,
   },
   button: {
@@ -940,7 +974,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderRadius: 5,
-    borderColor: '#013567',
+    borderColor: colors.primaryDark,
     marginRight: 5,
     backgroundColor: '#0135671A',
     padding: 0,
@@ -952,15 +986,24 @@ const styles = StyleSheet.create({
     fontSize: 8,
   },
   success: {
-    backgroundColor: '#013567',
+    backgroundColor: colors.primaryDark,
     width: '100%',
     paddingTop: '5%',
     paddingBottom: '5%',
   },
   successText: {
     textAlign: 'center',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'Open Sans Bold',
     fontSize: 20,
+  },
+  linkText: {
+    fontFamily: 'Open Sans Bold',
+    fontSize: 15,
+    color: colors.primaryDark,
+    textDecorationLine: 'underline',
+    textDecorationColor: colors.primaryDark,
+    textDecorationStyle: 'solid',
+    top: 5,
   },
 });

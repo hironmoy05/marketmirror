@@ -1,6 +1,6 @@
 import React from 'react';
 import {Home} from '../components';
-import FinpathLogo from '../assets/finpath_logo.svg';
+import LogoSplash from '../assets/logo_splash_2.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const HomeContainer = ({navigation}) => {
@@ -16,7 +16,7 @@ export const HomeContainer = ({navigation}) => {
     <Home>
       <Home.Container>
         <Home.LogoBox>
-          <FinpathLogo />
+          <LogoSplash />
         </Home.LogoBox>
 
         <Home.Frame>

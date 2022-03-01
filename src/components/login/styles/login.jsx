@@ -26,7 +26,7 @@ export const SmallLogoBox = Styled.View`
 `;
 
 export const LoginContainer = Styled.View`
-    background-color: #fff;
+    background-color: ${colors.white};
     position: absolute;
     top: 20%;
     left: 3%;
@@ -35,7 +35,7 @@ export const LoginContainer = Styled.View`
     padding: 15px 25px;
     ${props => props.containerHeight};
     border-width: 4px;    
-    border-color: #267DCE12
+    border-color: ${colors.borderColor}
 `;
 
 export const LoginFormBox = Styled.View``;
@@ -77,7 +77,7 @@ export const Label = Styled(Text)`
     top: 16px;
     left: 20px;
     color: #D2D2D2;
-    background-color: #fff;
+    background-color: ${colors.white};
     `;
 
 export const IconBox = Styled.View`
@@ -96,101 +96,113 @@ export const IconBox2 = Styled.View`
 `;
 
 export const FormTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.emailInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 
 export const EmailTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.emailInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 
 export const PasswordTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.passwordInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.passwordInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 
 export const NameTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.nameInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.nameInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 
 export const RegEmailTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regEmailInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.regEmailInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 export const RegPasswordTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regPasswordInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.regPasswordInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 export const RegRetypePasswordTextInput = Styled(TextInput)`
-    background-color: #fff;
+    background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regRetypePasswordInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.regRetypePasswordInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
-    color: #212121;
+    color: ${colors.black2};
 `;
 
 export const FormButton = Styled(Button)`
-    background-color: #A8A8A8;
+    background-color:${colors.lightGrey2};
     padding: 8px 40px;
     margin-top: 15px;
 `;
 export const RegFormButton = Styled(Button)`
     background-color: ${props =>
-      props.buttonInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.buttonInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     padding: 8px 40px;
     margin-top: 15px;
 `;
 export const LoginFormButton = Styled(Pressable)`
     background-color: ${props =>
-      props.loginButtonInputColor ? `${colors.primaryDark}` : '#A8A8A8'};
+      props.loginButtonInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
     margin-top: 15px;
     height: 50px;
     justify-content: center;
@@ -219,7 +231,7 @@ export const FormIconBox = Styled.View`
     `;
 
 export const FormSelfText = Styled.Text`
-        color: #fff;
+        color: ${colors.white};
         font-size: 17px;
         font-weight: 600;
     `;
@@ -274,7 +286,7 @@ export const styles = StyleSheet.create({
   leftLine: {
     flex: 1,
     height: 2,
-    backgroundColor: '#A8A8A8',
+    backgroundColor: `${colors.lightGrey2}`,
   },
 
   innerLineText: {
@@ -286,7 +298,7 @@ export const styles = StyleSheet.create({
   rightLine: {
     flex: 1,
     height: 2,
-    backgroundColor: '#A8A8A8',
+    backgroundColor: `${colors.lightGrey2}`,
   },
 
   registerTextBox: {},

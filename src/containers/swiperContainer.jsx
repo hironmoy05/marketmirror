@@ -1,116 +1,147 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  Image
-} from 'react-native';
+import {StyleSheet, Text, View, Pressable, Image} from 'react-native';
 
 import Swiper from 'react-native-swiper';
+import colors from '../config/colors';
+import Home from '../assets/new/home.svg';
+import HomeRepairService from '../assets/new/home repair services.svg';
+import Grocery from '../assets/new/grocery.svg';
+import RealEstate from '../assets/new/real estate.svg';
 
-function SwiperContainer ({navigation}) {
-    return (
-      <Swiper style={styles.wrapper} paginationStyle={{marginBottom: 75}} showsHorizontalScrollIndicator={true} showsVerticalScrollIndicator={false}>
-        <View style={styles.slide1}>
-          <View style={styles.container}>
-            <View style={styles.topViewBox}>
-              <View style={styles.imageBox}>
-                <Image style={{height: '100%', borderRadius: 15}}
-                  source={require('../assets/walkthrough_1.png')}
-                />
-              </View>
+function SwiperContainer({navigation}) {
+  return (
+    <Swiper
+      style={styles.wrapper}
+      loop={false}
+      paginationStyle={{marginBottom: 75}}
+      showsHorizontalScrollIndicator={true}
+      showsVerticalScrollIndicator={false}>
+      <View style={styles.slide1}>
+        <View style={styles.container}>
+          <View style={styles.bottomViewBox}>
+            <Text style={styles.title}>Main Title</Text>
+            <Text style={styles.subTitle}>
+              Global Social Payments Application for cryptocurrencies Payments
+            </Text>
+
+            <View style={styles.imageBox}>
+              {/* <Image
+                style={{height: '75%', borderRadius: 15}}
+                source={require('../assets/walkthrough_1.png')}
+              /> */}
+              <Home width={250} height={250} />
             </View>
-            <View style={styles.bottomViewBox}>
-              <Text style={styles.title}>Main Title</Text>
-              <Text style={styles.subTitle}>Global Social Payments Application for cryptocurrencies Payments</Text>
-              <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}><Text style={styles.buttonText}>Skip</Text></Pressable>
-            </View>
+
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.buttonText}>Skip</Text>
+            </Pressable>
           </View>
         </View>
-        <View style={styles.slide2}>
-          <View style={styles.container}>
-            <View style={styles.topViewBox}>
-              <View style={styles.imageBox}>
-              <Image style={{height: '100%', borderRadius: 15}}
-                  source={require('../assets/walkthrough_2.png')}
-                />
-              </View>
+      </View>
+      <View style={styles.slide2}>
+        <View style={styles.container}>
+          <View style={styles.bottomViewBox}>
+            <Text style={styles.title}>Main Title</Text>
+            <Text style={styles.subTitle}>
+              Global Social Payments Application for cryptocurrencies Payments
+            </Text>
+
+            <View style={styles.imageBox}>
+              {/* <Image
+                style={{height: '70%', borderRadius: 15}}
+                source={require('../assets/walkthrough_2.png')}
+              /> */}
+              <HomeRepairService width={250} height={250} />
             </View>
-            <View style={styles.bottomViewBox}>
-              <Text style={styles.title}>Main Title</Text>
-              <Text style={styles.subTitle}>Global Social Payments Application for cryptocurrencies Payments</Text>
-              <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}><Text style={styles.buttonText}>Skip</Text></Pressable>
-            </View>
+
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.buttonText}>Skip</Text>
+            </Pressable>
           </View>
         </View>
-        <View style={styles.slide3}>
-          <View style={styles.container}>
-            <View style={styles.topViewBox}>
-              <View style={styles.imageBox}>
-              <Image style={{height: '100%', borderRadius: 15}}
-                  source={require('../assets/walkthrough_3.png')}
-                />
-              </View>
+      </View>
+      <View style={styles.slide3}>
+        <View style={styles.container}>
+          <View style={styles.bottomViewBox}>
+            <Text style={styles.title}>Main Title</Text>
+            <Text style={styles.subTitle}>
+              Global Social Payments Application for cryptocurrencies Payments
+            </Text>
+
+            <View style={styles.imageBox}>
+              {/* <Image
+                style={{height: '70%', borderRadius: 15}}
+                source={require('../assets/walkthrough_3.png')}
+              /> */}
+              <Grocery width={250} height={250} />
             </View>
-            <View style={styles.bottomViewBox}>
-              <Text style={styles.title}>Main Title</Text>
-              <Text style={styles.subTitle}>Global Social Payments Application for cryptocurrencies Payments</Text>
-              <Pressable style={styles.button} onPress={() => navigation.navigate('Login')}><Text style={styles.buttonText}>Skip</Text></Pressable>
-            </View>
+
+            <Pressable
+              style={styles.button}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.buttonText}>Skip</Text>
+            </Pressable>
           </View>
         </View>
-        <View style={styles.slide4}>
-          <View style={styles.container}>
-            <View style={styles.topViewBox}>
-              <View style={styles.imageBox}>
-              <Image style={{height: '100%', borderRadius: 15}}
-                  source={require('../assets/walkthrough_4.png')}
-                />
-              </View>
+      </View>
+      <View style={styles.slide4}>
+        <View style={styles.container}>
+          <View style={styles.bottomViewBox}>
+            <Text style={styles.title}>Main Title</Text>
+            <Text style={styles.subTitle}>
+              Global Social Payments Application for cryptocurrencies Payments
+            </Text>
+
+            <View style={styles.imageBox}>
+              {/* <Image
+                style={{height: '70%', borderRadius: 15}}
+                source={require('../assets/walkthrough_4.png')}
+              /> */}
+              <RealEstate width={250} height={250} />
             </View>
-            <View style={styles.bottomViewBox}>
-              <Text style={styles.title}>Main Title</Text>
-              <Text style={styles.subTitle}>Global Social Payments Application for cryptocurrencies Payments</Text>
-              <Pressable style={styles.buttonLast} onPress={() => navigation.navigate('Login')}><Text style={styles.buttonTextLast}>Let's Start</Text></Pressable>
-            </View>
+
+            <Pressable
+              style={styles.buttonLast}
+              onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.buttonTextLast}>Let's Start</Text>
+            </Pressable>
           </View>
         </View>
-      </Swiper>
-    );
-  }
+      </View>
+    </Swiper>
+  );
+}
 
 export default SwiperContainer;
 
 const styles = StyleSheet.create({
-  wrapper: {
-  },
+  wrapper: {},
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#013567',
   },
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#013567',
   },
   slide3: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#013567',
   },
   slide4: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#013567',
   },
   text: {
-    color: '#fff',
+    color: colors.white,
     fontSize: 30,
     fontWeight: 'bold',
   },
@@ -129,56 +160,55 @@ const styles = StyleSheet.create({
     width: '80%',
     marginTop: '5%',
     borderRadius: 20,
-    backgroundColor: '#fff'
+    backgroundColor: colors.white,
   },
   bottomViewBox: {
     width: '100%',
-    height: '50%',
-    backgroundColor: '#fff',
+    height: '100%',
+    backgroundColor: colors.white,
     marginTop: 'auto',
     display: 'flex',
     alignItems: 'center',
     padding: 20,
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30
   },
   imageBox: {
     borderRadius: 10,
+    top: '5%',
   },
   title: {
     fontFamily: 'Open Sans Bold',
     fontSize: 30,
-    color: '#013567',
+    color: colors.primaryDark,
     marginTop: '10%',
   },
   subTitle: {
     fontFamily: 'Open Sans Regular',
-    color: '#013567',
+    color: colors.primaryDark,
     textAlign: 'center',
     width: 300,
     marginTop: '4%',
   },
   button: {
-    borderColor: '#013567',
+    borderColor: colors.primaryDark,
     borderWidth: 1,
     marginTop: 'auto',
-    borderRadius: 10
+    borderRadius: 10,
   },
   buttonText: {
     fontFamily: 'Open Sans Bold',
-    color: '#013567',
+    color: colors.primaryDark,
     paddingLeft: '40%',
     paddingRight: '40%',
     paddingTop: '3.5%',
     paddingBottom: '3.5%',
   },
   buttonLast: {
-    backgroundColor: '#013567',
+    backgroundColor: colors.primaryDark,
     marginTop: 'auto',
     borderRadius: 10,
     width: '100%',
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   buttonTextLast: {
     fontFamily: 'Open Sans Bold',
@@ -186,5 +216,4 @@ const styles = StyleSheet.create({
     paddingTop: '3.5%',
     paddingBottom: '3.5%',
   },
-
-})
+});

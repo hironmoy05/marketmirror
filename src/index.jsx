@@ -3,6 +3,7 @@ export {default as HomeScreen} from './screens/homeScreen';
 export {default as LoginScreen} from './screens/loginScreen';
 export {default as RegisterationScreen} from './screens/registerationScreen';
 export {default as DrawerNavigator} from './navigation/drawerNavigator';
+export {default as DetailPageScreen} from './screens/detailPageScreen';
 export {default as CryptoBalanceScreen} from './screens/cryptoBalanceScreen';
 export {default as BuyCoinScreen} from './screens/buyCoinScreen';
 export {default as SellCoinScreen} from './screens/sellCoinScreen';
