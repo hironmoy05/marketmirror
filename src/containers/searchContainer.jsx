@@ -10,14 +10,22 @@ import {
   Pressable,
   View,
 } from 'react-native';
+import {useSelector} from 'react-redux';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirrorLogo from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
 import AppText from '../components/appText';
+import {getListings} from '../store/listing';
 
 export const SearchContainer = () => {
   const navigation = useNavigation();
+  const details = useSelector(getListings);
+  const listingDetails = details?.Data;
+  console.log('from searchContainer', listingDetails[0]);
+
   return (
     <>
       <View style={styles.searchContainer}>
@@ -52,62 +60,136 @@ export const SearchContainer = () => {
           placeholder="Search here"
           onPress={() => alert('hello')}
           onChangeText={text => console.log(text)}
-          autoFocus
         />
       </View>
 
       {/* <FlatList /> */}
-      <Pressable
-        onPress={() => navigation.dispatch(StackActions.replace('DetailPage'))}
-        android_ripple={{color: colors.primaryLight}}
-        style={styles.resultContainer}>
-        <View style={styles.resultDetails}>
-          <View styles={styles.imageBox}>
-            <Image
-              resizeMode="cover"
-              style={{width: 80, height: 110, paddingLeft: 0, marginLeft: -5}}
-              source={require('../assets/images/restaurant.jpg')}
-            />
-          </View>
-          <View style={styles.detailBox}>
-            <Text style={styles.title}>Mao Family Restaurant</Text>
-            <View style={styles.rating}>
-              <Text style={{top: 1.5}}>5.0</Text>
-              <Text>⭐⭐⭐⭐⭐</Text>
-              <Text style={styles.ratings}>7413 Ratings</Text>
+      <FlatList
+        data={listingDetails}
+        keyExtractor={item => item.id}
+        initialNumToRender={5}
+        initialScrollIndex={1}
+        refreshing={true}
+        renderItem={({item}) => (
+          <Pressable
+            onPress={() =>
+              // navigation.dispatch(
+              //   StackActions.replace('DetailPage', {id: item.id}),
+              // )
+              navigation.navigate('DetailPage', {id: item.id})
+            }
+            android_ripple={{color: colors.primaryLight}}
+            style={styles.resultContainer}>
+            <View style={styles.resultDetails}>
+              <View styles={styles.imageBox}>
+                <Image
+                  resizeMode="cover"
+                  style={{
+                    width: 80,
+                    height: 120,
+                    paddingLeft: 0,
+                    marginLeft: -5,
+                  }}
+                  source={{
+                    uri: `${item.front_img1}`,
+                  }}
+                />
+              </View>
+              <View style={styles.detailBox}>
+                <Text style={styles.title}>{item.title}</Text>
+                <View style={{width: '88%'}}>
+                  <Text style={{marginTop: 2}}>{item.address}</Text>
+                </View>
+                <View style={styles.rating}>
+                  <Text>
+                    <MaterialCommunityIcons
+                      name="account"
+                      size={15}
+                      color={colors.primary}
+                    />
+                    {'   '}
+                    {item.contact_person}
+                  </Text>
+                </View>
+                <Text>
+                  <MaterialCommunityIcons
+                    name="phone"
+                    size={15}
+                    color={colors.primary}
+                  />
+                  {'   '}
+                  {item.reg_mobile}
+                </Text>
+                <Text style={{width: '88%'}}>
+                  {item.website ? (
+                    <MaterialCommunityIcons
+                      name="web"
+                      size={15}
+                      color={colors.primary}
+                    />
+                  ) : (
+                    <MaterialCommunityIcons
+                      name="email"
+                      size={15}
+                      color={colors.primary}
+                    />
+                  )}
+                  {'   '}
+                  {item.website ? item.website : item.email}
+                </Text>
+                <Text>
+                  <MaterialCommunityIcons
+                    name="clock-outline"
+                    size={15}
+                    color={colors.primary}
+                  />
+                  {'   '}
+                  {item.opening_time}
+                </Text>
+              </View>
             </View>
-            <Text style={{marginTop: 4}}>Masani Road, Mathura</Text>
-            <Text style={{marginTop: 4}}>
-              <Text style={styles.leftText}>20% Off</Text>. Rs 500-1000
-            </Text>
-          </View>
-        </View>
-        <Text style={styles.bottomText}>Rohan 5/5 & 1 Friend Rated this</Text>
-      </Pressable>
-      <View style={styles.resultContainer}>
-        <View style={styles.resultDetails}>
-          <View styles={styles.imageBox}>
-            <Image
-              resizeMode="cover"
-              style={{width: 80, height: 110, paddingLeft: 0, marginLeft: -5}}
-              source={require('../assets/images/restaurant.jpg')}
-            />
-          </View>
-          <View style={styles.detailBox}>
-            <Text style={styles.title}>Mao Family Restaurant</Text>
-            <View style={styles.rating}>
-              <Text style={{top: 1.5}}>5.0</Text>
-              <Text>⭐⭐⭐⭐⭐</Text>
-              <Text style={styles.ratings}>7413 Ratings</Text>
+            <View style={[styles.bottomText, {flexDirection: 'row'}]}>
+              <View
+                style={{
+                  width: 50,
+                  height: 20,
+                  backgroundColor: colors.primary,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 5,
+                }}>
+                <Text>
+                  <MaterialCommunityIcons
+                    name="star"
+                    size={15}
+                    color={colors.white}
+                  />
+                </Text>
+                <Text style={{marginLeft: 8, top: -0.6, color: colors.white}}>
+                  {item.rating}
+                </Text>
+              </View>
+              <View
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 20,
+                  flexDirection: 'row',
+                }}>
+                <Text style={{top: 2}}>
+                  <MaterialIcons
+                    name="local-offer"
+                    size={15}
+                    color={colors.primary}
+                  />
+                  {'   '}
+                </Text>
+                <Text>{item.category}</Text>
+              </View>
             </View>
-            <Text style={{marginTop: 4}}>Masani Road, Mathura</Text>
-            <Text style={{marginTop: 4}}>
-              <Text style={styles.leftText}>20% Off</Text>. Rs 500-1000
-            </Text>
-          </View>
-        </View>
-        <Text style={styles.bottomText}>Rohan 5/5 & 1 Friend Rated this</Text>
-      </View>
+          </Pressable>
+        )}
+      />
     </>
   );
 };
@@ -145,7 +227,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '78%',
     justifyContent: 'space-between',
-    marginTop: 4,
+    marginTop: 2,
   },
   ratings: {
     top: 2.3,

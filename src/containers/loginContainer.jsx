@@ -160,7 +160,6 @@ export const LoginContainer = ({navigation}) => {
       },
     })
       .then(res => {
-        console.log('from fetch', res);
         if (res.ok && (res.status === 404 || res.status === 503)) {
           throw new Error('Server error');
         } else {
@@ -169,6 +168,7 @@ export const LoginContainer = ({navigation}) => {
       })
       .then(async json => {
         setLoading(false);
+        console.log('from LoginContainer', json);
 
         // if login credenial is same
         if (json.Status === 'Success') {

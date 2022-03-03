@@ -9,8 +9,11 @@ export const GET_COINLIST = '/GetCoinList';
 export const GET_VERIFY_EMAIL = '/SendOTPToVerifyEmail';
 export const VERIFY_EMAIL_OTP = '/VerifyEmailOtp';
 export const YOUR_CLIENT_ID = 'mon3223231';
-export const TIMER = 10;
 
+export const GET_LISTING = '/GetListing';
+export const GET_LISTINGDETAIL = '/GetListingDetail';
+
+export const TIMER = 10;
 // 'https://www.finpath.oyeapps.com/RestApiV1'
 // 'http://finpath.appsimagicallp.com/RestApiV1'
 // export const BASE_URL = 'https://www.finpath.oyeapps.com/RestApiV1';

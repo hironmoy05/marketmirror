@@ -1,17 +1,20 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchBar from 'react-native-dynamic-search-bar';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import {useNavigation, StackActions, useRoute} from '@react-navigation/native';
 import {
   StyleSheet,
   TouchableOpacity,
   Image,
   Text,
-  FlatList,
   Pressable,
   View,
   ScrollView,
+  Linking,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {useSelector} from 'react-redux';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Foundation from 'react-native-vector-icons/Foundation';
 
 import AppText from '../components/appText';
 import Whatsapp from '../assets/whatsapp.svg';
@@ -19,9 +22,26 @@ import Redo from '../assets/redo2.svg';
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirror from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
+import {getListings} from '../store/listing';
 
 export const DetailPageContainer = () => {
+  const [currentDetails, setCurrentDetails] = useState('');
+
   const navigation = useNavigation();
+  const route = useRoute();
+  const data = useSelector(getListings);
+  const details = data.Data;
+  const detailsId = route.params.id;
+
+  useEffect(() => {
+    details.forEach(item => {
+      if (item.id === route.params.id) {
+        console.log(item);
+        setCurrentDetails(item);
+      }
+    });
+  }, [detailsId]);
+
   return (
     <ScrollView>
       <View style={styles.searchContainer}>
@@ -72,33 +92,86 @@ export const DetailPageContainer = () => {
         <View style={styles.imageBox}>
           <Image
             style={styles.image}
-            source={require('../assets/images/restaurantIn.jpeg')}
+            source={{uri: `${currentDetails?.front_img1}`}}
           />
+          {currentDetails.mm_thumb === '1' && (
+            <View style={{position: 'absolute', top: 113, left: 284}}>
+              <View
+                style={{
+                  width: 27,
+                  height: 27,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 50,
+                  borderWidth: 2,
+                  borderColor: colors.white,
+                  backgroundColor: colors.primary,
+                }}>
+                <AppText>
+                  <Foundation
+                    name="sheriff-badge"
+                    size={18}
+                    color={colors.white}
+                  />
+                </AppText>
+              </View>
+            </View>
+          )}
+          {/* <View>
+              <Image source={{uri: `${currentDetails?.mm_thumb}`}} />
+            </View> */}
         </View>
         <View style={styles.textBox}>
           <AppText style={styles.title}>
-            Star Planet Delight Dining & Bar
+            {/* Star Planet Delight Dining & Bar */}
+            {currentDetails.title}
           </AppText>
           <Text style={styles.heartIcon}>
             <MaterialCommunityIcons name="cards-heart-outline" size={18} />
           </Text>
-          <AppText style={styles.locationText}>Vihar Vest</AppText>
+          <AppText style={styles.locationText}>
+            {currentDetails.local_area}
+          </AppText>
         </View>
-        <View style={styles.ratings}>
-          <Text>4.1</Text>
-          <View style={styles.icons}>
-            <MaterialCommunityIcons name="star" size={13} color={'orangered'} />
-            <MaterialCommunityIcons name="star" size={13} color={'orangered'} />
-            <MaterialCommunityIcons name="star" size={13} color={'orangered'} />
-            <MaterialCommunityIcons name="star" size={13} color={'orangered'} />
-            <MaterialCommunityIcons
-              // name="star-half-full"
-              name="star-outline"
-              size={13}
-              color={'orangered'}
-            />
+        <View style={[styles.bottomText, {flexDirection: 'row'}]}>
+          <View
+            style={{
+              width: 50,
+              height: 20,
+              backgroundColor: colors.primary,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 8,
+              borderRadius: 5,
+            }}>
+            <Text>
+              <MaterialCommunityIcons
+                name="star"
+                size={15}
+                color={colors.white}
+              />
+            </Text>
+            <Text style={{marginLeft: 8, top: -0.6, color: colors.white}}>
+              {currentDetails.rating}
+            </Text>
           </View>
-          <AppText style={styles.rating}>2996 Ratings</AppText>
+          <View
+            style={{
+              marginLeft: 'auto',
+              flexDirection: 'row',
+              top: 8,
+            }}>
+            <Text style={{top: 2}}>
+              <MaterialIcons
+                name="local-offer"
+                size={15}
+                color={colors.primary}
+              />
+              {'   '}
+            </Text>
+            <Text>{currentDetails.category}</Text>
+          </View>
         </View>
         <View style={[styles.icons, styles.icons2]}>
           <View style={styles.iconBox}>
@@ -144,11 +217,33 @@ export const DetailPageContainer = () => {
         <View style={styles.details}>
           <MaterialCommunityIcons name="map" size={20} />
           <View style={styles.address}>
-            <AppText style={styles.text}>Tarapur M.I.D.C Shivaji Nagar</AppText>
-            <AppText style={styles.text}>Salvad Faghar -281004</AppText>
+            <AppText style={styles.text}>{currentDetails.address}</AppText>
           </View>
         </View>
         <View style={styles.divider2} />
+        {currentDetails.website != '' ? (
+          <>
+            <TouchableOpacity
+              onPress={() => Linking.openURL(currentDetails.website)}
+              style={styles.details}>
+              <MaterialCommunityIcons name="web" size={20} />
+              <AppText style={styles.text}>{currentDetails.website}</AppText>
+            </TouchableOpacity>
+            <View style={styles.divider2} />
+          </>
+        ) : currentDetails.whatsApp === '' ? null : (
+          <>
+            <View>
+              <MaterialCommunityIcons
+                name="whatsApp"
+                size="20"
+                color={'green'}
+              />
+              <AppText>{currentDetails.whatsApp}</AppText>
+            </View>
+            <View style={styles.divider2} />
+          </>
+        )}
         <View style={styles.details}>
           <MaterialCommunityIcons name="alert-outline" size={20} />
           <AppText style={styles.text}>
@@ -158,8 +253,21 @@ export const DetailPageContainer = () => {
         <View style={styles.divider2} />
         <View style={styles.details}>
           <MaterialCommunityIcons name="clock-outline" size={20} />
-          <AppText style={styles.text}>Open Now : Open 24 Hrs</AppText>
+          <AppText style={styles.text}>
+            Open Time :{' '}
+            {currentDetails.opening_time === ''
+              ? 'Sunday'
+              : currentDetails.opening_time}
+          </AppText>
         </View>
+        <View style={styles.divider2} />
+        <View style={styles.details}>
+          <MaterialCommunityIcons name="map-marker" size={20} />
+          <AppText style={styles.text}>
+            Served In : {currentDetails.target_area}
+          </AppText>
+        </View>
+        <View style={styles.divider2} />
       </View>
     </ScrollView>
   );
@@ -263,5 +371,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     marginLeft: 10,
+    width: '80%',
   },
 });

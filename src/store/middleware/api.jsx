@@ -31,8 +31,6 @@ const api =
       const res = await resp.json();
       const response = res;
 
-      // console.log('now', response)
-
       // console.log('from try', (response.data));
       // General
       dispatch(actions.apiRequestSuccess(response));
@@ -44,8 +42,8 @@ const api =
         url === FORGOT_PASSWORD ||
         url === VERIFY_OTP ||
         url === RESET_PASSWORD ||
-        url === GET_VERIFY_EMAIL || 
-        url === VERIFY_EMAIL_OTP 
+        url === GET_VERIFY_EMAIL ||
+        url === VERIFY_EMAIL_OTP
       )
         Toast.show(response.Message, {
           duration: Toast.durations.LONG,
