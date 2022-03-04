@@ -88,7 +88,7 @@ export function DrawerContent(props) {
               )}
               label="KYC Verification"
               labelStyle={styles.label}
-              onPress={() => navigation.navigate('KycVerification')}
+              // onPress={() => navigation.navigate('KycVerification')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -102,7 +102,7 @@ export function DrawerContent(props) {
               )}
               label="Bank Account"
               labelStyle={styles.label}
-              onPress={() => navigation.navigate('BankAccount')}
+              // onPress={() => navigation.navigate('BankAccount')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -116,7 +116,7 @@ export function DrawerContent(props) {
               )}
               label="Gifting Card Coupns"
               labelStyle={styles.label}
-              onPress={() => navigation.navigate('GiftCard')}
+              // onPress={() => navigation.navigate('GiftCard')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -130,7 +130,7 @@ export function DrawerContent(props) {
               )}
               label="Settings"
               labelStyle={styles.label}
-              onPress={() => navigation.navigate('Settings')}
+              // onPress={() => navigation.navigate('Settings')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -144,7 +144,7 @@ export function DrawerContent(props) {
               )}
               label="Supports"
               labelStyle={styles.label}
-              onPress={() => navigation.navigate('Supports')}
+              // onPress={() => navigation.navigate('Supports')}
             />
           </View>
           <View style={styles.drawerDivider}>

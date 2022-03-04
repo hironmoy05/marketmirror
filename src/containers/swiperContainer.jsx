@@ -3,10 +3,10 @@ import {StyleSheet, Text, View, Pressable, Image} from 'react-native';
 
 import Swiper from 'react-native-swiper';
 import colors from '../config/colors';
-import Home from '../assets/new/home.svg';
-import HomeRepairService from '../assets/new/home repair services.svg';
-import Grocery from '../assets/new/grocery.svg';
-import RealEstate from '../assets/new/real estate.svg';
+import Business from '../assets/new/m_business.svg';
+import Jobs from '../assets/new/m_jobs.svg';
+import Community from '../assets/new/m_community.svg';
+import RealEstate from '../assets/new/m_property.svg';
 
 function SwiperContainer({navigation}) {
   return (
@@ -19,94 +19,78 @@ function SwiperContainer({navigation}) {
       <View style={styles.slide1}>
         <View style={styles.container}>
           <View style={styles.bottomViewBox}>
-            <Text style={styles.title}>Main Title</Text>
+            <View style={styles.imageBox}>
+              <Business width={200} height={200} />
+            </View>
+            <Text style={styles.title}>Business</Text>
             <Text style={styles.subTitle}>
-              Global Social Payments Application for cryptocurrencies Payments
+              {/* Global Social Payments Application for cryptocurrencies Payments */}
+              Find business in your city
             </Text>
 
-            <View style={styles.imageBox}>
-              {/* <Image
-                style={{height: '75%', borderRadius: 15}}
-                source={require('../assets/walkthrough_1.png')}
-              /> */}
-              <Home width={250} height={250} />
-            </View>
-
-            <Pressable
+            {/* <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('Login')}>
               <Text style={styles.buttonText}>Skip</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </View>
       </View>
       <View style={styles.slide2}>
         <View style={styles.container}>
           <View style={styles.bottomViewBox}>
-            <Text style={styles.title}>Main Title</Text>
+            <View style={styles.imageBox}>
+              <Jobs width={200} height={200} />
+            </View>
+            <Text style={styles.title}>Jobs</Text>
             <Text style={styles.subTitle}>
-              Global Social Payments Application for cryptocurrencies Payments
+              {/* Global Social Payments Application for cryptocurrencies Payments */}
+              Find jobs in your city
             </Text>
 
-            <View style={styles.imageBox}>
-              {/* <Image
-                style={{height: '70%', borderRadius: 15}}
-                source={require('../assets/walkthrough_2.png')}
-              /> */}
-              <HomeRepairService width={250} height={250} />
-            </View>
-
-            <Pressable
+            {/* <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('Login')}>
               <Text style={styles.buttonText}>Skip</Text>
-            </Pressable>
+            </Pressable> */}
           </View>
         </View>
       </View>
       <View style={styles.slide3}>
         <View style={styles.container}>
           <View style={styles.bottomViewBox}>
-            <Text style={styles.title}>Main Title</Text>
+            <View style={styles.imageBox}>
+              <Community width={200} height={200} />
+            </View>
+            <Text style={styles.title}>Community</Text>
             <Text style={styles.subTitle}>
-              Global Social Payments Application for cryptocurrencies Payments
+              {/* Global Social Payments Application for cryptocurrencies Payments */}
+              Find your friends
             </Text>
 
-            <View style={styles.imageBox}>
-              {/* <Image
-                style={{height: '70%', borderRadius: 15}}
-                source={require('../assets/walkthrough_3.png')}
-              /> */}
-              <Grocery width={250} height={250} />
-            </View>
-
-            <Pressable
+            {/* <Pressable
               style={styles.button}
               onPress={() => navigation.navigate('Login')}>
-              <Text style={styles.buttonText}>Skip</Text>
-            </Pressable>
+              <Text style={styles.buttonText}>Skip</Text> */}
+            {/* </Pressable> */}
           </View>
         </View>
       </View>
       <View style={styles.slide4}>
         <View style={styles.container}>
           <View style={styles.bottomViewBox}>
-            <Text style={styles.title}>Main Title</Text>
-            <Text style={styles.subTitle}>
-              Global Social Payments Application for cryptocurrencies Payments
-            </Text>
-
             <View style={styles.imageBox}>
-              {/* <Image
-                style={{height: '70%', borderRadius: 15}}
-                source={require('../assets/walkthrough_4.png')}
-              /> */}
-              <RealEstate width={250} height={250} />
+              <RealEstate width={200} height={200} />
             </View>
+            <Text style={styles.title}>Real Estate</Text>
+            <Text style={styles.subTitle}>
+              {/* Global Social Payments Application for cryptocurrencies Payments */}
+              Find home in your city
+            </Text>
 
             <Pressable
               style={styles.buttonLast}
-              onPress={() => navigation.navigate('Login')}>
+              onPress={() => navigation.replace('Login')}>
               <Text style={styles.buttonTextLast}>Let's Start</Text>
             </Pressable>
           </View>
@@ -173,17 +157,17 @@ const styles = StyleSheet.create({
   },
   imageBox: {
     borderRadius: 10,
-    top: '5%',
+    marginTop: '35%',
   },
   title: {
-    fontFamily: 'Open Sans Bold',
-    fontSize: 30,
+    fontFamily: 'Roboto Bold',
+    fontSize: 25,
     color: colors.primaryDark,
     marginTop: '10%',
   },
   subTitle: {
-    fontFamily: 'Open Sans Regular',
-    color: colors.primaryDark,
+    fontFamily: 'Roboto',
+    color: colors.black3,
     textAlign: 'center',
     width: 300,
     marginTop: '4%',

@@ -45,7 +45,7 @@ export const SplashContainer = ({navigation}) => {
 
           if (response[1][1] === null || response[1][1].length <= 0) {
             if (response[2][1] === null || response[2][1].length <= 0) {
-              navigation.navigate('HomeScreen');
+              navigation.replace('HomeScreen');
             } else {
               navigation.replace('Login');
             }

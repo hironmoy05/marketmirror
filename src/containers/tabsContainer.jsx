@@ -1,13 +1,24 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {HomeTabContainer} from './homeTabContainer';
-import {PortfolioTabContainer} from './portfolioTabContainer';
-import {HistoryTabContainer} from './historyTabContainer';
-import {NotificationTabContainer} from './notificationTabContainer';
+// import {PortfolioTabContainer} from './portfolioTabContainer';
+// import {HistoryTabContainer} from './historyTabContainer';
+// import {NotificationTabContainer} from './notificationTabContainer';
 import {Image, Text} from 'react-native';
 import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
+
+function PortfolioTabContainer() {
+  return null;
+}
+function HistoryTabContainer() {
+  return null;
+}
+
+function NotificationTabContainer() {
+  return null;
+}
 
 export const TabsCotainer = () => {
   return (

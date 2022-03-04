@@ -6,9 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const HomeContainer = ({navigation}) => {
   function handleSwiper() {
     AsyncStorage.getItem('userId').then(data => {
-      return data
-        ? navigation.navigate('Login')
-        : navigation.navigate('Swiper');
+      return data ? navigation.replace('Login') : navigation.replace('Swiper');
     });
   }
 
@@ -22,7 +20,7 @@ export const HomeContainer = ({navigation}) => {
         <Home.Frame>
           <Home.Title>Welcome</Home.Title>
           <Home.SubTitle>
-            Global Social Payments Application for cryptocurrencies Payments
+            {/* Global Social Payments Application for cryptocurrencies Payments */}
           </Home.SubTitle>
         </Home.Frame>
         <Home.RegularButton mode="contained" onPress={handleSwiper}>

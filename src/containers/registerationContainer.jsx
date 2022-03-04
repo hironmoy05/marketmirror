@@ -761,7 +761,7 @@ export const RegisterationContainer = ({navigation}) => {
                         </Text>
                       )
                     ) : null}
-                    <Login.FormBox>
+                    {/* <Login.FormBox>
                       <Login.Label>State</Login.Label>
                       <Login.IconBox down={down}>
                         <Country />
@@ -805,7 +805,7 @@ export const RegisterationContainer = ({navigation}) => {
                           State is required field
                         </Text>
                       )
-                    ) : null}
+                    ) : null} */}
                     {/* <Login.FormBox>
                       <Login.Label>State</Login.Label>
                       <Login.IconBox down={down}>

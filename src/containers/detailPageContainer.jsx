@@ -216,7 +216,7 @@ export const DetailPageContainer = () => {
         <View style={styles.divider} />
         <View style={styles.details}>
           <MaterialCommunityIcons name="map" size={20} />
-          <View style={styles.address}>
+          <View style={[styles.address, {width: '95%'}]}>
             <AppText style={styles.text}>{currentDetails.address}</AppText>
           </View>
         </View>

@@ -22,7 +22,7 @@ export const SearchBox = () => {
 
   return (
     <TouchableWithoutFeedback
-      onPress={() => navigation.dispatch(StackActions.replace('Search'))}
+      onPress={() => navigation.navigate('Search')}
       style={{
         backgroundColor: '#edf0ee',
         padding: 6,
