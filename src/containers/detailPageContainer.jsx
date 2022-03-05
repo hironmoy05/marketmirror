@@ -117,15 +117,9 @@ export const DetailPageContainer = () => {
               </View>
             </View>
           )}
-          {/* <View>
-              <Image source={{uri: `${currentDetails?.mm_thumb}`}} />
-            </View> */}
         </View>
         <View style={styles.textBox}>
-          <AppText style={styles.title}>
-            {/* Star Planet Delight Dining & Bar */}
-            {currentDetails.title}
-          </AppText>
+          <AppText style={styles.title}>{currentDetails.title}</AppText>
           <Text style={styles.heartIcon}>
             <MaterialCommunityIcons name="cards-heart-outline" size={18} />
           </Text>

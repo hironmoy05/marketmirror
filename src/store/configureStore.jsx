@@ -50,10 +50,13 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
       serializableCheck: false,
     })
       //   .concat(logger({destination: 'console'}))
-      .concat(api)
+      // .concat(api)
       .concat(toast),
 });
 

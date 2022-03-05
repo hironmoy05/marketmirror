@@ -24,7 +24,6 @@ export const SearchContainer = () => {
   const navigation = useNavigation();
   const details = useSelector(getListings);
   const listingDetails = details?.Data;
-  console.log('from searchContainer', listingDetails[0]);
 
   return (
     <>
@@ -63,12 +62,12 @@ export const SearchContainer = () => {
         />
       </View>
 
-      {/* <FlatList /> */}
       <FlatList
         data={listingDetails}
         keyExtractor={item => item.id}
-        initialNumToRender={5}
-        initialScrollIndex={1}
+        initialNumToRender={8}
+        initialScrollIndex={5}
+        maxToRenderPerBatch={10}
         refreshing={true}
         renderItem={({item}) => (
           <Pressable
