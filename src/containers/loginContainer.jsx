@@ -432,6 +432,12 @@ export const LoginContainer = ({navigation}) => {
               onChangeText={num => (
                 setTwo(num), num && thirdInputRef.current.focus()
               )}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  firstInputRef.current.focus();
+                  setOne();
+                }
+              }}
             />
 
             <TextInput
@@ -447,6 +453,12 @@ export const LoginContainer = ({navigation}) => {
                 setThree(num);
                 num && fourthInputRef.current.focus();
               }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  secondInputRef.current.focus();
+                  setTwo();
+                }
+              }}
             />
 
             <TextInput
@@ -461,6 +473,12 @@ export const LoginContainer = ({navigation}) => {
               onChangeText={num => {
                 setFour(num);
                 num && fifthInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  thirdInputRef.current.focus();
+                  setThree();
+                }
               }}
             />
 
@@ -480,6 +498,12 @@ export const LoginContainer = ({navigation}) => {
                 setFive(num);
                 num && sixthInputRef.current.focus();
               }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fourthInputRef.current.focus();
+                  setFour();
+                }
+              }}
             />
 
             <TextInput
@@ -492,6 +516,12 @@ export const LoginContainer = ({navigation}) => {
               ref={sixthInputRef}
               blurOnSubmit={false}
               onChangeText={num => setSix(num)}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fifthInputRef.current.focus();
+                  setFive();
+                }
+              }}
             />
           </View>
           <View style={styles.resendCode}>

@@ -56,7 +56,7 @@ export const store = configureStore({
       serializableCheck: false,
     })
       //   .concat(logger({destination: 'console'}))
-      // .concat(api)
+      .concat(api)
       .concat(toast),
 });
 

@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Keyboard,
   KeyboardAvoidingView,
   TextInput,
   Pressable,
@@ -356,6 +357,7 @@ export const RegisterationContainer = ({navigation}) => {
         deviceHeight={PixelDeviceHeight}
         deviceWidth={deviceWidth}
         backdropTransitionOutTiming={0}
+        onBackdropPress={() => setFirstModal(false)}
         style={{margin: 0}}>
         <View style={styles.popup}>
           <View style={styles.cross}>
@@ -388,8 +390,8 @@ export const RegisterationContainer = ({navigation}) => {
               returnKeyType="next"
               value={one}
               maxLength={1}
-              autoFocus={true}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => {
                 setOne(num);
                 num && secondInputRef.current.focus();
@@ -405,9 +407,16 @@ export const RegisterationContainer = ({navigation}) => {
               maxLength={1}
               ref={secondInputRef}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => {
                 setTwo(num);
                 num && thirdInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  firstInputRef.current.focus();
+                  setOne();
+                }
               }}
             />
 
@@ -420,9 +429,16 @@ export const RegisterationContainer = ({navigation}) => {
               maxLength={1}
               ref={thirdInputRef}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => {
                 setThree(num);
                 num && fourthInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  secondInputRef.current.focus();
+                  setTwo();
+                }
               }}
             />
 
@@ -435,9 +451,16 @@ export const RegisterationContainer = ({navigation}) => {
               maxLength={1}
               ref={fourthInputRef}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => {
                 setFour(num);
                 num && fifthInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  thirdInputRef.current.focus();
+                  setThree();
+                }
               }}
             />
 
@@ -450,9 +473,16 @@ export const RegisterationContainer = ({navigation}) => {
               maxLength={1}
               ref={fifthInputRef}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => {
                 setFive(num);
                 num && sixthInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fourthInputRef.current.focus();
+                  setFour();
+                }
               }}
             />
 
@@ -465,7 +495,14 @@ export const RegisterationContainer = ({navigation}) => {
               maxLength={1}
               ref={sixthInputRef}
               blurOnSubmit={false}
+              onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => setSix(num)}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fifthInputRef.current.focus();
+                  setFive();
+                }
+              }}
             />
           </View>
           <View style={styles.resendCode}>
@@ -536,6 +573,12 @@ export const RegisterationContainer = ({navigation}) => {
                 setTwo(num);
                 num && thirdInputRef.current.focus();
               }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  secondInputRef.current.focus();
+                  setOne();
+                }
+              }}
             />
             <TextInput
               style={styles.number}
@@ -548,6 +591,12 @@ export const RegisterationContainer = ({navigation}) => {
               onChangeText={num => {
                 setThree(num);
                 num && fourthInputRef.current.focus();
+              }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  secondInputRef.current.focus();
+                  setTwo();
+                }
               }}
             />
             <TextInput
@@ -562,6 +611,12 @@ export const RegisterationContainer = ({navigation}) => {
                 setFour(num);
                 num && fifthInputRef.current.focus();
               }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  thirdInputRef.current.focus();
+                  setThree();
+                }
+              }}
             />
             <TextInput
               style={styles.number}
@@ -575,6 +630,12 @@ export const RegisterationContainer = ({navigation}) => {
                 setFive(num);
                 num && sixthInputRef.current.focus();
               }}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fourthInputRef.current.focus();
+                  setFour();
+                }
+              }}
             />
             <TextInput
               style={styles.number}
@@ -585,6 +646,12 @@ export const RegisterationContainer = ({navigation}) => {
               ref={sixthInputRef}
               blurOnSubmit={false}
               onChangeText={num => setSix(num)}
+              onKeyPress={({nativeEvent}) => {
+                if (nativeEvent.key === 'Backspace') {
+                  fifthInputRef.current.focus();
+                  setFive();
+                }
+              }}
             />
           </View>
           <View style={styles.resendCode}>
@@ -681,6 +748,7 @@ export const RegisterationContainer = ({navigation}) => {
                         onPress={() => {
                           dispatch(sendOtpToVerifyEmail(values.email));
                           setIsEmailVerify(true);
+                          // setFirstModal(true);
                           setFormikEmail(values.email);
                         }}>
                         {verifyOtp ? (
