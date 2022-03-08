@@ -210,16 +210,17 @@ const styles = StyleSheet.create({
   },
   resultDetails: {
     flexDirection: 'row',
-    alignItems: 'center',
     padding: 5,
     paddingTop: 10,
   },
   title: {
     fontFamily: 'Open Sans Bold',
+    marginTop: 0,
   },
   detailBox: {
     marginLeft: 15,
     alignSelf: 'flex-start',
+    marginTop: -5,
   },
   imageBox: {},
   rating: {

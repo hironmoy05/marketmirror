@@ -15,6 +15,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
+import Share from 'react-native-share';
 
 import AppText from '../components/appText';
 import Whatsapp from '../assets/whatsapp.svg';
@@ -33,6 +34,35 @@ export const DetailPageContainer = () => {
   const details = data.Data;
   const detailsId = route.params.id;
 
+  const whatsAppShare = async () => {
+    const shareOptions = {
+      message: currentDetails.title + '\n',
+      url: `https://www.marketmirror.info/business/profile/${currentDetails.slug}`,
+      social: Share.Social.WHATSAPP,
+    };
+
+    try {
+      const shareResponse = await Share.shareSingle(shareOptions);
+      console.log(JSON.stringify(shareResponse));
+    } catch (error) {
+      console.log('error from share', error);
+    }
+  };
+
+  const customeShare = async () => {
+    const shareOptions = {
+      message: currentDetails.title + '\n',
+      url: `https://www.marketmirror.info/business/profile/${currentDetails.slug}`,
+    };
+
+    try {
+      const shareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(shareResponse));
+    } catch (error) {
+      console.log('error from share', error);
+    }
+  };
+
   useEffect(() => {
     details.forEach(item => {
       if (item.id === route.params.id) {
@@ -41,6 +71,18 @@ export const DetailPageContainer = () => {
       }
     });
   }, [detailsId]);
+
+  function mobileNumber() {
+    const arrayNum = currentDetails.reg_mobile?.split('');
+
+    if (arrayNum?.length > 10) {
+      const filterArray = arrayNum?.filter(
+        index => index !== ' ' && index !== '+' && index !== '-',
+      );
+      console.log(filterArray);
+    }
+    return arrayNum?.join('');
+  }
 
   return (
     <ScrollView>
@@ -169,15 +211,15 @@ export const DetailPageContainer = () => {
         </View>
         <View style={[styles.icons, styles.icons2]}>
           <View style={styles.iconBox}>
-            <Pressable
-              onPress={() => console.log('Pressed')}
+            <TouchableOpacity
+              onPress={() => Linking.openURL(`tel: ${mobileNumber()}`)}
               style={styles.icon}>
               <MaterialCommunityIcons
                 name="phone"
                 size={30}
                 color={colors.primary}
               />
-            </Pressable>
+            </TouchableOpacity>
             <AppText style={styles.iconText}>Call</AppText>
           </View>
           <View style={styles.iconBox}>
@@ -193,17 +235,19 @@ export const DetailPageContainer = () => {
           <View style={styles.iconBox}>
             <View>
               <View style={styles.icon}>
-                <View style={styles.whatIcon}>
+                <TouchableOpacity
+                  onPress={whatsAppShare}
+                  style={styles.whatIcon}>
                   <Whatsapp />
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
             <AppText style={styles.iconText}>WhatsApp</AppText>
           </View>
           <View style={styles.iconBox}>
-            <View style={styles.icon}>
+            <TouchableOpacity onPress={customeShare} style={styles.icon}>
               <Redo width={30} height={30} />
-            </View>
+            </TouchableOpacity>
             <AppText style={styles.iconText}>Share</AppText>
           </View>
         </View>
