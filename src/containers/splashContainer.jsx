@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {Splash} from '../components';
 import LogoSplash from '../assets/logo_splash_2.svg';
-import {ActivityIndicator, View, StyleSheet, Image} from 'react-native';
-
+import {ActivityIndicator, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
 
 export const SplashContainer = ({navigation}) => {
   const [animating, setAnimating] = useState(true);
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTimeout(() => {

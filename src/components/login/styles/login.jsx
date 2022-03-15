@@ -26,9 +26,10 @@ export const SmallLogoBox = Styled.View`
 `;
 
 export const LoginContainer = Styled.View`
+    flex: 1;
     background-color: ${colors.white};
     position: absolute;
-    top: 20%;
+    top: 20%
     left: 3%;
     width: 94%;
     border-radius: 10px;
@@ -64,9 +65,7 @@ export const HeaderBox = Styled.View``;
 
 export const FormBox = Styled.View`
     width: 100%;
-    display: flex;
     flex-direction: column;
-    position: relative;
     margin-bottom: -5px;
     ${props => props.kycMargin}
 `;
@@ -83,7 +82,7 @@ export const Label = Styled(Text)`
 export const IconBox = Styled.View`
     position: absolute;
     z-index: 2;
-    top: ${props => (props.KycDoc ? '25px' : '43px')};
+    top: ${props => (props.KycDoc ? '25px' : '45px')};
     left: 14px;
     ${props => props.down}
     `;
@@ -181,6 +180,19 @@ export const RegRetypePasswordTextInput = Styled(TextInput)`
     border-radius: 8px;
     ${({phone}) =>
       phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    margin-top: 26px; 
+    color: ${colors.black2};
+`;
+
+export const RegSponsorTextInput = Styled(TextInput)`
+    background-color: ${colors.white};
+    border: none;
+    border: 2px solid ${props =>
+      props.regSponsorInputColor
+        ? `${colors.primaryDark}`
+        : `${colors.lightGrey2}`};
+    border-radius: 8px;
+    padding: 10px 0 8px 40px;
     margin-top: 26px; 
     color: ${colors.black2};
 `;

@@ -31,7 +31,7 @@ import Loader from './loaderContainer';
 import Cross from '../assets/cross.svg';
 import {calcWidth} from '../responsive';
 import {signoutRequest} from '../store/api';
-import {getUserId} from '../store/bugs';
+import {getUserId, getUsersId} from '../store/bugs';
 import {
   verifyEmail,
   verifyOtp,
@@ -40,6 +40,7 @@ import {
   isOtpVerified,
   resetPasswordMsg,
 } from '../store/forgot';
+import {getDashDetails} from '../store/dashboard';
 import {BASE_URL, USER_LOGIN, YOUR_CLIENT_ID} from '../constants/urls';
 import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
@@ -47,10 +48,11 @@ import * as Yup from 'yup';
 import ErrorMessage from '../components/errorMessage';
 import colors from '../config/colors';
 import AppText from '../components/appText';
-import {color} from 'react-native-reanimated';
 
 const validateSchema = Yup.object().shape({
-  email: Yup.string().required().email().label('Email'),
+  email: Yup.string()
+    .matches(/^[a-zA-Z0-9@#.]*$/, 'Allow only @ # .')
+    .required('Required Field'),
   password: Yup.string().required().min(4).label('Password'),
 });
 const validateSchema2 = Yup.object().shape({
@@ -66,6 +68,8 @@ export const LoginContainer = ({navigation}) => {
   const forgotEmail = useSelector(msgReceived);
   const otpVerified = useSelector(isOtpVerified);
   const resetPass = useSelector(resetPasswordMsg);
+  const dashDetails = useSelector(getDashDetails);
+  // const usersId = useSelector(getUsersId);
 
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -238,6 +242,11 @@ export const LoginContainer = ({navigation}) => {
       : setConfirmNewPasswordTextColor(false);
   });
 
+  useEffect(() => {
+    // dispatch(loadDash('Uttar Pradesh', usersId));
+  }, []);
+  console.log('DAShDEtails', dashDetails);
+
   function backAction() {
     BackHandler.exitApp();
   }
@@ -335,7 +344,7 @@ export const LoginContainer = ({navigation}) => {
               regEmailInputColor={regEmailInputColor}
               placeholderTextColor={colors.lightGrey3}
               placeholder="username@email.com"
-              keyboardType="email-address"
+              keyboardType="default"
               name="userEmail"
               value={recoverUserEmail}
               secure={true}
@@ -777,7 +786,7 @@ export const LoginContainer = ({navigation}) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         contentContainerStyle="position"
         KeyboardVerticalOffset="0">
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{height: deviceHeight}}>
             <Login>
               <Login.SmallLogoBox>
@@ -806,15 +815,15 @@ export const LoginContainer = ({navigation}) => {
                 }) => (
                   <>
                     <Login.FormBox>
-                      <Login.Label>Email ID</Login.Label>
+                      <Login.Label>Phone/Email/User ID</Login.Label>
                       <Login.IconBox>
                         <Email />
                       </Login.IconBox>
                       <Login.EmailTextInput
                         emailInputColor={values.email ? true : false}
                         placeholderTextColor={colors.lightGrey3}
-                        placeholder="username@email.com"
-                        keyboardType="email-address"
+                        placeholder="Phone/Email/User ID"
+                        keyboardType="default"
                         returnKeyType="next"
                         autoCapitalize="none"
                         onBlur={() => setFieldTouched('email')}

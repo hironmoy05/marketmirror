@@ -1,5 +1,4 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {createSelector} from 'reselect';
 import {apiRequest} from './api';
 import {GET_LISTING, GET_LISTINGDETAIL} from '../constants/urls';
 
@@ -7,6 +6,7 @@ export const slice = createSlice({
   name: 'listing',
   initialState: {
     listingDetails: [],
+    filterdCategoryDetails: [],
   },
   reducers: {
     listingReceived: (listing, action) => {
@@ -15,7 +15,7 @@ export const slice = createSlice({
   },
 });
 
-export const {listingReceived} = slice.actions;
+export const {listingReceived, getFilterdDetails} = slice.actions;
 export default slice.reducer;
 
 // Action creators
@@ -23,8 +23,6 @@ export const loadLists = userId => (dispatch, getState) => {
   const url = GET_LISTING;
 
   const body = 'user_id=' + userId;
-
-  console.log('from listing loadlists function', typeof userId, body);
 
   dispatch(
     apiRequest({

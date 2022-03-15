@@ -33,10 +33,18 @@ export const StackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName="Splash"
-      screenOptions={{header: () => null}}>
+      screenOptions={{header: () => null, animation: 'slide_from_right'}}>
       <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="Swiper" component={SwiperContainer} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen
+        name="Swiper"
+        component={SwiperContainer}
+        options={{animation: 'fade_from_bottom'}}
+      />
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{animation: 'flip'}}
+      />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Registeration" component={RegisterationScreen} />
       <Stack.Screen

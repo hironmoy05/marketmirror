@@ -274,7 +274,7 @@ export const DetailPageContainer = () => {
             <View>
               <MaterialCommunityIcons
                 name="whatsApp"
-                size="20"
+                size={20}
                 color={'green'}
               />
               <AppText>{currentDetails.whatsApp}</AppText>

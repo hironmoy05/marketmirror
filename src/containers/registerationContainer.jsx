@@ -7,13 +7,13 @@ import VerifyCheck from '../assets/verify_check.svg';
 import User from '../assets/user.svg';
 import Mobile from '../assets/mobile.svg';
 import LogoTop from '../assets/mm_logo_top.svg';
+import AccountTree from '../assets/account_tree.svg';
 import Toast from 'react-native-root-toast';
 import {BASE_URL, USER_REGISTER} from '../constants/urls';
 import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   TextInput,
@@ -22,10 +22,9 @@ import {
   Alert,
   SafeAreaView,
 } from 'react-native';
-import Success from '../assets/success.svg';
 import {Picker} from '@react-native-picker/picker';
 import PhoneInput from 'react-native-phone-number-input';
-import {Button, Checkbox} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {ScrollView} from 'react-native';
 import Modal from 'react-native-modal';
 import Cross from '../assets/cross.svg';
@@ -36,52 +35,82 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {ref} from 'yup';
 import ErrorMessage from '../components/errorMessage';
+import {getUsersId} from '../store/dashboard';
+import {useDispatch, useSelector} from 'react-redux';
+import {useFormikContext} from 'formik';
+
+import {signoutRequest} from '../store/api';
+import AppText from '../components/appText';
+import colors from '../config/colors';
+import {color} from 'react-native-reanimated';
 import {
   sentEmailStatus,
   sendOtpToVerifyEmail,
   checkOtpToVerifyEmail,
   sentEmailOtpStatus,
 } from '../store/verifyEmailApi';
-import {useDispatch, useSelector} from 'react-redux';
-import {useFormikContext} from 'formik';
-import {set} from 'lodash';
-import {signoutRequest} from '../store/api';
-import AppText from '../components/appText';
-import colors from '../config/colors';
-import {color} from 'react-native-reanimated';
+import {
+  getCountryLists,
+  getStateLists,
+  statesListing,
+  getCityLists,
+  countryListing,
+  cityListing,
+} from '../store/localtionListing';
 
 const validateSchema = Yup.object().shape({
-  name: Yup.string().required().min(4).max(20).label('Name'),
-  email: Yup.string().required().email().label('Email'),
+  name: Yup.string()
+    .matches(/^[a-zA-Z0-9' ']*$/, 'Only alphabets are allowed for this field ')
+    .required()
+    .min(4)
+    .max(20)
+    .label('Name'),
+  email: Yup.string()
+    .matches(/^[aA-zZ0-9@#.]*$/, 'Only allow @ # symbols')
+    .required()
+    .email()
+    .label('Email'),
   password: Yup.string()
+    .matches(/^[a-zA-Z0-9@#]*$/, 'Only allow @ # symbols')
     .min(6, 'Required')
     .required('Required')
     .max(12)
     .label('Password'),
   retypePassword: Yup.string()
+    // .matches(/^[a-zA-Z0-9@#]*$/, 'Only allow @ # symbols')
     .required('Please confirm your password')
     .oneOf([ref('password')], 'Passwords do not match')
     .label('RetypePassword'),
+  sponsor: Yup.string()
+    .matches(/^[a-zA-Z0-9]*$/, 'Not allow special character')
+    .label('sponsor'),
 });
 
 export const RegisterationContainer = ({navigation}) => {
   const dispatch = useDispatch();
   const mailStatus = useSelector(sentEmailStatus);
   const mailOtpStatus = useSelector(sentEmailOtpStatus);
+  const countryLists = useSelector(countryListing);
+  const stateLists = useSelector(statesListing);
+  const cityLists = useSelector(cityListing);
 
   const sentMessageStatus = mailStatus.Status ? mailStatus.Status : '';
   const sentOtpMsgStatus = mailOtpStatus.Status ? mailOtpStatus.Status : '';
 
-  console.log('VERIFY EMAIL OTP', sentMessageStatus);
-  console.log('VERIFY OTP', sentOtpMsgStatus);
+  const [stateValue, setStateValue] = useState('');
+  const [cityValue, setCityValue] = useState('');
 
-  // console.log(mailStatus ? mailStatus : '');
-
+  const [formikSponsor, setFormikSponsor] = useState();
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [selectedCountry, setSelectedCountry] = useState();
+  const [selectedCountryId, setSelectedCountryId] = useState();
+  const [isCountryClicked, setIsCountryClicked] = useState(false);
   const [selectedState, setSelectedState] = useState();
+  const [selectedStateId, setSelectedStateId] = useState();
+  const [selectedCity, setSelectedCity] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [countryCode, setCountryCode] = useState();
   const [password, setPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
   const [isEmailVerify, setIsEmailVerify] = useState(false);
@@ -96,6 +125,7 @@ export const RegisterationContainer = ({navigation}) => {
   const [regEmailInputColor, setRegEmailInputColor] = useState(false);
   const [selectCountryInputColor, setSelectCountryInputColor] = useState(false);
   const [selectStateInputColor, setSelectStateInputColor] = useState(false);
+  const [selectCityInputColor, setSelectCityInputColor] = useState(false);
   const [phoneNumberInputColor, setPhoneNumberInputColor] = useState(false);
   const [regPasswordInputColor, setRegPasswordInputColor] = useState(false);
   const [regRetypePasswordInputColor, setRegRetypePasswordInputColor] =
@@ -106,23 +136,29 @@ export const RegisterationContainer = ({navigation}) => {
   const [firstModal, setFirstModal] = useState(false);
   const [crossClick, setCrossClick] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState(false);
-  const selectCountry = [
-    'India',
-    'Pakistan',
-    'Nepal',
-    'SriLanka',
-    'Australia',
-    'America',
-    'New Zealand',
-  ];
 
-  const selectState = [
-    'Bihar',
-    'Haryana',
-    'Karnataka',
-    'Maharashtra',
-    'Uttar Pradesh',
-  ];
+  useEffect(() => {
+    dispatch(getCountryLists());
+  }, [mailOtpStatus]);
+
+  useEffect(() => {
+    dispatch(getStateLists(selectedCountryId));
+  }, [selectedCountryId, isCountryClicked]);
+
+  useEffect(() => {
+    dispatch(getCityLists(selectedStateId));
+  }, [selectedStateId]);
+
+  const selectCountry = [];
+  countryLists?.forEach(item => selectCountry.push(item.title));
+
+  // Set States
+  const selectState = [];
+  stateLists?.forEach(item => selectState.push(item.title));
+
+  // Set cities
+  const selectCity = [];
+  cityLists?.forEach(item => selectCity.push(item.title));
 
   function getEmail(email) {
     console.log(email);
@@ -177,8 +213,12 @@ export const RegisterationContainer = ({navigation}) => {
       name: name,
       email: email,
       mobile: phoneNumber,
+      country_code: countryCode,
+      city: selectedCity,
+      state: selectedState,
       country: selectedCountry,
       password: password,
+      sponsor: formikSponsor,
     };
 
     let formDetails = [];
@@ -189,6 +229,8 @@ export const RegisterationContainer = ({navigation}) => {
       formDetails.push(encodeKey + '=' + encodeValue);
     }
     formDetails = formDetails.join('&');
+
+    console.log('from handleSubmit', formDetails);
 
     fetch(url, {
       method: 'POST',
@@ -212,6 +254,8 @@ export const RegisterationContainer = ({navigation}) => {
 
         // if data is matched
         if (json.Status === 'Success') {
+          console.log('from registeration', json);
+          dispatch(getUsersId(json.user_id));
           setIsRegisterationSuccess(true);
           Alert.alert(
             'Congratulations!!',
@@ -230,19 +274,19 @@ export const RegisterationContainer = ({navigation}) => {
   };
 
   // GETTING VALUES FROM FORMIK
-  function GetFormikValues() {
-    const {values} = useFormikContext();
-    console.log(values.name);
+  // function GetFormikValues() {
+  //   const {values} = useFormikContext();
+  //   // setSponsor(values.sponsor);
+  //   setFormikSponsor(values.sponsor);
+  //   const numArr = [one, two, three, four, five, six];
+  //   const numOtp = numArr.join('');
 
-    const numArr = [one, two, three, four, five, six];
-    const numOtp = numArr.join('');
+  //   useEffect(() => {}, [numOtp]);
 
-    useEffect(() => {}, [numOtp]);
+  //   // dispatch(getEmailOtpStatus(userEmail));
 
-    // dispatch(getEmailOtpStatus(userEmail));
-
-    return null;
-  }
+  //   return null;
+  // }
 
   useEffect(() => {
     if (sentMessageStatus === 'Error') {
@@ -302,6 +346,9 @@ export const RegisterationContainer = ({navigation}) => {
     selectedState
       ? setSelectStateInputColor(true)
       : setRegEmailInputColor(false);
+    selectedCity
+      ? setSelectCityInputColor(true)
+      : setSelectCityInputColor(false);
     phoneNumber
       ? setPhoneNumberInputColor(true)
       : setPhoneNumberInputColor(false);
@@ -332,26 +379,15 @@ export const RegisterationContainer = ({navigation}) => {
     userEmail,
     selectedCountry,
     selectedState,
+    selectedCity,
     phoneNumber,
     password,
     retypePassword,
   ]);
 
-  // TOAST
-  // !toggleCheckBox && Toast.show('checkBox must be checked', {
-  //   duration: Toast.durations.LONG,
-  //   position: Toast.positions.TOP,
-  //   shadow: true,
-  //   animation: true,
-  //   hideOnPress: true,
-  //   delay: 0,
-  // });
-
   return (
-    <SafeAreaView
-      style={{position: 'relative', flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
       <Loader loading={loading} />
-      {console.log('from first modal', firstModal)}
       <Modal
         isVisible={firstModal}
         deviceHeight={PixelDeviceHeight}
@@ -514,6 +550,7 @@ export const RegisterationContainer = ({navigation}) => {
             onPress={() => {
               const numArr = [one, two, three, four, five, six];
               const numOtp = numArr.join('');
+              Keyboard.dismiss();
               dispatch(checkOtpToVerifyEmail(formikEmail, numOtp));
             }}
             style={styles.button}
@@ -553,6 +590,7 @@ export const RegisterationContainer = ({navigation}) => {
               keyboardType="numeric"
               placeholder="0"
               value={one}
+              ref={firstInputRef}
               maxLength={1}
               autoFocus={true}
               blurOnSubmit={false}
@@ -575,7 +613,7 @@ export const RegisterationContainer = ({navigation}) => {
               }}
               onKeyPress={({nativeEvent}) => {
                 if (nativeEvent.key === 'Backspace') {
-                  secondInputRef.current.focus();
+                  firstInputRef.current.focus();
                   setOne();
                 }
               }}
@@ -673,23 +711,26 @@ export const RegisterationContainer = ({navigation}) => {
         contentContainerStyle="position"
         keyboardVerticalOffset="0">
         <ScrollView
+          showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
           containerStyle={{
             flex: 1,
             justifyContent: 'center',
             alignContent: 'center',
           }}>
-          <View style={{height: deviceHeight + 250}}>
+          <View style={{height: deviceHeight + 450}}>
             <Login>
               <Login.SmallLogoBox>
                 <LogoTop width={200} height={80} />
               </Login.SmallLogoBox>
             </Login>
 
-            <Login.LoginContainer containerHeight={containerHeight}>
+            <Login.LoginContainer containerHeight={{top: 13 + '%'}}>
               <Login.LoginFormBox>
                 <Login.LoginTitle>Registration</Login.LoginTitle>
-                <Login.LoginSubTitle>Welcome in Finpath</Login.LoginSubTitle>
+                <Login.LoginSubTitle>
+                  Welcome in Market Mirro
+                </Login.LoginSubTitle>
               </Login.LoginFormBox>
 
               <Formik
@@ -698,6 +739,7 @@ export const RegisterationContainer = ({navigation}) => {
                   email: '',
                   password: '',
                   retypePassword: '',
+                  sponsor: '',
                 }}
                 onSubmit={values =>
                   handleSubmitButton(
@@ -705,6 +747,7 @@ export const RegisterationContainer = ({navigation}) => {
                     values.email,
                     values.password,
                     values.retypePassword,
+                    values.sponsor,
                   )
                 }
                 enableReinitialize={true}
@@ -743,29 +786,29 @@ export const RegisterationContainer = ({navigation}) => {
                       <Login.IconBox>
                         <Email />
                       </Login.IconBox>
-                      <Pressable
-                        style={styles.inputTextPosition}
-                        onPress={() => {
-                          dispatch(sendOtpToVerifyEmail(values.email));
-                          setIsEmailVerify(true);
-                          // setFirstModal(true);
-                          setFormikEmail(values.email);
-                        }}>
-                        {verifyOtp ? (
-                          <View style={{top: 4}}>
-                            <VerifyCheck />
-                          </View>
-                        ) : (
+                      {verifyOtp ? (
+                        <View
+                          style={[styles.inputTextPosition, {marginTop: 7}]}>
+                          <VerifyCheck />
+                        </View>
+                      ) : (
+                        <Pressable
+                          style={styles.inputTextPosition}
+                          onPress={() => {
+                            dispatch(sendOtpToVerifyEmail(values.email));
+                            setIsEmailVerify(true);
+                            setFormikEmail(values.email);
+                          }}>
                           <Text
                             style={
                               values.email
-                                ? styles.textVerifyShown
+                                ? [styles.textVerifyShown, {top: 2}]
                                 : styles.textVerify
                             }>
                             Verify
                           </Text>
-                        )}
-                      </Pressable>
+                        </Pressable>
+                      )}
                       <Login.RegEmailTextInput
                         regEmailInputColor={values.email ? true : false}
                         placeholderTextColor={colors.lightGrey3}
@@ -798,9 +841,10 @@ export const RegisterationContainer = ({navigation}) => {
                             {marginLeft: -13})
                           }
                           selectedValue={selectedCountry}
-                          onValueChange={(itemValue, itemIndex) =>
-                            setSelectedCountry(itemValue)
-                          }>
+                          onValueChange={(itemValue, itemIndex) => (
+                            setSelectedCountry(itemValue),
+                            setSelectedCountryId(itemIndex)
+                          )}>
                           <Picker.Item
                             style={{
                               color: values.country
@@ -829,7 +873,7 @@ export const RegisterationContainer = ({navigation}) => {
                         </Text>
                       )
                     ) : null}
-                    {/* <Login.FormBox>
+                    <Login.FormBox>
                       <Login.Label>State</Login.Label>
                       <Login.IconBox down={down}>
                         <Country />
@@ -843,9 +887,10 @@ export const RegisterationContainer = ({navigation}) => {
                             {marginLeft: -13})
                           }
                           selectedValue={selectedState}
-                          onValueChange={(itemValue, itemIndex) =>
-                            setSelectedState(itemValue)
-                          }>
+                          onValueChange={(itemValue, itemIndex) => (
+                            setSelectedState(itemValue),
+                            setSelectedStateId(itemIndex)
+                          )}>
                           <Picker.Item
                             style={{
                               color: values.state
@@ -873,34 +918,34 @@ export const RegisterationContainer = ({navigation}) => {
                           State is required field
                         </Text>
                       )
-                    ) : null} */}
-                    {/* <Login.FormBox>
-                      <Login.Label>State</Login.Label>
+                    ) : null}
+                    <Login.FormBox>
+                      <Login.Label>City</Login.Label>
                       <Login.IconBox down={down}>
                         <Country />
                       </Login.IconBox>
                       <Registeration.Frame
-                        selectCountryInputColor={selectCountryInputColor}>
+                        selectCountryInputColor={selectCityInputColor}>
                         <Picker
                           ref={pickerRef}
                           style={
                             ({fontFamily: 'Opens Sans Serif'},
                             {marginLeft: -13})
                           }
-                          selectedValue={selectedCountry}
+                          selectedValue={selectedCity}
                           onValueChange={(itemValue, itemIndex) =>
-                            setSelectedCountry(itemValue)
+                            setSelectedCity(itemValue)
                           }>
                           <Picker.Item
                             style={{
-                              color: values.country
+                              color: values.city
                                 ? colors.primaryDark
                                 : colors.lightGrey3,
                             }}
-                            label={'Select Country'}
+                            label={'Select City'}
                             enabled={false}
                           />
-                          {selectCountry.map((list, i) => (
+                          {selectCity.map((list, i) => (
                             <Picker.Item
                               style={{color: '#212121', fontSize: 14}}
                               key={i}
@@ -913,12 +958,12 @@ export const RegisterationContainer = ({navigation}) => {
                     </Login.FormBox>
 
                     {visibility ? (
-                      selectedCountry ? null : (
+                      selectedCity ? null : (
                         <Text style={{color: 'red'}}>
                           Country is required field
                         </Text>
                       )
-                    ) : null} */}
+                    ) : null}
 
                     <Login.FormBox>
                       <Login.Label>Mobile</Login.Label>
@@ -951,7 +996,8 @@ export const RegisterationContainer = ({navigation}) => {
                           <PhoneInput
                             ref={phoneInput}
                             defaultValue={phoneNumber}
-                            placeholder="Please enter phone number"
+                            placeholder="Phone number"
+                            value={phoneNumber}
                             defaultCode="IN"
                             layout="second"
                             codeTextStyle={styles.container}
@@ -959,7 +1005,17 @@ export const RegisterationContainer = ({navigation}) => {
                             containerStyle={{width: '100%', height: 50}}
                             textContainerStyle={styles.textInput}
                             onBlur={() => setFieldTouched('phone')}
-                            onChangeFormattedText={text => setPhoneNumber(text)}
+                            onChangeText={num => {
+                              const number = /[0-9]+$/;
+                              const isNum = num.match(number);
+                              if (isNum) {
+                                const phoneNum = isNum.join('');
+                                setPhoneNumber(phoneNum);
+                              } else {
+                                setPhoneNumber();
+                              }
+                            }}
+                            onChangeCountry={item => setCountryCode(item)}
                           />
                         </View>
                       </Registeration.FormBoxPicker>
@@ -1017,6 +1073,36 @@ export const RegisterationContainer = ({navigation}) => {
                       visible={touched.retypePassword}
                     />
 
+                    {/* <View>
+                      <AppPicker setPickerValue={setStateValue} />
+                      <AppPicker setPickerValue={setCityValue} />
+                    </View> */}
+
+                    <Login.FormBox>
+                      <Login.Label>Referral Code (Optional)</Login.Label>
+                      <Login.IconBox>
+                        <AccountTree width={20} height={20} />
+                      </Login.IconBox>
+                      <Login.RegSponsorTextInput
+                        regSponsorInputColor={values.sponsor ? true : false}
+                        placeholderTextColor={colors.lightGrey3}
+                        placeholder="Refferal Code"
+                        // value={userName}
+                        onBlur={() => setFieldTouched('sponsor')}
+                        returnKeyType="next"
+                        autoCapitalize="none"
+                        name="sponsor"
+                        onChangeText={() => {
+                          setFormikSponsor(values.sponsor);
+                          handleChange('sponsor');
+                        }}
+                      />
+                    </Login.FormBox>
+                    <ErrorMessage
+                      error={errors.sponsor}
+                      visible={touched.sponsor}
+                    />
+
                     <View
                       style={[
                         {display: 'flex'},
@@ -1072,6 +1158,8 @@ export const RegisterationContainer = ({navigation}) => {
                           values.name &&
                           values.email &&
                           verifyOtp &&
+                          selectedCity &&
+                          selectedState &&
                           selectedCountry &&
                           phoneNumber &&
                           phoneOtpVerified &&
@@ -1085,7 +1173,7 @@ export const RegisterationContainer = ({navigation}) => {
                       </Login.RegFormButton>
                     </TouchableOpacity>
 
-                    <GetFormikValues />
+                    {/* <GetFormikValues /> */}
                   </>
                 )}
               </Formik>

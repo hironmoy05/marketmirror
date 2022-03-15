@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import SearchBar from 'react-native-dynamic-search-bar';
 import {useNavigation, StackActions} from '@react-navigation/native';
 import {
@@ -21,9 +21,22 @@ import AppText from '../components/appText';
 import {getListings} from '../store/listing';
 
 export const SearchContainer = () => {
+  const [filteredDataSource, setFilteredDataSource] = useState(null);
+
   const navigation = useNavigation();
   const details = useSelector(getListings);
   const listingDetails = details?.Data;
+
+  console.log(typeof listingDetails[0].category, typeof categoryId);
+
+  function getCategoryFiltered(id) {
+    listingDetails.map(item => {
+      if (Number(item.category) === id) {
+        console.log(item.category);
+        setFilteredDataSource(item);
+      }
+    });
+  }
 
   return (
     <>

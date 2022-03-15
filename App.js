@@ -18,6 +18,7 @@ import {
   requestUserPermission,
   notificationListener,
 } from './src/utils/notificationServices';
+import colors from './src/config/colors';
 
 const App = () => {
   useEffect(() => {
@@ -36,7 +37,12 @@ const App = () => {
           </PersistGate>
         </Provider>
       </NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar
+        style="auto"
+        barStyle="light-content"
+        hidden={false}
+        backgroundColor={colors.primary}
+      />
     </Fragment>
   );
 };
