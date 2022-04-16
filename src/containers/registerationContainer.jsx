@@ -35,7 +35,6 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {ref} from 'yup';
 import ErrorMessage from '../components/errorMessage';
-import {getUsersId} from '../store/dashboard';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFormikContext} from 'formik';
 
@@ -104,11 +103,15 @@ export const RegisterationContainer = ({navigation}) => {
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [selectedCountry, setSelectedCountry] = useState();
+  const [countryIndex, setCountryIndex] = useState();
   const [selectedCountryId, setSelectedCountryId] = useState();
   const [isCountryClicked, setIsCountryClicked] = useState(false);
   const [selectedState, setSelectedState] = useState();
+  const [stateIndex, setStateIndex] = useState();
   const [selectedStateId, setSelectedStateId] = useState();
   const [selectedCity, setSelectedCity] = useState();
+  const [cityIndex, setCityIndex] = useState();
+  const [selectedCityId, setSelectedCityId] = useState();
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState();
   const [password, setPassword] = useState('');
@@ -139,7 +142,7 @@ export const RegisterationContainer = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getCountryLists());
-  }, [mailOtpStatus]);
+  }, [sentMessageStatus]);
 
   useEffect(() => {
     dispatch(getStateLists(selectedCountryId));
@@ -151,14 +154,36 @@ export const RegisterationContainer = ({navigation}) => {
 
   const selectCountry = [];
   countryLists?.forEach(item => selectCountry.push(item.title));
+  useEffect(() => {
+    countryLists?.find(
+      item =>
+        item.title === selectCountry[countryIndex - 1] &&
+        setSelectedCountryId(item.id),
+    );
+  }, [countryIndex]);
+
+  // item => item.title === selectCountry[0] && console.log('from find ', item)
 
   // Set States
   const selectState = [];
   stateLists?.forEach(item => selectState.push(item.title));
+  useEffect(() => {
+    stateLists?.find(
+      item =>
+        item.title === selectState[stateIndex - 1] &&
+        setSelectedStateId(item.id),
+    );
+  }, [stateIndex]);
 
   // Set cities
   const selectCity = [];
   cityLists?.forEach(item => selectCity.push(item.title));
+  useEffect(() => {
+    cityLists?.find(
+      item =>
+        item.title === selectCity[cityIndex - 1] && setSelectedCityId(item.id),
+    );
+  }, [cityIndex]);
 
   function getEmail(email) {
     console.log(email);
@@ -202,7 +227,14 @@ export const RegisterationContainer = ({navigation}) => {
 
   const url = BASE_URL + USER_REGISTER;
 
-  console.log(phoneNumber);
+  console.log(
+    'country id:',
+    selectedCountryId,
+    'state id:',
+    selectedStateId,
+    'city id:',
+    selectedCityId,
+  );
 
   const handleSubmitButton = (name, email, password) => {
     setErrorText('');
@@ -213,12 +245,12 @@ export const RegisterationContainer = ({navigation}) => {
       name: name,
       email: email,
       mobile: phoneNumber,
-      country_code: countryCode,
-      city: selectedCity,
-      state: selectedState,
-      country: selectedCountry,
+      country_code: countryCode ? countryCode : '91',
+      city_id: selectedCityId,
+      state_id: selectedStateId,
+      country_id: selectedCountryId,
       password: password,
-      sponsor: formikSponsor,
+      sponsor: !!formikSponsor ? formikSponsor : '',
     };
 
     let formDetails = [];
@@ -229,8 +261,7 @@ export const RegisterationContainer = ({navigation}) => {
       formDetails.push(encodeKey + '=' + encodeValue);
     }
     formDetails = formDetails.join('&');
-
-    console.log('from handleSubmit', formDetails);
+    console.log('formDetails', formDetails);
 
     fetch(url, {
       method: 'POST',
@@ -254,7 +285,6 @@ export const RegisterationContainer = ({navigation}) => {
 
         // if data is matched
         if (json.Status === 'Success') {
-          console.log('from registeration', json);
           dispatch(getUsersId(json.user_id));
           setIsRegisterationSuccess(true);
           Alert.alert(
@@ -263,7 +293,6 @@ export const RegisterationContainer = ({navigation}) => {
             [{text: 'OK', onPress: () => navigation.navigate('Login')}],
           );
         } else {
-          console.log(json.Status);
           setErrorText(json.Status);
         }
       })
@@ -272,21 +301,6 @@ export const RegisterationContainer = ({navigation}) => {
         console.log(error);
       });
   };
-
-  // GETTING VALUES FROM FORMIK
-  // function GetFormikValues() {
-  //   const {values} = useFormikContext();
-  //   // setSponsor(values.sponsor);
-  //   setFormikSponsor(values.sponsor);
-  //   const numArr = [one, two, three, four, five, six];
-  //   const numOtp = numArr.join('');
-
-  //   useEffect(() => {}, [numOtp]);
-
-  //   // dispatch(getEmailOtpStatus(userEmail));
-
-  //   return null;
-  // }
 
   useEffect(() => {
     if (sentMessageStatus === 'Error') {
@@ -843,7 +857,7 @@ export const RegisterationContainer = ({navigation}) => {
                           selectedValue={selectedCountry}
                           onValueChange={(itemValue, itemIndex) => (
                             setSelectedCountry(itemValue),
-                            setSelectedCountryId(itemIndex)
+                            setCountryIndex(itemIndex)
                           )}>
                           <Picker.Item
                             style={{
@@ -889,7 +903,7 @@ export const RegisterationContainer = ({navigation}) => {
                           selectedValue={selectedState}
                           onValueChange={(itemValue, itemIndex) => (
                             setSelectedState(itemValue),
-                            setSelectedStateId(itemIndex)
+                            setStateIndex(itemIndex)
                           )}>
                           <Picker.Item
                             style={{
@@ -933,9 +947,9 @@ export const RegisterationContainer = ({navigation}) => {
                             {marginLeft: -13})
                           }
                           selectedValue={selectedCity}
-                          onValueChange={(itemValue, itemIndex) =>
-                            setSelectedCity(itemValue)
-                          }>
+                          onValueChange={(itemValue, itemIndex) => (
+                            setSelectedCity(itemValue), setCityIndex(itemIndex)
+                          )}>
                           <Picker.Item
                             style={{
                               color: values.city
@@ -1015,7 +1029,9 @@ export const RegisterationContainer = ({navigation}) => {
                                 setPhoneNumber();
                               }
                             }}
-                            onChangeCountry={item => setCountryCode(item)}
+                            onChangeCountry={item =>
+                              setCountryCode(item.callingCode[0])
+                            }
                           />
                         </View>
                       </Registeration.FormBoxPicker>
@@ -1064,6 +1080,7 @@ export const RegisterationContainer = ({navigation}) => {
                         onBlur={() => setFieldTouched('retypePassword')}
                         secureTextEntry={true}
                         name="retypePassword"
+                        // onSubmitEditing={handleSubmitButton}
                         onChangeText={handleChange('retypePassword')}
                       />
                     </Login.FormBox>
@@ -1092,10 +1109,10 @@ export const RegisterationContainer = ({navigation}) => {
                         returnKeyType="next"
                         autoCapitalize="none"
                         name="sponsor"
-                        onChangeText={() => {
-                          setFormikSponsor(values.sponsor);
-                          handleChange('sponsor');
-                        }}
+                        onChangeText={() => (
+                          setFormikSponsor(values.sponsor),
+                          handleChange('sponsor')
+                        )}
                       />
                     </Login.FormBox>
                     <ErrorMessage

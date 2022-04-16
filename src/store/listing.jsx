@@ -1,10 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {apiRequest} from './api';
-import {GET_LISTING, GET_LISTINGDETAIL} from '../constants/urls';
+import {
+  GET_LISTING,
+  GET_LISTINGDETAIL,
+  GET_DASHBOARD_CATEGORY_List,
+} from '../constants/urls';
 
 export const slice = createSlice({
   name: 'listing',
   initialState: {
+    dashLists: [],
     listingDetails: [],
     filterdCategoryDetails: [],
   },
@@ -12,17 +17,69 @@ export const slice = createSlice({
     listingReceived: (listing, action) => {
       listing.listingDetails = action.payload;
     },
+    dashListings: (dashListing, action) => {
+      dashListing.dashLists = action.payload;
+    },
   },
 });
 
-export const {listingReceived, getFilterdDetails} = slice.actions;
+export const {listingReceived, getFilterdDetails, dashListings} = slice.actions;
 export default slice.reducer;
 
 // Action creators
-export const loadLists = userId => (dispatch, getState) => {
+
+export const dashLists =
+  (userId, countryId, stateId, cityId) => (dispatch, getState) => {
+    const url = GET_DASHBOARD_CATEGORY_List;
+
+    const dataToSend = {
+      user_id: userId,
+      country_id: countryId,
+      state_id: stateId,
+      city_id: cityId,
+    };
+
+    const formDetails = [];
+
+    for (let key in dataToSend) {
+      const encodeKey = encodeURIComponent(key);
+      const encodeValue = encodeURIComponent(dataToSend[key]);
+      formDetails.push(`${encodeKey}=${encodeValue}`);
+    }
+
+    const body = formDetails.join('&');
+
+    dispatch(
+      apiRequest({
+        url,
+        method: 'POST',
+        data: body,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        onSuccess: dashListings.type,
+      }),
+    );
+  };
+
+export const loadLists = (userId, category) => (dispatch, getState) => {
   const url = GET_LISTING;
 
-  const body = 'user_id=' + userId;
+  const dataToSend = {
+    user_id: userId,
+    cat: category,
+  };
+
+  let formDetails = [];
+
+  for (let key in dataToSend) {
+    const encodedKey = encodeURIComponent(key);
+    const encodedValue = encodeURIComponent(dataToSend[key]);
+    formDetails.push(`${encodedKey}=${encodedValue}`);
+  }
+
+  const body = formDetails.join('&');
+  console.log('check get Listing from listing reducer', body);
 
   dispatch(
     apiRequest({
@@ -38,4 +95,6 @@ export const loadLists = userId => (dispatch, getState) => {
 };
 
 // Selector
-export const getListings = state => state.entities.listings.listingDetails;
+export let getListings = state => state.entities.listings.listingDetails;
+
+export const getDashListings = state => state.entities.listings.dashLists.Data;

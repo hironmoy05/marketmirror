@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchBar from 'react-native-dynamic-search-bar';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import {useNavigation, StackActions, useRoute} from '@react-navigation/native';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -13,31 +13,37 @@ import {
 import {useSelector} from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch} from 'react-redux';
 
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirrorLogo from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
 import AppText from '../components/appText';
 import {getListings} from '../store/listing';
+import {loadLists, getDashListings} from '../store/listing';
+import {getUserIdFromStore} from '../store/bugs';
 
 export const SearchContainer = () => {
+  const dispatch = useDispatch();
+
   const [filteredDataSource, setFilteredDataSource] = useState(null);
 
   const navigation = useNavigation();
+  const Route = useRoute();
   const details = useSelector(getListings);
-  const listingDetails = details?.Data;
+  let listingDetails = details?.Data;
+  const categoryId = Number(Route?.params?.id);
+  const Uid = useSelector(getUserIdFromStore);
 
-  console.log(typeof listingDetails[0].category, typeof categoryId);
+  useEffect(() => {
+    if (categoryId) {
+      dispatch(loadLists(Uid, categoryId));
+    } else {
+      listingDetails = [];
+    }
+  }, [categoryId]);
 
-  function getCategoryFiltered(id) {
-    listingDetails.map(item => {
-      if (Number(item.category) === id) {
-        console.log(item.category);
-        setFilteredDataSource(item);
-      }
-    });
-  }
-
+  console.log('listingDetails', listingDetails);
   return (
     <>
       <View style={styles.searchContainer}>
@@ -77,19 +83,11 @@ export const SearchContainer = () => {
 
       <FlatList
         data={listingDetails}
-        keyExtractor={item => item.id}
-        initialNumToRender={8}
-        initialScrollIndex={5}
-        maxToRenderPerBatch={10}
+        keyExtractor={item => item?.id}
         refreshing={true}
         renderItem={({item}) => (
           <Pressable
-            onPress={() =>
-              // navigation.dispatch(
-              //   StackActions.replace('DetailPage', {id: item.id}),
-              // )
-              navigation.navigate('DetailPage', {id: item.id})
-            }
+            onPress={() => navigation.navigate('DetailPage', {id: item?.id})}
             android_ripple={{color: colors.primaryLight}}
             style={styles.resultContainer}>
             <View style={styles.resultDetails}>
@@ -103,14 +101,14 @@ export const SearchContainer = () => {
                     marginLeft: -5,
                   }}
                   source={{
-                    uri: `${item.front_img1}`,
+                    uri: `${item?.front_img1}`,
                   }}
                 />
               </View>
               <View style={styles.detailBox}>
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title}>{item?.title}</Text>
                 <View style={{width: '88%'}}>
-                  <Text style={{marginTop: 2}}>{item.address}</Text>
+                  <Text style={{marginTop: 2}}>{item?.address}</Text>
                 </View>
                 <View style={styles.rating}>
                   <Text>
@@ -120,7 +118,7 @@ export const SearchContainer = () => {
                       color={colors.primary}
                     />
                     {'   '}
-                    {item.contact_person}
+                    {item?.contact_person}
                   </Text>
                 </View>
                 <Text>
@@ -130,10 +128,10 @@ export const SearchContainer = () => {
                     color={colors.primary}
                   />
                   {'   '}
-                  {item.reg_mobile}
+                  {item?.reg_mobile}
                 </Text>
                 <Text style={{width: '88%'}}>
-                  {item.website ? (
+                  {item?.website ? (
                     <MaterialCommunityIcons
                       name="web"
                       size={15}
@@ -147,7 +145,7 @@ export const SearchContainer = () => {
                     />
                   )}
                   {'   '}
-                  {item.website ? item.website : item.email}
+                  {item?.website ? item?.website : item?.email}
                 </Text>
                 <Text>
                   <MaterialCommunityIcons
@@ -156,7 +154,7 @@ export const SearchContainer = () => {
                     color={colors.primary}
                   />
                   {'   '}
-                  {item.opening_time}
+                  {item?.opening_time}
                 </Text>
               </View>
             </View>

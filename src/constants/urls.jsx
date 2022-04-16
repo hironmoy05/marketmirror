@@ -10,13 +10,12 @@ export const GET_VERIFY_EMAIL = '/SendOTPToVerifyEmail';
 export const VERIFY_EMAIL_OTP = '/VerifyEmailOtp';
 export const YOUR_CLIENT_ID = 'mon3223231';
 
-export const DASHBOARD_CATEGORY = '/GetDashboardCategoryList';
-export const GET_LISTING = '/GetListing';
-export const GET_LISTINGDETAIL = '/GetListingDetail';
-
 export const GET_STATELISTING = '/GetStateList';
 export const GET_CITYLISTING = '/GetCityList';
 export const GET_COUNTRYLISTING = '/GetCountryList';
+export const GET_DASHBOARD_CATEGORY_List = '/GetDashboardCategoryList';
+export const GET_LISTING = '/GetListing';
+export const GET_LISTINGDETAIL = '/GetListingDetail';
 
 // Firebase
 export const SERVICE_ID = 482431739326;

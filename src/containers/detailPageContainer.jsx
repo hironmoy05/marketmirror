@@ -65,15 +65,14 @@ export const DetailPageContainer = () => {
 
   useEffect(() => {
     details.forEach(item => {
-      if (item.id === route.params.id) {
-        console.log(item);
+      if (item?.id === route?.params.id) {
         setCurrentDetails(item);
       }
     });
   }, [detailsId]);
 
   function mobileNumber() {
-    const arrayNum = currentDetails.reg_mobile?.split('');
+    const arrayNum = currentDetails?.reg_mobile?.split('');
 
     if (arrayNum?.length > 10) {
       const filterArray = arrayNum?.filter(
@@ -269,15 +268,37 @@ export const DetailPageContainer = () => {
             </TouchableOpacity>
             <View style={styles.divider2} />
           </>
-        ) : currentDetails.whatsApp === '' ? null : (
+        ) : currentDetails?.whatsapp === '' ? (
           <>
-            <View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: '5%',
+              }}>
+              <MaterialCommunityIcons name="phone" size={20} color={'grey'} />
+              <AppText style={{marginLeft: 12, fontSize: 15}}>
+                {currentDetails?.mobile}
+              </AppText>
+            </View>
+            <View style={styles.divider2} />
+          </>
+        ) : (
+          <>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginTop: '5%',
+              }}>
               <MaterialCommunityIcons
-                name="whatsApp"
+                name="whatsapp"
                 size={20}
-                color={'green'}
+                color={'grey'}
               />
-              <AppText>{currentDetails.whatsApp}</AppText>
+              <AppText style={{marginLeft: 12}}>
+                {currentDetails?.whatsapp}
+              </AppText>
             </View>
             <View style={styles.divider2} />
           </>

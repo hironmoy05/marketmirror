@@ -6,7 +6,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const HomeContainer = ({navigation}) => {
   function handleSwiper() {
     AsyncStorage.getItem('userId').then(data => {
-      return data ? navigation.replace('Login') : navigation.replace('Swiper');
+      return !!data
+        ? navigation.replace('Login')
+        : navigation.replace('Swiper');
     });
   }
 

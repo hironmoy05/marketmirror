@@ -18,7 +18,6 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  BackHandler,
   Keyboard,
   SafeAreaView,
   LogBox,
@@ -31,7 +30,8 @@ import Loader from './loaderContainer';
 import Cross from '../assets/cross.svg';
 import {calcWidth} from '../responsive';
 import {signoutRequest} from '../store/api';
-import {getUserId, getUsersId} from '../store/bugs';
+import {getUserId} from '../store/bugs';
+import {dashLists} from '../store/listing';
 import {
   verifyEmail,
   verifyOtp,
@@ -40,7 +40,6 @@ import {
   isOtpVerified,
   resetPasswordMsg,
 } from '../store/forgot';
-import {getDashDetails} from '../store/dashboard';
 import {BASE_URL, USER_LOGIN, YOUR_CLIENT_ID} from '../constants/urls';
 import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
@@ -68,8 +67,6 @@ export const LoginContainer = ({navigation}) => {
   const forgotEmail = useSelector(msgReceived);
   const otpVerified = useSelector(isOtpVerified);
   const resetPass = useSelector(resetPasswordMsg);
-  const dashDetails = useSelector(getDashDetails);
-  // const usersId = useSelector(getUsersId);
 
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -134,15 +131,17 @@ export const LoginContainer = ({navigation}) => {
   const [five, setFive] = useState();
   const [six, setSix] = useState();
 
-  const handleSubmitPress = (userEmail, password) => {
+  const handleSubmitPress = async (userEmail, password) => {
     setErrorText('');
 
     setLoading(true);
 
+    const fcmToken = await AsyncStorage.getItem('fcmToken');
+
     let dataToSend = {
       email: userEmail,
       password: password,
-      device_id: YOUR_CLIENT_ID,
+      device_id: fcmToken,
     };
     let formDetails = [];
 
@@ -172,19 +171,19 @@ export const LoginContainer = ({navigation}) => {
       })
       .then(async json => {
         setLoading(false);
-        console.log('from LoginContainer', json);
 
         // if login credenial is same
         if (json.Status === 'Success') {
-          // console.log(json)
-
           const userKey = json.user_detail.access_key;
           const email = json.user_detail.email;
           const name = json.user_detail.name;
           const id = json.user_detail.uid;
+          const countryId = json.country_id;
+          const stateId = json.state_id;
+          const cityId = json.city_id;
 
           dispatch(getUserId(id));
-          // store.dispatch(getUserId(id))
+          dispatch(dashLists(id, countryId, stateId, cityId));
 
           await AsyncStorage.multiSet([
             ['userId', userKey],
@@ -241,23 +240,6 @@ export const LoginContainer = ({navigation}) => {
       ? setConfirmNewPasswordTextColor(true)
       : setConfirmNewPasswordTextColor(false);
   });
-
-  useEffect(() => {
-    // dispatch(loadDash('Uttar Pradesh', usersId));
-  }, []);
-  console.log('DAShDEtails', dashDetails);
-
-  function backAction() {
-    BackHandler.exitApp();
-  }
-
-  useEffect(() => {
-    // dispatch(signoutRequest());
-    BackHandler.addEventListener('hardwareBackPress', backAction);
-
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
-  }, []);
 
   // Email Verify
   useEffect(() => {
@@ -849,7 +831,7 @@ export const LoginContainer = ({navigation}) => {
                         placeholderTextColor={colors.lightGrey3}
                         placeholder="Please enter password"
                         keyboardType="default"
-                        onSubmitEditing={Keyboard.dismiss}
+                        onSubmitEditing={handleSubmit}
                         blurOnSubmit={true}
                         secureTextEntry={secureText}
                         onBlur={() => setFieldTouched('password')}

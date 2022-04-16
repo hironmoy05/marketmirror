@@ -14,6 +14,7 @@ import {Provider} from 'react-redux';
 import {store, persistor} from './src/store/configureStore';
 import {PersistGate} from 'redux-persist/integration/react';
 import {RootSiblingParent} from 'react-native-root-siblings';
+
 import {
   requestUserPermission,
   notificationListener,

@@ -1,59 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
+  Image,
+  LogBox,
 } from 'react-native';
 import {HomeTab} from '../components';
 import {SearchBox} from '../components/searchBox';
 import Swiper from 'react-native-swiper';
 
 import colors from '../config/colors';
-import Beauty from '../assets/new/beauty.svg';
-import Grocery from '../assets/new/grocery.svg';
-import HomeRepairService from '../assets/new/home repair services.svg';
-import Home from '../assets/new/home.svg';
-import Medication from '../assets/new/medication.svg';
-import Movies from '../assets/new/movies.svg';
-import RealEstate from '../assets/new/real estate.svg';
-import Shopping from '../assets/new/shoping.svg';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-
-import {getUserIdFromStore} from '../store/bugs';
-import {loadLists} from '../store/listing';
-import {getListings, getFilterdDetails} from '../store/listing';
+import {useNavigation} from '@react-navigation/native';
+import {loadLists, getDashListings} from '../store/listing';
 
 export const HomeTabContainer = () => {
-  const [filteredDataSource, setFilteredDataSource] = useState(null);
+  const navigation = useNavigation();
+  const dashlists = useSelector(getDashListings);
 
-  const dispatch = useDispatch();
-  const Uid = useSelector(getUserIdFromStore);
-  const details = useSelector(getListings);
-  const listingDetails = details?.Data;
-
-  useEffect(() => {
-    dispatch(loadLists(Uid));
-    // fetch('https://api.marketmirror.info/RestApiV2/GetStateList')
-    //   .then(res => res.json())
-    //   .then(data => console.log(data))
-    //   .catch(error => console.log(error));
-  }, []);
-
-  const categoryId = details ?? Number(listingDetails[0].category);
-
-  // console.log(typeof listingDetails[0].category, typeof categoryId);
-
-  function getCategoryFiltered(id) {
-    listingDetails.map(item => {
-      if (Number(item.category) === id) {
-        console.log(item);
-        setFilteredDataSource(item);
-      }
-    });
-  }
+  LogBox.ignoreLogs(['ImmutableStateInvariantMiddleware']);
 
   return (
     <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
@@ -63,7 +32,7 @@ export const HomeTabContainer = () => {
         </HomeTab.Container>
 
         {/* Swiper */}
-        <View style={styles.swiperContainer}>
+        <View style={[styles.swiperContainer, {flex: 0.5}]}>
           <Swiper
             style={styles.wrapper}
             autoplay={true}
@@ -75,6 +44,12 @@ export const HomeTabContainer = () => {
                 <View style={styles.bottomViewBox}>
                   <View style={styles.imageBox}>
                     {/* <Business width={200} height={200} /> */}
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={{
+                        uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
+                      }}
+                    />
                   </View>
                 </View>
               </View>
@@ -84,6 +59,12 @@ export const HomeTabContainer = () => {
                 <View style={styles.bottomViewBox}>
                   <View style={styles.imageBox}>
                     {/* <Jobs width={200} height={200} /> */}
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={{
+                        uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
+                      }}
+                    />
                   </View>
                 </View>
               </View>
@@ -93,6 +74,12 @@ export const HomeTabContainer = () => {
                 <View style={styles.bottomViewBox}>
                   <View style={styles.imageBox}>
                     {/* <Community width={200} height={200} /> */}
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={{
+                        uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
+                      }}
+                    />
                   </View>
                 </View>
               </View>
@@ -102,6 +89,12 @@ export const HomeTabContainer = () => {
                 <View style={styles.bottomViewBox}>
                   <View style={styles.imageBox}>
                     {/* <RealEstate width={200} height={200} /> */}
+                    <Image
+                      style={{width: '100%', height: '100%'}}
+                      source={{
+                        uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
+                      }}
+                    />
                   </View>
                 </View>
               </View>
@@ -110,48 +103,28 @@ export const HomeTabContainer = () => {
         </View>
 
         {/* Services */}
-        <ScrollView>
+        <ScrollView style={{flex: 0.4, marginBottom: '18%'}}>
           <View style={styles.container}>
             <View style={styles.services}>
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => getCategoryFiltered(50)}
-                style={styles.servicesBox}>
-                <Beauty width={45} height={45} />
-                <Text
-                  numberOfLines={1}
-                  style={[styles.subTitle, {width: '70%'}]}>
-                  B2B Services
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <Grocery width={45} height={45} />
-                <Text style={styles.subTitle}>Grocery</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <HomeRepairService width={45} height={45} />
-                <Text style={styles.subTitle}>Home Service</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <Home width={45} height={45} />
-                <Text style={styles.subTitle}>Home</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <Medication width={45} height={45} />
-                <Text style={styles.subTitle}>Medication</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <Movies width={45} height={45} />
-                <Text style={styles.subTitle}>Movies</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <RealEstate width={45} height={45} />
-                <Text style={styles.subTitle}>Real Estate</Text>
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.5} style={styles.servicesBox}>
-                <Shopping width={45} height={45} />
-                <Text style={styles.subTitle}>Shopping</Text>
-              </TouchableOpacity>
+              {dashlists?.map(item => (
+                <TouchableOpacity
+                  key={item.id}
+                  activeOpacity={0.5}
+                  onPress={() => navigation.navigate('Search', {id: item?.id})}
+                  style={styles.servicesBox}>
+                  {/* <Beauty width={45} height={45} /> */}
+                  {/* <SvgWithCssUri width={45} height={45} uri={item?.icon} /> */}
+                  <Image
+                    style={{width: 40, height: 44}}
+                    source={{uri: item?.image}}
+                  />
+                  <Text
+                    numberOfLines={1}
+                    style={[styles.subTitle, {width: '80%'}]}>
+                    {item?.title}
+                  </Text>
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
         </ScrollView>
@@ -183,7 +156,7 @@ const styles = StyleSheet.create({
     color: colors.black,
     marginTop: '10%',
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 10,
   },
 
   // Swiper

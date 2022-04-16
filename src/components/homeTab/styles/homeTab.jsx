@@ -2,8 +2,7 @@ import Styled from 'styled-components/native';
 import {deviceHeight} from '../../../responsive';
 
 export const Item = Styled.View`
-    height: ${deviceHeight}px;
-    position: relative;
+    flex: 1;
 `;
 
 export const Container = Styled.View`
