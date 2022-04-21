@@ -1,5 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {apiRequest} from './api';
+import { createSlice } from '@reduxjs/toolkit';
+import { apiRequest } from './api';
 import {
   GET_LISTING,
   GET_LISTINGDETAIL,
@@ -23,7 +23,7 @@ export const slice = createSlice({
   },
 });
 
-export const {listingReceived, getFilterdDetails, dashListings} = slice.actions;
+export const { listingReceived, getFilterdDetails, dashListings } = slice.actions;
 export default slice.reducer;
 
 // Action creators
@@ -62,11 +62,12 @@ export const dashLists =
     );
   };
 
-export const loadLists = (userId, category) => (dispatch, getState) => {
+export const loadLists = (userId, keyword, category) => (dispatch, getState) => {
   const url = GET_LISTING;
 
   const dataToSend = {
     user_id: userId,
+    key: keyword,
     cat: category,
   };
 

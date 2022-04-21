@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from 'react-native-dynamic-search-bar';
-import {useNavigation, StackActions, useRoute} from '@react-navigation/native';
+import { useNavigation, StackActions, useRoute } from '@react-navigation/native';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -10,21 +10,22 @@ import {
   Pressable,
   View,
 } from 'react-native';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirrorLogo from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
 import AppText from '../components/appText';
-import {getListings} from '../store/listing';
-import {loadLists, getDashListings} from '../store/listing';
-import {getUserIdFromStore} from '../store/bugs';
+import { getListings } from '../store/listing';
+import { loadLists, getDashListings } from '../store/listing';
+import { getUserIdFromStore } from '../store/bugs';
 
 export const SearchContainer = () => {
   const dispatch = useDispatch();
+  const [search, setSearch] = useState(false);
 
   const [filteredDataSource, setFilteredDataSource] = useState(null);
 
@@ -35,6 +36,20 @@ export const SearchContainer = () => {
   const categoryId = Number(Route?.params?.id);
   const Uid = useSelector(getUserIdFromStore);
 
+  const searchByKey = (cb, d) => {
+    let timer;
+
+    return function (...args) {
+      if (timer) clearTimeout(timer);
+
+      timer = setTimeout(() => {
+        cb(...args)
+      }, d)
+    }
+  }
+
+  const handleChange = searchByKey(e => { dispatch(loadLists(Uid, e)); e ? setSearch(true) : setSearch(false) }, 1000)
+
   useEffect(() => {
     if (categoryId) {
       dispatch(loadLists(Uid, categoryId));
@@ -43,11 +58,11 @@ export const SearchContainer = () => {
     }
   }, [categoryId]);
 
-  console.log('listingDetails', listingDetails);
+  console.log('listingDetails', categoryId, Uid);
   return (
     <>
       <View style={styles.searchContainer}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <TouchableOpacity
             style={{
               marginTop: 9,
@@ -77,129 +92,130 @@ export const SearchContainer = () => {
           }}
           placeholder="Search here"
           onPress={() => alert('hello')}
-          onChangeText={text => console.log(text)}
+          onChangeText={handleChange}
         />
       </View>
-
-      <FlatList
-        data={listingDetails}
-        keyExtractor={item => item?.id}
-        refreshing={true}
-        renderItem={({item}) => (
-          <Pressable
-            onPress={() => navigation.navigate('DetailPage', {id: item?.id})}
-            android_ripple={{color: colors.primaryLight}}
-            style={styles.resultContainer}>
-            <View style={styles.resultDetails}>
-              <View styles={styles.imageBox}>
-                <Image
-                  resizeMode="cover"
-                  style={{
-                    width: 80,
-                    height: 120,
-                    paddingLeft: 0,
-                    marginLeft: -5,
-                  }}
-                  source={{
-                    uri: `${item?.front_img1}`,
-                  }}
-                />
-              </View>
-              <View style={styles.detailBox}>
-                <Text style={styles.title}>{item?.title}</Text>
-                <View style={{width: '88%'}}>
-                  <Text style={{marginTop: 2}}>{item?.address}</Text>
+      {
+        <FlatList
+          data={categoryId || search && listingDetails}
+          keyExtractor={item => item?.id}
+          refreshing={true}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => navigation.navigate('DetailPage', { id: item?.id })}
+              android_ripple={{ color: colors.primaryLight }}
+              style={styles.resultContainer}>
+              <View style={styles.resultDetails}>
+                <View styles={styles.imageBox}>
+                  <Image
+                    resizeMode="cover"
+                    style={{
+                      width: 80,
+                      height: 120,
+                      paddingLeft: 0,
+                      marginLeft: -5,
+                    }}
+                    source={{
+                      uri: `${item?.front_img1}`,
+                    }}
+                  />
                 </View>
-                <View style={styles.rating}>
+                <View style={styles.detailBox}>
+                  <Text style={styles.title}>{item?.title}</Text>
+                  <View style={{ width: '88%' }}>
+                    <Text style={{ marginTop: 2 }}>{item?.address}</Text>
+                  </View>
+                  <View style={styles.rating}>
+                    <Text>
+                      <MaterialCommunityIcons
+                        name="account"
+                        size={15}
+                        color={colors.primary}
+                      />
+                      {'   '}
+                      {item?.contact_person}
+                    </Text>
+                  </View>
                   <Text>
                     <MaterialCommunityIcons
-                      name="account"
+                      name="phone"
                       size={15}
                       color={colors.primary}
                     />
                     {'   '}
-                    {item?.contact_person}
+                    {item?.reg_mobile}
+                  </Text>
+                  <Text style={{ width: '88%' }}>
+                    {item?.website ? (
+                      <MaterialCommunityIcons
+                        name="web"
+                        size={15}
+                        color={colors.primary}
+                      />
+                    ) : (
+                      <MaterialCommunityIcons
+                        name="email"
+                        size={15}
+                        color={colors.primary}
+                      />
+                    )}
+                    {'   '}
+                    {item?.website ? item?.website : item?.email}
+                  </Text>
+                  <Text>
+                    <MaterialCommunityIcons
+                      name="clock-outline"
+                      size={15}
+                      color={colors.primary}
+                    />
+                    {'   '}
+                    {item?.opening_time}
                   </Text>
                 </View>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="phone"
-                    size={15}
-                    color={colors.primary}
-                  />
-                  {'   '}
-                  {item?.reg_mobile}
-                </Text>
-                <Text style={{width: '88%'}}>
-                  {item?.website ? (
+              </View>
+              <View style={[styles.bottomText, { flexDirection: 'row' }]}>
+                <View
+                  style={{
+                    width: 50,
+                    height: 20,
+                    backgroundColor: colors.primary,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: 5,
+                  }}>
+                  <Text>
                     <MaterialCommunityIcons
-                      name="web"
+                      name="star"
+                      size={15}
+                      color={colors.white}
+                    />
+                  </Text>
+                  <Text style={{ marginLeft: 8, top: -0.6, color: colors.white }}>
+                    {item.rating}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    marginLeft: 'auto',
+                    marginRight: 20,
+                    flexDirection: 'row',
+                  }}>
+                  <Text style={{ top: 2 }}>
+                    <MaterialIcons
+                      name="local-offer"
                       size={15}
                       color={colors.primary}
                     />
-                  ) : (
-                    <MaterialCommunityIcons
-                      name="email"
-                      size={15}
-                      color={colors.primary}
-                    />
-                  )}
-                  {'   '}
-                  {item?.website ? item?.website : item?.email}
-                </Text>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="clock-outline"
-                    size={15}
-                    color={colors.primary}
-                  />
-                  {'   '}
-                  {item?.opening_time}
-                </Text>
+                    {'   '}
+                  </Text>
+                  <Text>{item.category}</Text>
+                </View>
               </View>
-            </View>
-            <View style={[styles.bottomText, {flexDirection: 'row'}]}>
-              <View
-                style={{
-                  width: 50,
-                  height: 20,
-                  backgroundColor: colors.primary,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 5,
-                }}>
-                <Text>
-                  <MaterialCommunityIcons
-                    name="star"
-                    size={15}
-                    color={colors.white}
-                  />
-                </Text>
-                <Text style={{marginLeft: 8, top: -0.6, color: colors.white}}>
-                  {item.rating}
-                </Text>
-              </View>
-              <View
-                style={{
-                  marginLeft: 'auto',
-                  marginRight: 20,
-                  flexDirection: 'row',
-                }}>
-                <Text style={{top: 2}}>
-                  <MaterialIcons
-                    name="local-offer"
-                    size={15}
-                    color={colors.primary}
-                  />
-                  {'   '}
-                </Text>
-                <Text>{item.category}</Text>
-              </View>
-            </View>
-          </Pressable>
-        )}
-      />
+            </Pressable>
+          )}
+        />
+      }
     </>
   );
 };

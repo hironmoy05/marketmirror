@@ -41,6 +41,8 @@ export const SplashContainer = ({navigation}) => {
         },
       );
     }, 5000);
+
+    return () => console.log('Unmounted from splash contaier');
   }, []);
 
   return (
