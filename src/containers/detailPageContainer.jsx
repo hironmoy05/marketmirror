@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from 'react-native-dynamic-search-bar';
-import {useNavigation, StackActions, useRoute} from '@react-navigation/native';
+import { useNavigation, StackActions, useRoute } from '@react-navigation/native';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -12,7 +12,7 @@ import {
   Linking,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Share from 'react-native-share';
@@ -23,7 +23,8 @@ import Redo from '../assets/redo2.svg';
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirror from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
-import {getListings} from '../store/listing';
+import { getListings } from '../store/listing';
+import { SearchBox } from '../components/searchBox';
 
 export const DetailPageContainer = () => {
   const [currentDetails, setCurrentDetails] = useState('');
@@ -93,7 +94,7 @@ export const DetailPageContainer = () => {
             width: '98%',
           }}>
           <TouchableOpacity
-            style={{marginTop: 13, top: -2, marginLeft: 15, marginBottom: 10}}
+            style={{ marginTop: 13, top: -2, marginLeft: 15, marginBottom: 10 }}
             onPress={() => navigation.dispatch(StackActions.replace('Drawer'))}>
             <ArrowLeft />
           </TouchableOpacity>
@@ -117,26 +118,21 @@ export const DetailPageContainer = () => {
             </AppText>
           </View>
         </View>
-        <SearchBar
-          style={{
-            backgroundColor: '#edf0ee',
-            shadowColor: colors.black,
-            borderRadius: 5,
-          }}
-          placeholder="Search here"
-          onPress={() => alert('hello')}
-          onChangeText={text => console.log(text)}
-        />
+        <View style={{ alignItems: 'center', zIndex: 10, paddingHorizontal: 10 }}>
+          <TouchableOpacity activeOpacity={.8} onPress={() => navigation.navigate('Search')}>
+            <SearchBox />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.mainContainer}>
         <View style={styles.imageBox}>
           <Image
             style={styles.image}
-            source={{uri: `${currentDetails?.front_img1}`}}
+            source={{ uri: `${currentDetails?.front_img1}` }}
           />
           {currentDetails.mm_thumb === '1' && (
-            <View style={{position: 'absolute', top: 113, left: 284}}>
+            <View style={{ position: 'absolute', top: 113, left: 284 }}>
               <View
                 style={{
                   width: 27,
@@ -168,7 +164,7 @@ export const DetailPageContainer = () => {
             {currentDetails.local_area}
           </AppText>
         </View>
-        <View style={[styles.bottomText, {flexDirection: 'row'}]}>
+        <View style={[styles.bottomText, { flexDirection: 'row' }]}>
           <View
             style={{
               width: 50,
@@ -187,7 +183,7 @@ export const DetailPageContainer = () => {
                 color={colors.white}
               />
             </Text>
-            <Text style={{marginLeft: 8, top: -0.6, color: colors.white}}>
+            <Text style={{ marginLeft: 8, top: -0.6, color: colors.white }}>
               {currentDetails.rating}
             </Text>
           </View>
@@ -197,7 +193,7 @@ export const DetailPageContainer = () => {
               flexDirection: 'row',
               top: 8,
             }}>
-            <Text style={{top: 2}}>
+            <Text style={{ top: 2 }}>
               <MaterialIcons
                 name="local-offer"
                 size={15}
@@ -253,7 +249,7 @@ export const DetailPageContainer = () => {
         <View style={styles.divider} />
         <View style={styles.details}>
           <MaterialCommunityIcons name="map" size={20} />
-          <View style={[styles.address, {width: '95%'}]}>
+          <View style={[styles.address, { width: '95%' }]}>
             <AppText style={styles.text}>{currentDetails.address}</AppText>
           </View>
         </View>
@@ -277,7 +273,7 @@ export const DetailPageContainer = () => {
                 marginTop: '5%',
               }}>
               <MaterialCommunityIcons name="phone" size={20} color={'grey'} />
-              <AppText style={{marginLeft: 12, fontSize: 15}}>
+              <AppText style={{ marginLeft: 12, fontSize: 15 }}>
                 {currentDetails?.mobile}
               </AppText>
             </View>
@@ -296,7 +292,7 @@ export const DetailPageContainer = () => {
                 size={20}
                 color={'grey'}
               />
-              <AppText style={{marginLeft: 12}}>
+              <AppText style={{ marginLeft: 12 }}>
                 {currentDetails?.whatsapp}
               </AppText>
             </View>

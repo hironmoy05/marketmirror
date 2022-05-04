@@ -22,10 +22,12 @@ import AppText from '../components/appText';
 import { getListings } from '../store/listing';
 import { loadLists, getDashListings } from '../store/listing';
 import { getUserIdFromStore } from '../store/bugs';
+import { YOUR_CLIENT_ID } from '../constants/urls';
 
 export const SearchContainer = () => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState(false);
+  const [key, setKey] = useState('');
 
   const [filteredDataSource, setFilteredDataSource] = useState(null);
 
@@ -48,17 +50,14 @@ export const SearchContainer = () => {
     }
   }
 
-  const handleChange = searchByKey(e => { dispatch(loadLists(Uid, e)); e ? setSearch(true) : setSearch(false) }, 1000)
+  const handleChange = searchByKey(e => e !== '' ? (setKey(e), setSearch(true)) : (setSearch(false), setKey('')), 1000);
 
   useEffect(() => {
-    if (categoryId) {
-      dispatch(loadLists(Uid, categoryId));
-    } else {
-      listingDetails = [];
-    }
-  }, [categoryId]);
+    const category = '';
+    dispatch(loadLists(YOUR_CLIENT_ID, Uid, keyword = key, search ? category : categoryId));
 
-  console.log('listingDetails', categoryId, Uid);
+  }, [categoryId, key, search]);
+
   return (
     <>
       <View style={styles.searchContainer}>
@@ -91,13 +90,14 @@ export const SearchContainer = () => {
             borderRadius: 5,
           }}
           placeholder="Search here"
-          onPress={() => alert('hello')}
+          // onPress={() => alert('hello')}
+          onClearPress={() => setKey('')}
           onChangeText={handleChange}
         />
       </View>
       {
         <FlatList
-          data={categoryId || search && listingDetails}
+          data={listingDetails}
           keyExtractor={item => item?.id}
           refreshing={true}
           renderItem={({ item }) => (

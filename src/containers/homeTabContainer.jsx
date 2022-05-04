@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,15 +8,15 @@ import {
   Image,
   LogBox,
 } from 'react-native';
-import {HomeTab} from '../components';
-import {SearchBox} from '../components/searchBox';
 import Swiper from 'react-native-swiper';
 
+import { HomeTab } from '../components';
+import { SearchBox } from '../components/searchBox';
 import colors from '../config/colors';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useDispatch, useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {loadLists, getDashListings} from '../store/listing';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { getDashListings } from '../store/listing';
 
 export const HomeTabContainer = () => {
   const navigation = useNavigation();
@@ -25,14 +25,14 @@ export const HomeTabContainer = () => {
   LogBox.ignoreLogs(['ImmutableStateInvariantMiddleware']);
 
   return (
-    <SafeAreaView style={{backgroundColor: colors.white, flex: 1}}>
+    <SafeAreaView style={{ backgroundColor: colors.white, flex: 1 }}>
       <HomeTab>
         <HomeTab.Container>
           <SearchBox />
         </HomeTab.Container>
 
         {/* Swiper */}
-        <View style={[styles.swiperContainer, {flex: 0.5}]}>
+        <View style={[styles.swiperContainer, { flex: 0.5 }]}>
           <Swiper
             style={styles.wrapper}
             autoplay={true}
@@ -45,7 +45,7 @@ export const HomeTabContainer = () => {
                   <View style={styles.imageBox}>
                     {/* <Business width={200} height={200} /> */}
                     <Image
-                      style={{width: '100%', height: '100%'}}
+                      style={{ width: '100%', height: '100%' }}
                       source={{
                         uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
                       }}
@@ -60,7 +60,7 @@ export const HomeTabContainer = () => {
                   <View style={styles.imageBox}>
                     {/* <Jobs width={200} height={200} /> */}
                     <Image
-                      style={{width: '100%', height: '100%'}}
+                      style={{ width: '100%', height: '100%' }}
                       source={{
                         uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
                       }}
@@ -75,7 +75,7 @@ export const HomeTabContainer = () => {
                   <View style={styles.imageBox}>
                     {/* <Community width={200} height={200} /> */}
                     <Image
-                      style={{width: '100%', height: '100%'}}
+                      style={{ width: '100%', height: '100%' }}
                       source={{
                         uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
                       }}
@@ -90,7 +90,7 @@ export const HomeTabContainer = () => {
                   <View style={styles.imageBox}>
                     {/* <RealEstate width={200} height={200} /> */}
                     <Image
-                      style={{width: '100%', height: '100%'}}
+                      style={{ width: '100%', height: '100%' }}
                       source={{
                         uri: 'https://www.marketmirror.info/uploads/ads/ads2.jpg',
                       }}
@@ -103,24 +103,24 @@ export const HomeTabContainer = () => {
         </View>
 
         {/* Services */}
-        <ScrollView style={{flex: 0.4, marginBottom: '18%'}}>
+        <ScrollView style={{ flex: 0.4, marginBottom: '18%' }}>
           <View style={styles.container}>
             <View style={styles.services}>
               {dashlists?.map(item => (
                 <TouchableOpacity
                   key={item.id}
                   activeOpacity={0.5}
-                  onPress={() => navigation.navigate('Search', {id: item?.id})}
+                  onPress={() => navigation.navigate('Search', { id: item?.id })}
                   style={styles.servicesBox}>
                   {/* <Beauty width={45} height={45} /> */}
                   {/* <SvgWithCssUri width={45} height={45} uri={item?.icon} /> */}
                   <Image
-                    style={{width: 40, height: 44}}
-                    source={{uri: item?.image}}
+                    style={{ width: 40, height: 44 }}
+                    source={{ uri: item?.image }}
                   />
                   <Text
                     numberOfLines={1}
-                    style={[styles.subTitle, {width: '80%'}]}>
+                    style={[styles.subTitle, { width: '80%' }]}>
                     {item?.title}
                   </Text>
                 </TouchableOpacity>

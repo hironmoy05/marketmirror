@@ -62,10 +62,11 @@ export const dashLists =
     );
   };
 
-export const loadLists = (userId, keyword, category) => (dispatch, getState) => {
+export const loadLists = (deviceId, userId, keyword, category) => (dispatch, getState) => {
   const url = GET_LISTING;
 
   const dataToSend = {
+    device_id: deviceId,
     user_id: userId,
     key: keyword,
     cat: category,
