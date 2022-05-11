@@ -6,20 +6,22 @@
  * @flow strict-local
  */
 
-import React, {Fragment, useEffect} from 'react';
-import {StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {StackNavigator} from './src/navigation/stackNavigator';
-import {Provider} from 'react-redux';
-import {store, persistor} from './src/store/configureStore';
-import {PersistGate} from 'redux-persist/integration/react';
-import {RootSiblingParent} from 'react-native-root-siblings';
+import React, { Fragment, useEffect } from 'react';
+import { StatusBar, LogBox } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { StackNavigator } from './src/navigation/stackNavigator';
+import { Provider } from 'react-redux';
+import { store, persistor } from './src/store/configureStore';
+import { PersistGate } from 'redux-persist/integration/react';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 import {
   requestUserPermission,
   notificationListener,
 } from './src/utils/notificationServices';
 import colors from './src/config/colors';
+
+LogBox.ignoreLogs(['debugger'])
 
 const App = () => {
   useEffect(() => {

@@ -50,7 +50,7 @@ export const SearchContainer = () => {
     }
   }
 
-  const handleChange = searchByKey(e => e !== '' ? (setKey(e), setSearch(true)) : (setSearch(false), setKey('')), 1000);
+  const handleChange = searchByKey(e => e !== '' ? (setKey(e), setSearch(true)) : (setSearch(false), setKey('')), 500);
 
   useEffect(() => {
     const category = '';

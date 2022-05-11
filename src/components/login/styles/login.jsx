@@ -1,7 +1,7 @@
 import Styled from 'styled-components/native';
-import {Button} from 'react-native-paper';
-import {StyleSheet, TextInput, Text, Pressable} from 'react-native';
-import {deviceWidth} from '../../../responsive';
+import { Button } from 'react-native-paper';
+import { StyleSheet, TextInput, Text, Pressable } from 'react-native';
+import { deviceWidth } from '../../../responsive';
 
 import colors from '../../../config/colors';
 
@@ -77,6 +77,7 @@ export const Label = Styled(Text)`
     left: 20px;
     color: #D2D2D2;
     background-color: ${colors.white};
+    ${props => props.pTop}
     `;
 
 export const IconBox = Styled.View`
@@ -98,10 +99,10 @@ export const FormTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
+    props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -110,10 +111,10 @@ export const EmailTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
+    props.emailInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -122,12 +123,12 @@ export const PasswordTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.passwordInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.passwordInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -136,10 +137,10 @@ export const NameTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.nameInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
+    props.nameInputColor ? `${colors.primaryDark}` : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -148,12 +149,12 @@ export const RegEmailTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regEmailInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.regEmailInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -161,12 +162,12 @@ export const RegPasswordTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regPasswordInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.regPasswordInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -174,12 +175,12 @@ export const RegRetypePasswordTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regRetypePasswordInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.regRetypePasswordInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     border-radius: 8px;
-    ${({phone}) =>
-      phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
+    ${({ phone }) =>
+    phone ? `padding: 10px 0 8px 100px ` : `padding: 10px 0 8px 40px`};
     margin-top: 26px; 
     color: ${colors.black2};
 `;
@@ -188,9 +189,9 @@ export const RegSponsorTextInput = Styled(TextInput)`
     background-color: ${colors.white};
     border: none;
     border: 2px solid ${props =>
-      props.regSponsorInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.regSponsorInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     border-radius: 8px;
     padding: 10px 0 8px 40px;
     margin-top: 26px; 
@@ -204,17 +205,17 @@ export const FormButton = Styled(Button)`
 `;
 export const RegFormButton = Styled(Button)`
     background-color: ${props =>
-      props.buttonInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.buttonInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     padding: 8px 40px;
     margin-top: 15px;
 `;
 export const LoginFormButton = Styled(Pressable)`
     background-color: ${props =>
-      props.loginButtonInputColor
-        ? `${colors.primaryDark}`
-        : `${colors.lightGrey2}`};
+    props.loginButtonInputColor
+      ? `${colors.primaryDark}`
+      : `${colors.lightGrey2}`};
     margin-top: 15px;
     height: 50px;
     justify-content: center;

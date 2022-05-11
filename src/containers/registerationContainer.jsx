@@ -1,6 +1,6 @@
-import React, {useState, useRef, useEffect} from 'react';
-import {Login} from '../components';
-import {Registeration} from '../components';
+import React, { useState, useRef, useEffect } from 'react';
+import { Login } from '../components';
+import { Registeration } from '../components';
 import Email from '../assets/email.svg';
 import Country from '../assets/country.svg';
 import VerifyCheck from '../assets/verify_check.svg';
@@ -9,7 +9,7 @@ import Mobile from '../assets/mobile.svg';
 import LogoTop from '../assets/mm_logo_top.svg';
 import AccountTree from '../assets/account_tree.svg';
 import Toast from 'react-native-root-toast';
-import {BASE_URL, USER_REGISTER} from '../constants/urls';
+import { BASE_URL, USER_REGISTER } from '../constants/urls';
 import {
   View,
   TouchableOpacity,
@@ -22,26 +22,25 @@ import {
   Alert,
   SafeAreaView,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import PhoneInput from 'react-native-phone-number-input';
-import {Button} from 'react-native-paper';
-import {ScrollView} from 'react-native';
+import { Button } from 'react-native-paper';
+import { ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import Cross from '../assets/cross.svg';
 import CheckBox from '@react-native-community/checkbox';
-import {PixelDeviceHeight, deviceWidth, deviceHeight} from '../responsive';
+import { PixelDeviceHeight, deviceWidth, deviceHeight } from '../responsive';
 import Loader from './loaderContainer';
-import {Formik} from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {ref} from 'yup';
+import { ref } from 'yup';
 import ErrorMessage from '../components/errorMessage';
-import {useDispatch, useSelector} from 'react-redux';
-import {useFormikContext} from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {signoutRequest} from '../store/api';
+import { signoutRequest } from '../store/api';
 import AppText from '../components/appText';
 import colors from '../config/colors';
-import {color} from 'react-native-reanimated';
+import { color } from 'react-native-reanimated';
 import {
   sentEmailStatus,
   sendOtpToVerifyEmail,
@@ -85,7 +84,7 @@ const validateSchema = Yup.object().shape({
     .label('sponsor'),
 });
 
-export const RegisterationContainer = ({navigation}) => {
+export const RegisterationContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const mailStatus = useSelector(sentEmailStatus);
   const mailOtpStatus = useSelector(sentEmailOtpStatus);
@@ -142,7 +141,7 @@ export const RegisterationContainer = ({navigation}) => {
 
   useEffect(() => {
     dispatch(getCountryLists());
-  }, [sentMessageStatus]);
+  }, []);
 
   useEffect(() => {
     dispatch(getStateLists(selectedCountryId));
@@ -290,7 +289,7 @@ export const RegisterationContainer = ({navigation}) => {
           Alert.alert(
             'Congratulations!!',
             'Registration Successful. Please login to proceed',
-            [{text: 'OK', onPress: () => navigation.navigate('Login')}],
+            [{ text: 'OK', onPress: () => navigation.navigate('Login') }],
           );
         } else {
           setErrorText(json.Status);
@@ -371,20 +370,20 @@ export const RegisterationContainer = ({navigation}) => {
       ? setRegRetypePasswordInputColor(true)
       : setRegRetypePasswordInputColor(false);
     userName &&
-    userEmail &&
-    selectedCountry &&
-    phoneNumber &&
-    password &&
-    retypePassword
+      userEmail &&
+      selectedCountry &&
+      phoneNumber &&
+      password &&
+      retypePassword
       ? setButtonInputColor(true)
       : setButtonInputColor(false);
     userName &&
-    userEmail &&
-    selectedCountry &&
-    selectedState &&
-    phoneNumber &&
-    password &&
-    retypePassword
+      userEmail &&
+      selectedCountry &&
+      selectedState &&
+      phoneNumber &&
+      password &&
+      retypePassword
       ? setButton(false)
       : setButton(true);
     phoneNumber && setvisibility(true);
@@ -400,7 +399,7 @@ export const RegisterationContainer = ({navigation}) => {
   ]);
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
       <Loader loading={loading} />
       <Modal
         isVisible={firstModal}
@@ -408,7 +407,7 @@ export const RegisterationContainer = ({navigation}) => {
         deviceWidth={deviceWidth}
         backdropTransitionOutTiming={0}
         onBackdropPress={() => setFirstModal(false)}
-        style={{margin: 0}}>
+        style={{ margin: 0 }}>
         <View style={styles.popup}>
           <View style={styles.cross}>
             <Pressable
@@ -462,7 +461,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setTwo(num);
                 num && thirdInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   firstInputRef.current.focus();
                   setOne();
@@ -484,7 +483,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setThree(num);
                 num && fourthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   secondInputRef.current.focus();
                   setTwo();
@@ -506,7 +505,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setFour(num);
                 num && fifthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   thirdInputRef.current.focus();
                   setThree();
@@ -528,7 +527,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setFive(num);
                 num && sixthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   fourthInputRef.current.focus();
                   setFour();
@@ -547,7 +546,7 @@ export const RegisterationContainer = ({navigation}) => {
               blurOnSubmit={false}
               onSubmitEditing={Keyboard.dismiss}
               onChangeText={num => setSix(num)}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   fifthInputRef.current.focus();
                   setFive();
@@ -580,7 +579,7 @@ export const RegisterationContainer = ({navigation}) => {
         deviceHeight={PixelDeviceHeight}
         deviceWidth={deviceWidth}
         backdropTransitionOutTiming={0}
-        style={{margin: 0}}>
+        style={{ margin: 0 }}>
         <View style={styles.popup}>
           <View style={styles.cross}>
             <Pressable onPress={() => setIsPhoneVerify(false)}>
@@ -625,7 +624,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setTwo(num);
                 num && thirdInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   firstInputRef.current.focus();
                   setOne();
@@ -644,7 +643,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setThree(num);
                 num && fourthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   secondInputRef.current.focus();
                   setTwo();
@@ -663,7 +662,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setFour(num);
                 num && fifthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   thirdInputRef.current.focus();
                   setThree();
@@ -682,7 +681,7 @@ export const RegisterationContainer = ({navigation}) => {
                 setFive(num);
                 num && sixthInputRef.current.focus();
               }}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   fourthInputRef.current.focus();
                   setFour();
@@ -698,7 +697,7 @@ export const RegisterationContainer = ({navigation}) => {
               ref={sixthInputRef}
               blurOnSubmit={false}
               onChangeText={num => setSix(num)}
-              onKeyPress={({nativeEvent}) => {
+              onKeyPress={({ nativeEvent }) => {
                 if (nativeEvent.key === 'Backspace') {
                   fifthInputRef.current.focus();
                   setFive();
@@ -732,14 +731,14 @@ export const RegisterationContainer = ({navigation}) => {
             justifyContent: 'center',
             alignContent: 'center',
           }}>
-          <View style={{height: deviceHeight + 450}}>
+          <View style={{ height: deviceHeight + 450 }}>
             <Login>
               <Login.SmallLogoBox>
                 <LogoTop width={200} height={80} />
               </Login.SmallLogoBox>
             </Login>
 
-            <Login.LoginContainer containerHeight={{top: 13 + '%'}}>
+            <Login.LoginContainer containerHeight={{ top: 13 + '%' }}>
               <Login.LoginFormBox>
                 <Login.LoginTitle>Registration</Login.LoginTitle>
                 <Login.LoginSubTitle>
@@ -802,7 +801,7 @@ export const RegisterationContainer = ({navigation}) => {
                       </Login.IconBox>
                       {verifyOtp ? (
                         <View
-                          style={[styles.inputTextPosition, {marginTop: 7}]}>
+                          style={[styles.inputTextPosition, { marginTop: 7 }]}>
                           <VerifyCheck />
                         </View>
                       ) : (
@@ -816,7 +815,7 @@ export const RegisterationContainer = ({navigation}) => {
                           <Text
                             style={
                               values.email
-                                ? [styles.textVerifyShown, {top: 2}]
+                                ? [styles.textVerifyShown, { top: 2 }]
                                 : styles.textVerify
                             }>
                             Verify
@@ -851,8 +850,8 @@ export const RegisterationContainer = ({navigation}) => {
                         <Picker
                           ref={pickerRef}
                           style={
-                            ({fontFamily: 'Opens Sans Serif'},
-                            {marginLeft: -13})
+                            ({ fontFamily: 'Opens Sans Serif' },
+                              { marginLeft: -13 })
                           }
                           selectedValue={selectedCountry}
                           onValueChange={(itemValue, itemIndex) => (
@@ -870,7 +869,7 @@ export const RegisterationContainer = ({navigation}) => {
                           />
                           {selectCountry.map((list, i) => (
                             <Picker.Item
-                              style={{color: '#212121', fontSize: 14}}
+                              style={{ color: '#212121', fontSize: 14 }}
                               key={i}
                               label={list}
                               value={list.toString()}
@@ -882,7 +881,7 @@ export const RegisterationContainer = ({navigation}) => {
 
                     {visibility ? (
                       selectedCountry ? null : (
-                        <Text style={{color: 'red'}}>
+                        <Text style={{ color: 'red' }}>
                           Country is required field
                         </Text>
                       )
@@ -897,8 +896,8 @@ export const RegisterationContainer = ({navigation}) => {
                         <Picker
                           ref={pickerRef}
                           style={
-                            ({fontFamily: 'Opens Sans Serif'},
-                            {marginLeft: -13})
+                            ({ fontFamily: 'Opens Sans Serif' },
+                              { marginLeft: -13 })
                           }
                           selectedValue={selectedState}
                           onValueChange={(itemValue, itemIndex) => (
@@ -916,7 +915,7 @@ export const RegisterationContainer = ({navigation}) => {
                           />
                           {selectState.map((list, i) => (
                             <Picker.Item
-                              style={{color: '#212121', fontSize: 14}}
+                              style={{ color: '#212121', fontSize: 14 }}
                               key={i}
                               label={list}
                               value={list.toString()}
@@ -928,7 +927,7 @@ export const RegisterationContainer = ({navigation}) => {
 
                     {visibility ? (
                       selectedState ? null : (
-                        <Text style={{color: 'red'}}>
+                        <Text style={{ color: 'red' }}>
                           State is required field
                         </Text>
                       )
@@ -943,8 +942,8 @@ export const RegisterationContainer = ({navigation}) => {
                         <Picker
                           ref={pickerRef}
                           style={
-                            ({fontFamily: 'Opens Sans Serif'},
-                            {marginLeft: -13})
+                            ({ fontFamily: 'Opens Sans Serif' },
+                              { marginLeft: -13 })
                           }
                           selectedValue={selectedCity}
                           onValueChange={(itemValue, itemIndex) => (
@@ -961,7 +960,7 @@ export const RegisterationContainer = ({navigation}) => {
                           />
                           {selectCity.map((list, i) => (
                             <Picker.Item
-                              style={{color: '#212121', fontSize: 14}}
+                              style={{ color: '#212121', fontSize: 14 }}
                               key={i}
                               label={list}
                               value={list.toString()}
@@ -973,7 +972,7 @@ export const RegisterationContainer = ({navigation}) => {
 
                     {visibility ? (
                       selectedCity ? null : (
-                        <Text style={{color: 'red'}}>
+                        <Text style={{ color: 'red' }}>
                           Country is required field
                         </Text>
                       )
@@ -992,7 +991,7 @@ export const RegisterationContainer = ({navigation}) => {
                           {phoneOtpVerified ? (
                             <Pressable
                               onPress={() => setIsPhoneVerify(false)}
-                              style={{top: 4}}>
+                              style={{ top: 4 }}>
                               <VerifyCheck />
                             </Pressable>
                           ) : (
@@ -1016,7 +1015,7 @@ export const RegisterationContainer = ({navigation}) => {
                             layout="second"
                             codeTextStyle={styles.container}
                             textInputStyle={styles.textInput}
-                            containerStyle={{width: '100%', height: 50}}
+                            containerStyle={{ width: '100%', height: 50 }}
                             textContainerStyle={styles.textInput}
                             onBlur={() => setFieldTouched('phone')}
                             onChangeText={num => {
@@ -1039,7 +1038,7 @@ export const RegisterationContainer = ({navigation}) => {
 
                     {visibility ? (
                       phoneNumber ? null : (
-                        <Text style={{color: 'red'}}>Required</Text>
+                        <Text style={{ color: 'red' }}>Required</Text>
                       )
                     ) : null}
 
@@ -1122,9 +1121,9 @@ export const RegisterationContainer = ({navigation}) => {
 
                     <View
                       style={[
-                        {display: 'flex'},
-                        {flexDirection: 'row'},
-                        {marginTop: '5%'},
+                        { display: 'flex' },
+                        { flexDirection: 'row' },
+                        { marginTop: '5%' },
                       ]}>
                       <CheckBox
                         // disabled={toggleCheckBox}
@@ -1137,9 +1136,9 @@ export const RegisterationContainer = ({navigation}) => {
                       />
                       <Text
                         style={[
-                          {width: '80%'},
-                          {color: colors.lightGrey},
-                          {marginLeft: '6%'},
+                          { width: '80%' },
+                          { color: colors.lightGrey },
+                          { marginLeft: '6%' },
                         ]}>
                         By registering an account you agree to our
                         <Pressable
@@ -1158,14 +1157,14 @@ export const RegisterationContainer = ({navigation}) => {
                       <Login.RegFormButton
                         buttonInputColor={
                           values.name &&
-                          values.email &&
-                          verifyOtp &&
-                          selectedCountry &&
-                          phoneNumber &&
-                          phoneOtpVerified &&
-                          values.password &&
-                          values.retypePassword &&
-                          toggleCheckBox
+                            values.email &&
+                            verifyOtp &&
+                            selectedCountry &&
+                            phoneNumber &&
+                            phoneOtpVerified &&
+                            values.password &&
+                            values.retypePassword &&
+                            toggleCheckBox
                             ? true
                             : false
                         }
@@ -1173,16 +1172,16 @@ export const RegisterationContainer = ({navigation}) => {
                         mode="contained"
                         disabled={
                           values.name &&
-                          values.email &&
-                          verifyOtp &&
-                          selectedCity &&
-                          selectedState &&
-                          selectedCountry &&
-                          phoneNumber &&
-                          phoneOtpVerified &&
-                          values.password &&
-                          values.retypePassword &&
-                          toggleCheckBox
+                            values.email &&
+                            verifyOtp &&
+                            selectedCity &&
+                            selectedState &&
+                            selectedCountry &&
+                            phoneNumber &&
+                            phoneOtpVerified &&
+                            values.password &&
+                            values.retypePassword &&
+                            toggleCheckBox
                             ? false
                             : true
                         }>

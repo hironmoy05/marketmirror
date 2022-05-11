@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import SearchBar from 'react-native-dynamic-search-bar';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigation, StackActions, useRoute } from '@react-navigation/native';
 import {
   StyleSheet,
   TouchableOpacity,
   Image,
   Text,
-  Pressable,
   View,
   ScrollView,
   Linking,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useSelector } from 'react-redux';
+import Fontisto from 'react-native-vector-icons/Fontisto';
+import { useDispatch, useSelector } from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Share from 'react-native-share';
+import Modal from 'react-native-modal';
 
 import AppText from '../components/appText';
 import Whatsapp from '../assets/whatsapp.svg';
@@ -23,22 +23,46 @@ import Redo from '../assets/redo2.svg';
 import ArrowLeft from '../assets/chevron-left.svg';
 import MarketMirror from '../assets/mm_logo_top_m_round.svg';
 import colors from '../config/colors';
-import { getListings } from '../store/listing';
+import { getListings, getListingDetails, listDetails } from '../store/listing';
 import { SearchBox } from '../components/searchBox';
+import { getUserInfo } from '../store/bugs';
+import Carousel from '../components/carousel/carousel';
+import { PixelDeviceHeight, deviceWidth, deviceHeight } from '../responsive';
+import { loadImages, pics } from '../store/gallery';
+
 
 export const DetailPageContainer = () => {
   const [currentDetails, setCurrentDetails] = useState('');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const dispatch = useDispatch();
+  const ref = useRef(null);
 
   const navigation = useNavigation();
   const route = useRoute();
   const data = useSelector(getListings);
   const details = data.Data;
+  const userDetails = useSelector(getUserInfo);
+  const lists = useSelector(getListingDetails);
+  const gallerys = useSelector(pics);
+
   const detailsId = route.params.id;
+  const id = userDetails[0].Data.uid;
+  const gallery = gallerys[0]?.Status;
+
+
+  useEffect(() => {
+    dispatch(listDetails(id, detailsId));
+
+    dispatch(loadImages(id, detailsId))
+  }, [detailsId, id]);
+
+  const userDes = lists[0] ? lists[0] : [];
 
   const whatsAppShare = async () => {
     const shareOptions = {
-      message: currentDetails.title + '\n',
-      url: `https://www.marketmirror.info/business/profile/${currentDetails.slug}`,
+      message: userDes?.title + '\n',
+      url: `https://www.marketmirror.info/business/profile/${userDes?.slug}`,
       social: Share.Social.WHATSAPP,
     };
 
@@ -52,8 +76,8 @@ export const DetailPageContainer = () => {
 
   const customeShare = async () => {
     const shareOptions = {
-      message: currentDetails.title + '\n',
-      url: `https://www.marketmirror.info/business/profile/${currentDetails.slug}`,
+      message: userDes?.title + '\n',
+      url: `https://www.marketmirror.info/business/profile/${userDes?.slug}`,
     };
 
     try {
@@ -73,7 +97,7 @@ export const DetailPageContainer = () => {
   }, [detailsId]);
 
   function mobileNumber() {
-    const arrayNum = currentDetails?.reg_mobile?.split('');
+    const arrayNum = userDes?.reg_mobile?.split('');
 
     if (arrayNum?.length > 10) {
       const filterArray = arrayNum?.filter(
@@ -86,6 +110,15 @@ export const DetailPageContainer = () => {
 
   return (
     <ScrollView>
+      <Modal
+        isVisible={modalVisible}
+        deviceHeight={PixelDeviceHeight}
+        deviceWidth={deviceWidth}
+        backdropTransitionOutTiming={0}
+        onBackdropPress={() => setModalVisible(false)}
+        style={{ margin: 0 }}>
+        <Carousel />
+      </Modal>
       <View style={styles.searchContainer}>
         <View
           style={{
@@ -129,9 +162,9 @@ export const DetailPageContainer = () => {
         <View style={styles.imageBox}>
           <Image
             style={styles.image}
-            source={{ uri: `${currentDetails?.front_img1}` }}
+            source={{ uri: `${userDes?.front_img1}` }}
           />
-          {currentDetails.mm_thumb === '1' && (
+          {userDes?.mm_thumb === '1' && (
             <View style={{ position: 'absolute', top: 113, left: 284 }}>
               <View
                 style={{
@@ -156,12 +189,12 @@ export const DetailPageContainer = () => {
           )}
         </View>
         <View style={styles.textBox}>
-          <AppText style={styles.title}>{currentDetails.title}</AppText>
+          <AppText style={styles.title}>{userDes?.title}</AppText>
           <Text style={styles.heartIcon}>
             <MaterialCommunityIcons name="cards-heart-outline" size={18} />
           </Text>
           <AppText style={styles.locationText}>
-            {currentDetails.local_area}
+            {userDes?.local_area}
           </AppText>
         </View>
         <View style={[styles.bottomText, { flexDirection: 'row' }]}>
@@ -184,7 +217,7 @@ export const DetailPageContainer = () => {
               />
             </Text>
             <Text style={{ marginLeft: 8, top: -0.6, color: colors.white }}>
-              {currentDetails.rating}
+              {userDes?.rating}
             </Text>
           </View>
           <View
@@ -201,7 +234,7 @@ export const DetailPageContainer = () => {
               />
               {'   '}
             </Text>
-            <Text>{currentDetails.category}</Text>
+            <Text>{userDes?.category}</Text>
           </View>
         </View>
         <View style={[styles.icons, styles.icons2]}>
@@ -250,21 +283,28 @@ export const DetailPageContainer = () => {
         <View style={styles.details}>
           <MaterialCommunityIcons name="map" size={20} />
           <View style={[styles.address, { width: '95%' }]}>
-            <AppText style={styles.text}>{currentDetails.address}</AppText>
+            <AppText style={styles.text}>{userDes?.address}</AppText>
+          </View>
+        </View>
+        <View style={styles.divider} />
+        <View style={styles.details}>
+          <Fontisto name="person" size={20} />
+          <View style={[styles.address, { width: '95%' }]}>
+            <AppText style={styles.text}>{userDes?.contact_person}</AppText>
           </View>
         </View>
         <View style={styles.divider2} />
-        {currentDetails.website != '' ? (
+        {userDes?.website !== '' ? (
           <>
             <TouchableOpacity
-              onPress={() => Linking.openURL(currentDetails.website)}
+              onPress={() => Linking.openURL(userDes?.website)}
               style={styles.details}>
               <MaterialCommunityIcons name="web" size={20} />
-              <AppText style={styles.text}>{currentDetails.website}</AppText>
+              <AppText style={styles.text}>{userDes?.website}</AppText>
             </TouchableOpacity>
             <View style={styles.divider2} />
           </>
-        ) : currentDetails?.whatsapp === '' ? (
+        ) : userDes?.whatsApp === '' ? (
           <>
             <View
               style={{
@@ -274,7 +314,7 @@ export const DetailPageContainer = () => {
               }}>
               <MaterialCommunityIcons name="phone" size={20} color={'grey'} />
               <AppText style={{ marginLeft: 12, fontSize: 15 }}>
-                {currentDetails?.mobile}
+                {userDes?.mobile}
               </AppText>
             </View>
             <View style={styles.divider2} />
@@ -293,12 +333,32 @@ export const DetailPageContainer = () => {
                 color={'grey'}
               />
               <AppText style={{ marginLeft: 12 }}>
-                {currentDetails?.whatsapp}
+                {userDes?.whatsApp}
               </AppText>
             </View>
             <View style={styles.divider2} />
           </>
         )}
+        <View style={styles.details}>
+          <MaterialIcons name="miscellaneous-services" size={20} />
+          <AppText style={styles.text}>
+            {userDes?.services}
+          </AppText>
+        </View>
+        <View style={styles.divider} />
+        {
+          userDes?.email === '' ? null : (
+            <>
+              <View style={styles.details}>
+                <MaterialIcons name="email" size={20} />
+                <AppText style={styles.text}>
+                  {userDes?.email}
+                </AppText>
+              </View>
+              <View style={styles.divider} />
+            </>
+          )
+        }
         <View style={styles.details}>
           <MaterialCommunityIcons name="alert-outline" size={20} />
           <AppText style={styles.text}>
@@ -310,19 +370,34 @@ export const DetailPageContainer = () => {
           <MaterialCommunityIcons name="clock-outline" size={20} />
           <AppText style={styles.text}>
             Open Time :{' '}
-            {currentDetails.opening_time === ''
+            {userDes.opening_time === ''
               ? 'Sunday'
-              : currentDetails.opening_time}
+              : userDes.opening_time}
           </AppText>
         </View>
         <View style={styles.divider2} />
         <View style={styles.details}>
           <MaterialCommunityIcons name="map-marker" size={20} />
           <AppText style={styles.text}>
-            Served In : {currentDetails.target_area}
+            Served In : {userDes.target_area}
           </AppText>
         </View>
         <View style={styles.divider2} />
+        {
+          gallery === 'Error' ? null : (
+            <>
+              <View style={styles.details}>
+                <MaterialCommunityIcons name="view-gallery-outline" size={20} />
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                  <AppText style={[styles.text, { width: '100%' }]}>
+                    Gallery: Click To View Images
+                  </AppText>
+                </TouchableOpacity>
+              </View>
+              <View style={styles.divider2} />
+            </>
+          )
+        }
       </View>
     </ScrollView>
   );
@@ -427,5 +502,31 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 10,
     width: '80%',
+  },
+
+  // Swiper
+  swiperContainer: {
+    height: '30%',
+    alignItems: 'center',
+  },
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide4: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

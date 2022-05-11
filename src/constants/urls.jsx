@@ -10,6 +10,9 @@ export const GET_VERIFY_EMAIL = '/SendOTPToVerifyEmail';
 export const VERIFY_EMAIL_OTP = '/VerifyEmailOtp';
 export const YOUR_CLIENT_ID = 'mon3223231';
 
+export const UPDATE_PROFILE = '/update_profile';
+export const GET_BUSINESS_PROFILE_GALLERY = '/GetBusinessProfileGallery';
+
 export const GET_STATELISTING = '/GetStateList';
 export const GET_CITYLISTING = '/GetCityList';
 export const GET_COUNTRYLISTING = '/GetCountryList';

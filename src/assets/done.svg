@@ -3,6 +3,6 @@
     <rect id="Rectangle_2060" data-name="Rectangle 2060" width="24" height="24" transform="translate(19 54)" fill="#fff" opacity="0"/>
   </g>
   <g id="left_icon" data-name="left icon" transform="translate(-1.828 24.5) rotate(-90)">
-    <path id="Shape" d="M2.5,7.043l2.547-2.49a.994.994,0,0,0,0-1.429,1.051,1.051,0,0,0-1.462,0L.3,6.328a.994.994,0,0,0,0,1.429l6.933,6.776a1.051,1.051,0,0,0,1.462,0,.994.994,0,0,0,0-1.429Z" transform="translate(8 5)" fill="#2DB206"/>
+    <path id="Shape" d="M2.5,7.043l2.547-2.49a.994.994,0,0,0,0-1.429,1.051,1.051,0,0,0-1.462,0L.3,6.328a.994.994,0,0,0,0,1.429l6.933,6.776a1.051,1.051,0,0,0,1.462,0,.994.994,0,0,0,0-1.429Z" transform="translate(8 5)" fill="#fff"/>
   </g>
 </svg>

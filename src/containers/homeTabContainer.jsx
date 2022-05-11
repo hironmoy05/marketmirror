@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   Image,
   LogBox,
+  ScrollView
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import { HomeTab } from '../components';
 import { SearchBox } from '../components/searchBox';
 import colors from '../config/colors';
-import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { getDashListings } from '../store/listing';

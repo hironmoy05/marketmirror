@@ -1,18 +1,24 @@
-import React from 'react';
-import {Pressable, StyleSheet, View, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {HeaderBar} from '../components';
+import React, { useState } from 'react';
+import { Pressable, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { launchCamera } from 'react-native-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { HeaderBar } from '../components';
 import Back from '../assets/back.svg';
 import Edit from '../assets/edit.svg';
 import RoundLogo from '../assets/mm_logo_top_m_round.svg';
 import Done from '../assets/done.svg';
 import Camera from '../assets/camera.svg';
-import {useSelector} from 'react-redux';
-import {getUserInfo} from '../store/bugs';
+import { getUserInfo } from '../store/bugs';
 import colors from '../config/colors';
+import { getUserPhoto, getProfilePic } from '../store/users';
 
 export const HeaderBarContainer = props => {
+  const dispatch = useDispatch();
   const userDetails = useSelector(getUserInfo);
+  const userPic = useSelector(getProfilePic);
+  const profilePic = userPic;
 
   const name = userDetails[0] ? userDetails[0].Data.name : '';
   const email = userDetails[0] ? userDetails[0].Data.email : '';
@@ -63,12 +69,26 @@ export const HeaderBarContainer = props => {
       break;
   }
 
+  // async function handleCamera() {
+  //   const result = await launchCamera({
+  //     mediaType: 'photo',
+  //     maxWidth: 200,
+  //     maxHeight: 200,
+  //     quality: 1,
+  //   }, res => res ? '' : dispatch(getUserPhoto({ profilePic: res.assets[0].fileName })));
+  // }
+
+  // console.log(profilePic[0].pic)
+
+
   return (
     <HeaderBar
       buyContainer={props.buyContainer}
-      profileContainer={props.profileContainer}>
+      profileContainer={props.profileContainer}
+      ProfileContainer2={props.ProfileContainer2}
+    >
       <Pressable
-        style={[styles.backButton, {top: props.profilePage ? '8.5%' : '58%'}]}
+        style={[styles.backButton, { top: props.profilePage ? '8.5%' : '58%' }]}
         onPress={() => navigation.goBack()}>
         <Back />
       </Pressable>
@@ -79,9 +99,11 @@ export const HeaderBarContainer = props => {
             onPress={() =>
               props.profilePage2 ? '' : props.navigation.navigate('Profile2')
             }
-            style={{marginLeft: 'auto', paddingRight: '5%', top: -33}}>
+            style={{ marginLeft: 'auto', paddingRight: '5%', top: -33 }}>
             {props.profilePage2 ? (
-              <Done width={30} height={30} />
+              <TouchableOpacity activeOpacity={.8} onPress={() => console.log('submit')}>
+                <Done width={30} height={30} />
+              </TouchableOpacity>
             ) : (
               <Edit width={22} height={22} />
             )}
@@ -91,11 +113,10 @@ export const HeaderBarContainer = props => {
 
       {props.profilePage && (
         <>
-          <View style={{alignItems: 'center'}}>
+          <View style={{ alignItems: 'center' }}>
             {props.profilePage2 ? (
               <View
                 style={{
-                  display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   marginTop: -30,
@@ -109,7 +130,10 @@ export const HeaderBarContainer = props => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                  <RoundLogo width={80} height={80} />
+                  {
+                    // profilePic ? <Image style={{ width: 100, height: 100 }} source={profilePic[0].pic} /> : <RoundLogo width={80} height={80} />
+                  }
+                  {/* <RoundLogo width={80} height={80} /> */}
                 </View>
                 <View
                   style={{
@@ -120,7 +144,7 @@ export const HeaderBarContainer = props => {
                     borderColor: colors.primaryDark,
                     borderRadius: 100,
                   }}>
-                  <Pressable onPress={() => console.log('camera')}>
+                  <Pressable onPress={() => console.log('user')}>
                     <Camera />
                   </Pressable>
                 </View>

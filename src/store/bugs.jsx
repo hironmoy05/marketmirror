@@ -1,7 +1,7 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {createSelector} from 'reselect';
-import {apiRequest} from './api';
-import {GET_PROFILE, TIMER} from '../constants/urls';
+import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+import { apiRequest } from './api';
+import { GET_PROFILE, TIMER } from '../constants/urls';
 import moment from 'moment';
 
 let lastId = 0;
@@ -22,7 +22,7 @@ export const slice = createSlice({
     },
 
     bugAssignToUser: (bug, action) => {
-      const {bugId, userId} = action.payload;
+      const { bugId, userId } = action.payload;
       const index = bug.userStore.findIndex(bug => bug.id === bugId);
       bug.userStore[index].userId = userId;
     },
@@ -77,7 +77,7 @@ export default slice.reducer;
 // Action Creators
 export const loadBugs = userUid => (dispatch, getState) => {
   const url = GET_PROFILE;
-  const {lastFetch} = getState().entities.bugs;
+  const { lastFetch } = getState().entities.bugs;
 
   // console.log('from reducer to check:',lastFetch);
 
@@ -127,48 +127,3 @@ export const getUserInfo = createSelector(
   state => state.entities.bugs,
   bug => bug.userStore.map(user => user),
 );
-
-// Action Creators
-// export const userAdded = createAction('userAdded');
-// export const userRemoved = createAction('userRemoved');
-// export const userResolved = createAction('userResolved');
-
-// Reducer
-// let lastId = 0;
-
-// export default createReducer([], {
-//     // key: value
-//     // actions: function (event => event handler)
-//     userAdded: (user, action) => {
-//         user.push({
-//             id: ++lastId,
-//             description: action.payload.description,
-//             resolved: false,
-//         });
-//     },
-//     userRemoved: (user, action) => {
-//         user.filter(user => user.id !== action.payload.id)
-//     },
-//     userResolved: (user, action) => {
-//         const index = user.findIndex(user => user.id === action.payload.id);
-//         user[index].resolved = true;
-//     }
-// })
-
-// export default function reducer (state = [], action) {
-//     if (action.type === userAdded.type)
-//         return [
-//             ...state,
-//             {
-//                 id: ++lastId,
-//                 description: action.payload.description,
-//                 resolved: false,
-//             }
-//         ];
-//         else if (action.type === userRemoved.type)
-//             return state.filter(user => user.id !== action.payload.id)
-//         else if (action.type === userResolved.type)
-//             return state.map(user => user.id !== action.payload.id ? user : {...user, resolved: true})
-
-//     return state;
-// }
