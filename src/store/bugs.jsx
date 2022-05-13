@@ -79,8 +79,6 @@ export const loadBugs = userUid => (dispatch, getState) => {
   const url = GET_PROFILE;
   const { lastFetch } = getState().entities.bugs;
 
-  // console.log('from reducer to check:',lastFetch);
-
   const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
   if (diffInMinutes < TIMER) return;
 

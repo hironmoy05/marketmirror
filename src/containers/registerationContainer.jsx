@@ -179,8 +179,6 @@ export const RegisterationContainer = ({ navigation }) => {
     );
   }, [countryIndex]);
 
-  // item => item.title === selectCountry[0] && console.log('from find ', item)
-
   // Set States
   const selectState = [];
   stateLists?.forEach(item => selectState.push(item.title));
@@ -201,10 +199,6 @@ export const RegisterationContainer = ({ navigation }) => {
         item.title === selectCity[cityIndex - 1] && setSelectedCityId(item.id),
     );
   }, [cityIndex]);
-
-  function getEmail(email) {
-    console.log(email);
-  }
 
   const down = {
     top: '45px',
@@ -244,15 +238,6 @@ export const RegisterationContainer = ({ navigation }) => {
 
   const url = BASE_URL + USER_REGISTER;
 
-  console.log(
-    'country id:',
-    selectedCountryId,
-    'state id:',
-    selectedStateId,
-    'city id:',
-    selectedCityId,
-  );
-
   const handleSubmitButton = (name, email, phone, password) => {
     setErrorText('');
 
@@ -278,7 +263,6 @@ export const RegisterationContainer = ({ navigation }) => {
       formDetails.push(encodeKey + '=' + encodeValue);
     }
     formDetails = formDetails.join('&');
-    console.log('formDetails', formDetails);
 
     fetch(url, {
       method: 'POST',
@@ -315,7 +299,6 @@ export const RegisterationContainer = ({ navigation }) => {
       })
       .catch(error => {
         setLoading(false);
-        console.log(error);
       });
 
 
@@ -458,7 +441,6 @@ export const RegisterationContainer = ({ navigation }) => {
           <View style={styles.cross}>
             <Pressable
               onPress={() => {
-                console.log('from cross', crossClick);
                 setFirstModal(false);
                 // crossClick && setCrossClick(!crossClick);
               }}>
@@ -919,7 +901,6 @@ export const RegisterationContainer = ({ navigation }) => {
                             label={'Select Country'}
                             enabled={false}
                           />
-                          {console.log(selectCountry)}
                           {countries?.map((list, i) => (
                             <Picker.Item
                               style={{ color: '#212121', fontSize: 14 }}
@@ -1232,6 +1213,7 @@ export const RegisterationContainer = ({ navigation }) => {
                             ? false
                             : true
                         }>
+                        Register
                       </Login.RegFormButton>
                     </TouchableOpacity>
 

@@ -179,9 +179,6 @@ export function ProfileContainer2() {
         getId()
     }, [countryIndex])
 
-
-    console.log(userDetails)
-
     return (
         <ScrollView style={{ backgroundColor: '#fff', }}>
 

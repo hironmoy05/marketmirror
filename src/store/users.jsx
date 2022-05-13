@@ -14,7 +14,6 @@ const slice = createSlice({
             users.profilePhoto = action.payload;
         },
         userInfoUpdated: (users, action) => {
-            console.log('from reducers', action.payload);
             users.updatedInfo.push(action.payload)
         }
     },
