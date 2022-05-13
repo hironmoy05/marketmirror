@@ -8,6 +8,8 @@ export const RESET_PASSWORD = '/reset_password';
 export const GET_COINLIST = '/GetCoinList';
 export const GET_VERIFY_EMAIL = '/SendOTPToVerifyEmail';
 export const VERIFY_EMAIL_OTP = '/VerifyEmailOtp';
+export const GET_VERIFY_PHONE = '/SendOTPToVerifyMobile';
+export const VERIFY_PHONE_OTP = '/VerifyMobileOtp';
 export const YOUR_CLIENT_ID = 'mon3223231';
 
 export const UPDATE_PROFILE = '/update_profile';

@@ -57,7 +57,7 @@ export const DetailPageContainer = () => {
     dispatch(loadImages(id, detailsId))
   }, [detailsId, id]);
 
-  const userDes = lists[0] ? lists[0] : [];
+  const userDes = lists ? lists[0] : [];
 
   const whatsAppShare = async () => {
     const shareOptions = {

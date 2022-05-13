@@ -17,8 +17,8 @@ import { getUserPhoto, getProfilePic } from '../store/users';
 export const HeaderBarContainer = props => {
   const dispatch = useDispatch();
   const userDetails = useSelector(getUserInfo);
-  const userPic = useSelector(getProfilePic);
-  const profilePic = userPic;
+  // const userPic = useSelector(getProfilePic);
+  // const profilePic = userPic;
 
   const name = userDetails[0] ? userDetails[0].Data.name : '';
   const email = userDetails[0] ? userDetails[0].Data.email : '';

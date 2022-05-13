@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { HeaderBarContainer } from './headerBarContainer';
 import { useNavigation } from '@react-navigation/native';
@@ -33,8 +33,6 @@ export function ProfileContainer() {
   const referralCode = userDetails[0] ? userDetails[0].Data.user_id : '';
   const wallet = userDetails[0] && userDetails[0].Data.wallet;
   const ewallet = userDetails[0] && userDetails[0].Data.ewallet;
-
-  console.log('users Details', userDetails[0].Data)
 
   return (
     <ScrollView>
@@ -133,7 +131,7 @@ export function ProfileContainer() {
             fontFamily: 'Open Sans Medium',
             paddingTop: 40,
           }}>
-          <View style={{ display: 'flex', flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row' }}>
             <Mobile style={{ position: 'relative', top: 5, left: 7 }} />
             <Text
               style={{

@@ -6,60 +6,67 @@ import {
   RESET_PASSWORD,
   GET_VERIFY_EMAIL,
   VERIFY_EMAIL_OTP,
+  GET_VERIFY_PHONE,
+  VERIFY_PHONE_OTP
 } from '../../constants/urls';
 import Toast from 'react-native-root-toast';
 
-const api =
-  ({ dispatch }) =>
-    next =>
-      async action => {
-        if (action.type !== actions.apiRequest.type) return next(action);
+const api = ({ dispatch }) => next => async action => {
+  if (action.type !== actions.apiRequest.type) return next(action);
 
-        next(action);
+  next(action);
 
-        const { url, method, data, headers, onSuccess, onError } = action.payload;
+  const { url, method, data, headers, onSuccess, onError } = action.payload;
 
-        const mainUrl = BASE_URL + url;
-        console.log(mainUrl, method, data, headers)
+  const mainUrl = BASE_URL + url;
+  console.log(mainUrl, method, data, headers)
 
-        try {
-          const resp = await fetch(mainUrl, {
-            method,
-            body: data,
-            headers,
-          });
+  try {
+    const resp = await fetch(mainUrl, {
+      method,
+      body: data,
+      headers,
+    });
 
-          const res = await resp.json();
-          const response = res;
+    const res = await resp.json();
+    const response = res;
 
-          console.log('from try', (response.data));
-          // General
-          dispatch(actions.apiRequestSuccess(response));
-          // Specific
-          if (onSuccess) dispatch({ type: onSuccess, payload: response });
+    // console.log('from try', (response.data));
+    // General
+    dispatch(actions.apiRequestSuccess(response));
+    // Specific
+    if (onSuccess) {
+      dispatch({ type: onSuccess, payload: response });
+      console.log(onSuccess)
+    }
 
-          // Add a Toast on screen.
-          if (
-            url === FORGOT_PASSWORD ||
-            url === VERIFY_OTP ||
-            url === RESET_PASSWORD ||
-            url === GET_VERIFY_EMAIL ||
-            url === VERIFY_EMAIL_OTP
-          )
-            Toast.show(response.Message, {
-              duration: Toast.durations.LONG,
-              position: Toast.positions.TOP,
-              shadow: true,
-              animation: true,
-              hideOnPress: true,
-              delay: 0,
-            });
-        } catch (error) {
-          // General
-          dispatch(actions.apiRequestFailed(error.message));
-          // Specific
-          if (onError) dispatch({ type: onError, payload: error.message });
-        }
-      };
+    // Add a Toast on screen.
+    if (
+      url === FORGOT_PASSWORD ||
+      url === VERIFY_OTP ||
+      url === RESET_PASSWORD ||
+      url === GET_VERIFY_EMAIL ||
+      url === VERIFY_EMAIL_OTP ||
+      url === GET_VERIFY_PHONE ||
+      url === VERIFY_PHONE_OTP
+    )
+      Toast.show(response.Message, {
+        duration: Toast.durations.LONG,
+        position: Toast.positions.TOP,
+        shadow: true,
+        animation: true,
+        hideOnPress: true,
+        delay: 0,
+      });
+  } catch (error) {
+    // General
+    dispatch(actions.apiRequestFailed(error.message));
+    // Specific
+    if (onError) {
+      dispatch({ type: onError, payload: error.message });
+      console.log(error.Message)
+    }
+  }
+};
 
 export default api;

@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { ref } from 'yup';
 import DatePicker from 'react-native-date-picker';
 import ErrorMessage from '../components/errorMessage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { HeaderBarContainer } from './headerBarContainer';
 import Country from '../assets/country.svg';
@@ -15,9 +16,6 @@ import { Login } from '../components';
 import User from '../assets/user.svg';
 import {
     sentEmailStatus,
-    sendOtpToVerifyEmail,
-    checkOtpToVerifyEmail,
-    sentEmailOtpStatus,
 } from '../store/verifyEmailApi';
 import {
     getCountryLists,
@@ -29,7 +27,7 @@ import {
 } from '../store/localtionListing';
 import { updateProfileInfo } from '../store/users';
 import colors from '../config/colors';
-import { getUserInfo } from '../store/bugs';
+import { getUserInfo, loadBugs } from '../store/bugs';
 
 const validateSchema = Yup.object().shape({
     address1: Yup.string()
@@ -45,8 +43,6 @@ const validateSchema = Yup.object().shape({
 });
 
 export function ProfileContainer2() {
-    const [toggleBtn, setToggleBtn] = useState(false);
-    const [userName, setUserName] = useState('');
     const [nameInputColor, setNameInputColor] = useState(false);
     const [phoneNumberInputColor, setPhoneNumberInputColor] = useState(false);
     const [regEmailInputColor, setRegEmailInputColor] = useState(false);
@@ -65,21 +61,23 @@ export function ProfileContainer2() {
     const [open, setOpen] = useState(false);
     const [pickerDate, setPickerDate] = useState(new Date());
     const [genderValue, setGenderValue] = useState();
-    const userDetails = useSelector(getUserInfo);
 
     const dispatch = useDispatch();
 
-
     const mailStatus = useSelector(sentEmailStatus);
-
     const sentMessageStatus = mailStatus.Status ? mailStatus.Status : '';
     const countryLists = useSelector(countryListing);
     const stateLists = useSelector(statesListing);
     const cityLists = useSelector(cityListing);
+    const userDetails = useSelector(getUserInfo);
 
-    const editBtn = {
-        right: 0
-    }
+    const address = userDetails[0]?.Data.address1 ? userDetails[0].Data.address1 : 'No Data';
+    const country = userDetails[0]?.Data.country ? userDetails[0].Data.country : '';
+    const state = userDetails[0]?.Data.state ? userDetails[0].Data.state : '';
+    const city = userDetails[0]?.Data.city ? userDetails[0].Data.city : '';
+    const userGender = userDetails[0]?.Data.gender !== null ? userDetails[0]?.Data.gender : '-';
+    const dob = userDetails[0] && userDetails[0].Data.dob
+    const occupation = userDetails[0]?.Data.occupation !== null ? userDetails[0].Data.occupation : '-';
 
     const down = {
         top: 18 + 'px',
@@ -112,9 +110,14 @@ export function ProfileContainer2() {
             id: 3,
             gender: 'other'
         }
-    ]
+    ];
 
     useEffect(() => {
+        setSelectedCountry(country);
+    }, [country]);
+
+    useEffect(() => {
+
         dispatch(getCountryLists());
     }, [sentMessageStatus]);
 
@@ -135,8 +138,6 @@ export function ProfileContainer2() {
                 setSelectedCountryId(item.id),
         );
     }, [countryIndex]);
-
-    // item => item.title === selectCountry[0] && console.log('from find ', item)
 
     // Set States
     const selectState = [];
@@ -164,10 +165,22 @@ export function ProfileContainer2() {
         const month = pickerDate.getMonth();
         const year = pickerDate.getFullYear();
         const dob = `${date} / ${month} / ${year}`;
-        // console.log('from', address, countryIndex, stateIndex, cityIndex, genderId, date, occupation)
+
         const id = userDetails[0].Data.uid;
         dispatch(updateProfileInfo(id, address, countryIndex, stateIndex, cityIndex, genderId, dob, occupation));
     }
+
+    const getId = async () => {
+        const id = await AsyncStorage.getItem('user_Id').then(id => id);
+        dispatch(loadBugs(id));
+    }
+
+    useEffect(() => {
+        getId()
+    }, [countryIndex])
+
+
+    console.log(userDetails)
 
     return (
         <ScrollView style={{ backgroundColor: '#fff', }}>
@@ -206,7 +219,7 @@ export function ProfileContainer2() {
                                 <Login.NameTextInput
                                     nameInputColor={nameInputColor}
                                     placeholderTextColor='#C9C9C9'
-                                    placeholder="Street Address"
+                                    placeholder={address !== 'No Data' ? address : 'Street Address'}
                                     onBlur={() => setFieldTouched('address1')}
                                     returnKeyType='next'
                                     name='address1'
@@ -230,10 +243,12 @@ export function ProfileContainer2() {
                                             ({ fontFamily: 'Opens Sans Serif' },
                                                 { marginLeft: -13 })
                                         }
+
                                         selectedValue={selectedCountry}
                                         onValueChange={(itemValue, itemIndex) => (
                                             setSelectedCountry(itemValue),
                                             setCountryIndex(itemIndex)
+
                                         )}>
                                         <Picker.Item
                                             style={{
@@ -428,9 +443,9 @@ export function ProfileContainer2() {
                                 error={errors.occupation}
                                 visible={touched.occupation}
                             />
-                            <View style={{ marginTop: 30 }}>
+                            {/* <View style={{ marginTop: 30 }}>
                                 <Button onPress={handleSubmit} title='Submit' />
-                            </View>
+                            </View> */}
                         </KeyboardAvoidingView>
                     </View>
                 )}

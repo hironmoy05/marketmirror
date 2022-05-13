@@ -47,6 +47,7 @@ import {
   checkOtpToVerifyEmail,
   sentEmailOtpStatus,
 } from '../store/verifyEmailApi';
+import { sentPhoneStatus, sendOtpToVerifyPhone, checkOtpToVerifyPhone, sentPhoneOtpStatus } from '../store/verifyPhoneApi';
 import {
   getCountryLists,
   getStateLists,
@@ -88,6 +89,8 @@ export const RegisterationContainer = ({ navigation }) => {
   const dispatch = useDispatch();
   const mailStatus = useSelector(sentEmailStatus);
   const mailOtpStatus = useSelector(sentEmailOtpStatus);
+  const phoneStatus = useSelector(sentPhoneStatus);
+  const phoneOtpStatus = useSelector(sentPhoneOtpStatus);
   const countryLists = useSelector(countryListing);
   const stateLists = useSelector(statesListing);
   const cityLists = useSelector(cityListing);
@@ -95,8 +98,8 @@ export const RegisterationContainer = ({ navigation }) => {
   const sentMessageStatus = mailStatus.Status ? mailStatus.Status : '';
   const sentOtpMsgStatus = mailOtpStatus.Status ? mailOtpStatus.Status : '';
 
-  const [stateValue, setStateValue] = useState('');
-  const [cityValue, setCityValue] = useState('');
+  const sentPhoneMessageStatus = phoneStatus.Status ? phoneStatus.Status : '';
+  const sentPhoneOtpMsgStatus = phoneOtpStatus.Status ? phoneOtpStatus.Status : '';
 
   const [formikSponsor, setFormikSponsor] = useState();
   const [userName, setUserName] = useState('');
@@ -135,12 +138,27 @@ export const RegisterationContainer = ({ navigation }) => {
   const [buttonInputColor, setButtonInputColor] = useState(false);
   const [visibility, setvisibility] = useState(false);
   const [formikEmail, setFormikEmail] = useState('');
+  const [formikPhone, setFormikPhone] = useState('');
   const [firstModal, setFirstModal] = useState(false);
   const [crossClick, setCrossClick] = useState(false);
   const [verifyOtp, setVerifyOtp] = useState(false);
+  const [verifyPhoneOtp, setVerifyPhoneOtp] = useState(false);
+  const [countries, setCountries] = useState([]);
+
+  const [clicked, setClicked] = useState(false);
+  const [phoneClicked, setPhoneClicked] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => setClicked(false), 5000)
+  }, [clicked])
+
+  useEffect(() => {
+    setTimeout(() => setPhoneClicked(false), 5000)
+  }, [phoneClicked])
 
   useEffect(() => {
     dispatch(getCountryLists());
+    setCountries(countryLists);
   }, []);
 
   useEffect(() => {
@@ -152,9 +170,9 @@ export const RegisterationContainer = ({ navigation }) => {
   }, [selectedStateId]);
 
   const selectCountry = [];
-  countryLists?.forEach(item => selectCountry.push(item.title));
+  countries?.forEach(item => selectCountry.push(item.title));
   useEffect(() => {
-    countryLists?.find(
+    countries?.find(
       item =>
         item.title === selectCountry[countryIndex - 1] &&
         setSelectedCountryId(item.id),
@@ -235,7 +253,7 @@ export const RegisterationContainer = ({ navigation }) => {
     selectedCityId,
   );
 
-  const handleSubmitButton = (name, email, password) => {
+  const handleSubmitButton = (name, email, phone, password) => {
     setErrorText('');
 
     setLoading(true);
@@ -243,7 +261,7 @@ export const RegisterationContainer = ({ navigation }) => {
     let dataToSend = {
       name: name,
       email: email,
-      mobile: phoneNumber,
+      mobile: phone,
       country_code: countryCode ? countryCode : '91',
       city_id: selectedCityId,
       state_id: selectedStateId,
@@ -299,6 +317,16 @@ export const RegisterationContainer = ({ navigation }) => {
         setLoading(false);
         console.log(error);
       });
+
+
+    // name,
+    // email,
+    // phone,
+    // password
+    setSelectedCountry();
+    setSelectedState();
+    setSelectedCity();
+    setFormikSponsor();
   };
 
   useEffect(() => {
@@ -330,25 +358,34 @@ export const RegisterationContainer = ({ navigation }) => {
     setSix();
   }, [sentOtpMsgStatus]);
 
-  function handleEmailModal() {
-    return setIsEmailVerify(false);
-  }
-
-  function handlePhoneModal() {
-    const numArr = [one, two, three, four, five, six];
-    const numOtp = numArr.join('');
-
-    if (numOtp === '111111') {
-      setPhoneOtpVerified(true);
+  useEffect(() => {
+    if (sentPhoneMessageStatus === 'Error') {
+      setIsPhoneVerify(false);
     }
+
+    if (sentPhoneMessageStatus === 'Success') {
+      setIsPhoneVerify(true);
+      setCrossClick(!crossClick);
+    }
+    dispatch(signoutRequest());
+  }, [sentPhoneMessageStatus]);
+
+  useEffect(() => {
+    if (sentPhoneOtpMsgStatus === 'Error') return;
+
+    if (sentPhoneOtpMsgStatus === 'Success') {
+      setIsPhoneVerify(false);
+      setVerifyPhoneOtp(true);
+      // setEmailOtpVerified(true);
+    }
+
     setOne();
     setTwo();
     setThree();
     setFour();
     setFive();
     setSix();
-    return setIsPhoneVerify(false);
-  }
+  }, [sentPhoneOtpMsgStatus]);
 
   useEffect(() => {
     userName ? setNameInputColor(true) : setNameInputColor(false);
@@ -397,6 +434,15 @@ export const RegisterationContainer = ({ navigation }) => {
     password,
     retypePassword,
   ]);
+
+  const initialValues = {
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    retypePassword: '',
+    sponsor: '',
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
@@ -579,6 +625,7 @@ export const RegisterationContainer = ({ navigation }) => {
         deviceHeight={PixelDeviceHeight}
         deviceWidth={deviceWidth}
         backdropTransitionOutTiming={0}
+        onBackdropPress={() => setIsPhoneVerify(false)}
         style={{ margin: 0 }}>
         <View style={styles.popup}>
           <View style={styles.cross}>
@@ -711,7 +758,12 @@ export const RegisterationContainer = ({ navigation }) => {
             </Pressable>
           </View>
           <Button
-            onPress={() => handlePhoneModal()}
+            onPress={() => {
+              const numArr = [one, two, three, four, five, six];
+              const numOtp = numArr.join('');
+              Keyboard.dismiss();
+              dispatch(checkOtpToVerifyPhone(formikPhone, numOtp));
+            }}
             style={styles.button}
             mode="contained">
             Submit
@@ -747,21 +799,18 @@ export const RegisterationContainer = ({ navigation }) => {
               </Login.LoginFormBox>
 
               <Formik
-                initialValues={{
-                  name: '',
-                  email: '',
-                  password: '',
-                  retypePassword: '',
-                  sponsor: '',
-                }}
-                onSubmit={values =>
+                initialValues={initialValues}
+                onSubmit={(values, { resetForm }) => {
                   handleSubmitButton(
                     values.name,
                     values.email,
+                    values.phone,
                     values.password,
                     values.retypePassword,
                     values.sponsor,
-                  )
+                  );
+                  resetForm({ values: initialValues })
+                }
                 }
                 enableReinitialize={true}
                 validationSchema={validateSchema}>
@@ -772,6 +821,7 @@ export const RegisterationContainer = ({ navigation }) => {
                   errors,
                   setFieldTouched,
                   touched,
+                  resetForm
                 }) => (
                   <>
                     <Login.FormBox>
@@ -806,16 +856,18 @@ export const RegisterationContainer = ({ navigation }) => {
                         </View>
                       ) : (
                         <Pressable
+                          disabled={clicked}
                           style={styles.inputTextPosition}
                           onPress={() => {
                             dispatch(sendOtpToVerifyEmail(values.email));
                             setIsEmailVerify(true);
                             setFormikEmail(values.email);
+                            setClicked(true);
                           }}>
                           <Text
                             style={
                               values.email
-                                ? [styles.textVerifyShown, { top: 2 }]
+                                ? [styles.textVerifyShown, { top: -3, left: 10, padding: 5 }]
                                 : styles.textVerify
                             }>
                             Verify
@@ -867,12 +919,13 @@ export const RegisterationContainer = ({ navigation }) => {
                             label={'Select Country'}
                             enabled={false}
                           />
-                          {selectCountry.map((list, i) => (
+                          {console.log(selectCountry)}
+                          {countries?.map((list, i) => (
                             <Picker.Item
                               style={{ color: '#212121', fontSize: 14 }}
                               key={i}
-                              label={list}
-                              value={list.toString()}
+                              label={list?.title}
+                              value={list?.id}
                             />
                           ))}
                         </Picker>
@@ -985,32 +1038,36 @@ export const RegisterationContainer = ({ navigation }) => {
                       </Login.IconBox>
                       <Registeration.FormBoxPicker
                         phoneNumberInputColor={phoneNumber ? true : false}>
-                        <Pressable
-                          style={styles.phoneTextPosition}
-                          onPress={() => setIsPhoneVerify(true)}>
-                          {phoneOtpVerified ? (
-                            <Pressable
-                              onPress={() => setIsPhoneVerify(false)}
-                              style={{ top: 4 }}>
-                              <VerifyCheck />
-                            </Pressable>
-                          ) : (
+
+                        {verifyPhoneOtp ? (
+                          <View
+                            style={[styles.inputTextPosition, { top: 20 }]}>
+                            <VerifyCheck />
+                          </View>
+                        ) : (
+                          <Pressable
+                            disabled={phoneClicked}
+                            style={styles.inputTextPosition}
+                            onPress={() => {
+                              dispatch(sendOtpToVerifyPhone(values.phone));
+                              setFormikPhone(values.phone);
+                              setPhoneClicked(true);
+                            }}>
                             <Text
                               style={
-                                phoneNumber
-                                  ? styles.textVerifyShown
-                                  : styles.textVerify
+                                values.phone ? [styles.textVerifyShown, { top: -29, right: -10, padding: 5 }] : styles.textVerify
                               }>
                               Verify
                             </Text>
-                          )}
-                        </Pressable>
+                          </Pressable>
+                        )}
+
                         <View style={styles.container}>
                           <PhoneInput
                             ref={phoneInput}
                             defaultValue={phoneNumber}
                             placeholder="Phone number"
-                            value={phoneNumber}
+                            // value={phoneNumber}
                             defaultCode="IN"
                             layout="second"
                             codeTextStyle={styles.container}
@@ -1018,16 +1075,7 @@ export const RegisterationContainer = ({ navigation }) => {
                             containerStyle={{ width: '100%', height: 50 }}
                             textContainerStyle={styles.textInput}
                             onBlur={() => setFieldTouched('phone')}
-                            onChangeText={num => {
-                              const number = /[0-9]+$/;
-                              const isNum = num.match(number);
-                              if (isNum) {
-                                const phoneNum = isNum.join('');
-                                setPhoneNumber(phoneNum);
-                              } else {
-                                setPhoneNumber();
-                              }
-                            }}
+                            onChangeText={handleChange('phone')}
                             onChangeCountry={item =>
                               setCountryCode(item.callingCode[0])
                             }
@@ -1036,11 +1084,10 @@ export const RegisterationContainer = ({ navigation }) => {
                       </Registeration.FormBoxPicker>
                     </Login.FormBox>
 
-                    {visibility ? (
-                      phoneNumber ? null : (
-                        <Text style={{ color: 'red' }}>Required</Text>
-                      )
-                    ) : null}
+                    <ErrorMessage
+                      error={errors.phone}
+                      visible={touched.phone}
+                    />
 
                     <Login.FormBox>
                       <Login.Label>Password</Login.Label>
@@ -1159,9 +1206,10 @@ export const RegisterationContainer = ({ navigation }) => {
                           values.name &&
                             values.email &&
                             verifyOtp &&
+                            verifyPhoneOtp &&
                             selectedCountry &&
-                            phoneNumber &&
-                            phoneOtpVerified &&
+                            selectedState &&
+                            selectedCity &&
                             values.password &&
                             values.retypePassword &&
                             toggleCheckBox
@@ -1174,18 +1222,16 @@ export const RegisterationContainer = ({ navigation }) => {
                           values.name &&
                             values.email &&
                             verifyOtp &&
+                            verifyPhoneOtp &&
                             selectedCity &&
                             selectedState &&
                             selectedCountry &&
-                            phoneNumber &&
-                            phoneOtpVerified &&
                             values.password &&
                             values.retypePassword &&
                             toggleCheckBox
                             ? false
                             : true
                         }>
-                        Registeraton
                       </Login.RegFormButton>
                     </TouchableOpacity>
 
