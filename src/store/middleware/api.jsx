@@ -7,7 +7,8 @@ import {
   GET_VERIFY_EMAIL,
   VERIFY_EMAIL_OTP,
   GET_VERIFY_PHONE,
-  VERIFY_PHONE_OTP
+  VERIFY_PHONE_OTP,
+  GET_WITHDRAWAL
 } from '../../constants/urls';
 import Toast from 'react-native-root-toast';
 
@@ -19,7 +20,6 @@ const api = ({ dispatch }) => next => async action => {
   const { url, method, data, headers, onSuccess, onError } = action.payload;
 
   const mainUrl = BASE_URL + url;
-  console.log(mainUrl, method, data, headers)
 
   try {
     const resp = await fetch(mainUrl, {
@@ -31,7 +31,6 @@ const api = ({ dispatch }) => next => async action => {
     const res = await resp.json();
     const response = res;
 
-    // console.log('from try', (response.data));
     // General
     dispatch(actions.apiRequestSuccess(response));
     // Specific
@@ -48,7 +47,8 @@ const api = ({ dispatch }) => next => async action => {
       url === GET_VERIFY_EMAIL ||
       url === VERIFY_EMAIL_OTP ||
       url === GET_VERIFY_PHONE ||
-      url === VERIFY_PHONE_OTP
+      url === VERIFY_PHONE_OTP ||
+      url === GET_WITHDRAWAL
     )
       Toast.show(response.Message, {
         duration: Toast.durations.LONG,

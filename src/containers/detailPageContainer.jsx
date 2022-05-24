@@ -3,6 +3,7 @@ import { useNavigation, StackActions, useRoute } from '@react-navigation/native'
 import {
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   Image,
   Text,
   View,
@@ -16,6 +17,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Share from 'react-native-share';
 import Modal from 'react-native-modal';
+import YoutubePlayer from 'react-native-youtube-iframe';
+import { getYoutubeMeta } from 'react-native-youtube-iframe';
 
 import AppText from '../components/appText';
 import Whatsapp from '../assets/whatsapp.svg';
@@ -27,13 +30,16 @@ import { getListings, getListingDetails, listDetails } from '../store/listing';
 import { SearchBox } from '../components/searchBox';
 import { getUserInfo } from '../store/bugs';
 import Carousel from '../components/carousel/carousel';
-import { PixelDeviceHeight, deviceWidth, deviceHeight } from '../responsive';
+import { PixelDeviceHeight, deviceWidth } from '../responsive';
 import { loadImages, pics } from '../store/gallery';
+import { loadVideos, vids } from '../store/videoGallery';
 
 
 export const DetailPageContainer = () => {
   const [currentDetails, setCurrentDetails] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [vidModalVisible, setVidModalVisible] = useState(false);
+  const [vidId, setVidId] = useState('');
 
   const dispatch = useDispatch();
   const ref = useRef(null);
@@ -43,36 +49,31 @@ export const DetailPageContainer = () => {
   const data = useSelector(getListings);
   const details = data.Data;
   const userDetails = useSelector(getUserInfo);
-  const lists = useSelector(getListingDetails);
   const gallerys = useSelector(pics);
+  const vidGallerys = useSelector(vids);
+  const lists = useSelector(getListingDetails);
 
   const detailsId = route.params.id;
   const id = userDetails[0].Data.uid;
   const gallery = gallerys[0]?.Status;
+  const vidGallery = vidGallerys[0]?.Status;
 
+  const mapLink = lists === undefined ? null : lists[0]?.map_link;
 
-  useEffect(() => {
+  const getAllFuncInOnce = () => {
     dispatch(listDetails(id, detailsId));
 
-    dispatch(loadImages(id, detailsId))
-  }, [detailsId, id]);
+    dispatch(loadImages(id, detailsId));
+
+    dispatch(loadVideos(id, detailsId));
+
+  }
+
+  useEffect(() => {
+    getAllFuncInOnce();
+  }, [detailsId]);
 
   const userDes = lists ? lists[0] : [];
-
-  const whatsAppShare = async () => {
-    const shareOptions = {
-      message: userDes?.title + '\n',
-      url: `https://www.marketmirror.info/business/profile/${userDes?.slug}`,
-      social: Share.Social.WHATSAPP,
-    };
-
-    try {
-      const shareResponse = await Share.shareSingle(shareOptions);
-      console.log(JSON.stringify(shareResponse));
-    } catch (error) {
-      console.log('error from share', error);
-    }
-  };
 
   const customeShare = async () => {
     const shareOptions = {
@@ -103,13 +104,13 @@ export const DetailPageContainer = () => {
       const filterArray = arrayNum?.filter(
         index => index !== ' ' && index !== '+' && index !== '-',
       );
-      console.log(filterArray);
     }
     return arrayNum?.join('');
   }
 
   return (
     <ScrollView>
+      {/* Gallery */}
       <Modal
         isVisible={modalVisible}
         deviceHeight={PixelDeviceHeight}
@@ -119,6 +120,23 @@ export const DetailPageContainer = () => {
         style={{ margin: 0 }}>
         <Carousel />
       </Modal>
+
+      {/* Video */}
+      <Modal
+        isVisible={vidModalVisible}
+        deviceHeight={PixelDeviceHeight}
+        deviceWidth={deviceWidth}
+        onBackdropPress={() => setVidModalVisible(false)}
+        style={{ margin: 0 }}
+      >
+        <YoutubePlayer
+          height={200}
+          play={'play'}
+          forceAndroidAutoplay={false}
+          videoId={vidId}
+        />
+      </Modal>
+
       <View style={styles.searchContainer}>
         <View
           style={{
@@ -239,7 +257,7 @@ export const DetailPageContainer = () => {
         </View>
         <View style={[styles.icons, styles.icons2]}>
           <View style={styles.iconBox}>
-            <TouchableOpacity
+            <TouchableOpacity activeOpacity={.8}
               onPress={() => Linking.openURL(`tel: ${mobileNumber()}`)}
               style={styles.icon}>
               <MaterialCommunityIcons
@@ -251,20 +269,27 @@ export const DetailPageContainer = () => {
             <AppText style={styles.iconText}>Call</AppText>
           </View>
           <View style={styles.iconBox}>
-            <View style={styles.icon}>
-              <MaterialCommunityIcons
-                name="google-maps"
-                size={32}
-                color={colors.primary}
-              />
-            </View>
+            <TouchableOpacity disabled={mapLink ? false : true} activeOpacity={.8} onPress={() => Linking.openURL(mapLink)}>
+              <View style={styles.icon}>
+                <MaterialCommunityIcons
+                  name="google-maps"
+                  size={32}
+                  color={colors.primary}
+                />
+              </View>
+            </TouchableOpacity>
             <AppText style={styles.iconText}>Map</AppText>
           </View>
           <View style={styles.iconBox}>
             <View>
               <View style={styles.icon}>
-                <TouchableOpacity
-                  onPress={whatsAppShare}
+                <TouchableOpacity activeOpacity={.8}
+                  // onPress={whatsAppShare}
+                  onPress={() => {
+                    const whatsApp = details[0]?.whatsapp;
+                    return Linking.openURL(`https://api.whatsapp.com/send?phone=+91${whatsApp}&text=hi%20i%20am%20interested%20in%20your%20servises`)
+                  }
+                  }
                   style={styles.whatIcon}>
                   <Whatsapp />
                 </TouchableOpacity>
@@ -273,7 +298,7 @@ export const DetailPageContainer = () => {
             <AppText style={styles.iconText}>WhatsApp</AppText>
           </View>
           <View style={styles.iconBox}>
-            <TouchableOpacity onPress={customeShare} style={styles.icon}>
+            <TouchableOpacity activeOpacity={.8} onPress={customeShare} style={styles.icon}>
               <Redo width={30} height={30} />
             </TouchableOpacity>
             <AppText style={styles.iconText}>Share</AppText>
@@ -339,13 +364,19 @@ export const DetailPageContainer = () => {
             <View style={styles.divider2} />
           </>
         )}
-        <View style={styles.details}>
-          <MaterialIcons name="miscellaneous-services" size={20} />
-          <AppText style={styles.text}>
-            {userDes?.services}
-          </AppText>
-        </View>
-        <View style={styles.divider} />
+        {
+          userDes?.services === '' ? null : (
+            <>
+              <View style={styles.details}>
+                <MaterialIcons name="miscellaneous-services" size={20} />
+                <AppText style={styles.text}>
+                  {userDes?.services}
+                </AppText>
+              </View>
+              <View style={styles.divider} />
+            </>
+          )
+        }
         {
           userDes?.email === '' ? null : (
             <>
@@ -368,12 +399,17 @@ export const DetailPageContainer = () => {
         <View style={styles.divider2} />
         <View style={styles.details}>
           <MaterialCommunityIcons name="clock-outline" size={20} />
-          <AppText style={styles.text}>
-            Open Time :{' '}
-            {userDes.opening_time === ''
-              ? 'Sunday'
-              : userDes.opening_time}
-          </AppText>
+          <View style={{ flexDirection: 'column', width: '100%' }}>
+            <AppText style={[styles.text, { marginBottom: 5 }]}>
+              Opening Time :{userDes.shop_time_open}
+            </AppText>
+            <AppText style={[styles.text, { marginBottom: 5 }]}>
+              Closing Time: {userDes.shop_time_close}
+            </AppText>
+            <AppText style={styles.text}>
+              Weekend: {details[0].weekend}
+            </AppText>
+          </View>
         </View>
         <View style={styles.divider2} />
         <View style={styles.details}>
@@ -386,18 +422,54 @@ export const DetailPageContainer = () => {
         {
           gallery === 'Error' ? null : (
             <>
-              <View style={styles.details}>
+              <View style={[styles.details, { overflow: 'hidden' }]}>
                 <MaterialCommunityIcons name="view-gallery-outline" size={20} />
-                <TouchableOpacity onPress={() => setModalVisible(true)}>
-                  <AppText style={[styles.text, { width: '100%' }]}>
-                    Gallery: Click To View Images
+                <TouchableOpacity activeOpacity={.8} onPress={() => setModalVisible(true)}>
+                  <AppText style={styles.text}>
+                    <View>
+                      <AppText style={{ fontSize: 14 }}>Gallery: Click To View Images</AppText>
+                      <View style={{ flexDirection: 'row', marginTop: 5 }}>
+                        {gallerys[0]?.Data?.map((item, index) => {
+                          return (
+                            <View key={index} >
+                              <Image style={{ width: 60, height: 60, marginRight: 5 }} source={{ uri: item.image_icon }} />
+                            </View>
+                          )
+                        }
+                        )}
+                      </View>
+                    </View>
                   </AppText>
                 </TouchableOpacity>
               </View>
               <View style={styles.divider2} />
+
             </>
           )
         }
+        {
+          vidGallery === 'Error' ? null : (
+            <View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <MaterialCommunityIcons name='play' size={30} style={{ marginLeft: -3, marginRight: 5 }} />
+                <AppText style={{ fontSize: 14 }}>Click on thumb to view video</AppText>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                {
+                  vidGallerys[0]?.Data?.map((item, index) => {
+                    const numOfVid = vidGallerys[0].Data.length;
+                    return (
+                      <TouchableWithoutFeedback key={index} style={{ marginTop: 20 }} onPress={() => (setVidModalVisible(true), setVidId(item.video))}>
+                        <Image style={{ width: numOfVid === 1 ? '100%' : numOfVid === 2 ? '48%' : '30%', height: numOfVid === 1 ? 200 : 100 }} source={require('../assets/image/defaultThumb.jpg')} />
+                      </TouchableWithoutFeedback>
+                    )
+                  })
+                }
+              </View>
+            </View>
+          )
+        }
+        <View style={styles.divider2} />
       </View>
     </ScrollView>
   );

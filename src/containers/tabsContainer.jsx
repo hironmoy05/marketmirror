@@ -1,17 +1,14 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {HomeTabContainer} from './homeTabContainer';
-// import {PortfolioTabContainer} from './portfolioTabContainer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { HomeTabContainer } from './homeTabContainer';
+import { WalletTabContainer } from '../containers/walletTabContainer';
 // import {HistoryTabContainer} from './historyTabContainer';
 // import {NotificationTabContainer} from './notificationTabContainer';
-import {Image, Text} from 'react-native';
+import { Image, Text } from 'react-native';
 import colors from '../config/colors';
 
 const Tab = createBottomTabNavigator();
 
-function PortfolioTabContainer() {
-  return null;
-}
 function HistoryTabContainer() {
   return null;
 }
@@ -34,17 +31,17 @@ export const TabsCotainer = () => {
           paddingLeft: 20,
           paddingRight: 20,
         },
-        tabBarLabelStyle: {fontSize: 11, fontFamily: 'Open Sans Bold'},
+        tabBarLabelStyle: { fontSize: 11, fontFamily: 'Open Sans Bold' },
       }}>
       <Tab.Screen
         name="HomeTabScreen"
         component={HomeTabContainer}
         options={{
           // title: 'Dashboard',
-          tabBarLabel: ({focused, size, color}) => (
-            <Text style={{color: `${focused ? '#fff' : '#A8A8A8'}`}}>Home</Text>
+          tabBarLabel: ({ focused, size, color }) => (
+            <Text style={{ color: `${focused ? '#fff' : '#A8A8A8'}` }}>Home</Text>
           ),
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Image
               source={
                 focused
@@ -54,7 +51,6 @@ export const TabsCotainer = () => {
               style={{
                 width: size,
                 height: size,
-
                 // backgroundColor: `${focused ? '#013567' : '#fff'}`,
               }}
             />
@@ -62,28 +58,27 @@ export const TabsCotainer = () => {
         }}
       />
       <Tab.Screen
-        name="PortfolioTabScreen"
-        component={PortfolioTabContainer}
+        name="WalletTabContainer"
+        component={WalletTabContainer}
         options={{
           // title: 'Portfolio',
-          tabBarLabel: ({focused, size, color}) => (
-            <Text style={{color: `${focused ? '#fff' : '#A8A8A8'}`}}>
-              Portfolio
+          tabBarLabel: ({ focused, size, color }) => (
+            <Text style={{ color: `${focused ? '#fff' : '#A8A8A8'}` }}>
+              Wallet
             </Text>
           ),
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Image
               source={
                 focused
-                  ? require('../assets/icons/portfolio_selected.png')
-                  : require('../assets/icons/portfolio.png')
+                  ? require('../assets/icons/wallet.png')
+                  : require('../assets/icons/wallet_1.png')
               }
               style={{
                 width: size,
                 height: size,
-                backgroundColor: `${
-                  focused ? colors.primaryDark : colors.primaryDark
-                }`,
+                // backgroundColor: `${focused ? colors.primaryDark : colors.primaryDark
+                // }`,
               }}
             />
           ),
@@ -93,12 +88,12 @@ export const TabsCotainer = () => {
         name="HistoryTabScreen"
         component={HistoryTabContainer}
         options={{
-          tabBarLabel: ({focused, size, color}) => (
-            <Text style={{color: `${focused ? '#fff' : '#A8A8A8'}`}}>
+          tabBarLabel: ({ focused, size, color }) => (
+            <Text style={{ color: `${focused ? '#fff' : '#A8A8A8'}` }}>
               History
             </Text>
           ),
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Image
               source={
                 focused
@@ -108,7 +103,7 @@ export const TabsCotainer = () => {
               style={{
                 width: size,
                 height: size,
-                backgroundColor: `${focused ? '#fff' : '#013567'}`,
+                // backgroundColor: `${focused ? '#fff' : '#013567'}`,
               }}
             />
           ),
@@ -118,12 +113,12 @@ export const TabsCotainer = () => {
         name="NotificationTabScreen"
         component={NotificationTabContainer}
         options={{
-          tabBarLabel: ({focused, size, color}) => (
-            <Text style={{color: `${focused ? '#fff' : '#A8A8A8'}`}}>
+          tabBarLabel: ({ focused, size, color }) => (
+            <Text style={{ color: `${focused ? '#fff' : '#A8A8A8'}` }}>
               Notification
             </Text>
           ),
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({ focused, size, color }) => (
             <Image
               source={
                 focused
@@ -133,7 +128,7 @@ export const TabsCotainer = () => {
               style={{
                 width: size,
                 height: size,
-                backgroundColor: `${focused ? '#fff' : '#013567'}`,
+                // backgroundColor: `${focused ? '#fff' : '#013567'}`,
               }}
             />
           ),

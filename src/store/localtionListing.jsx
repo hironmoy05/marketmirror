@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {createSelector} from 'reselect';
-import {apiRequest} from './api';
+import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
+import { apiRequest } from './api';
 
 import {
   GET_COUNTRYLISTING,
@@ -28,7 +28,7 @@ export const slice = createSlice({
   },
 });
 
-export const {getCountryListing, getStateListing, getCityListing} =
+export const { getCountryListing, getStateListing, getCityListing } =
   slice.actions;
 export default slice.reducer;
 
@@ -36,7 +36,6 @@ export default slice.reducer;
 export const getCountryLists = () => (dispatch, getState) => {
   const url = GET_COUNTRYLISTING;
 
-  console.log('from country store', url);
   dispatch(
     apiRequest({
       url,
@@ -71,8 +70,6 @@ export const getCityLists = stateId => (dispatch, getState) => {
   const url = GET_CITYLISTING;
 
   const body = `state_id=${stateId}`;
-
-  console.log('from location store', body);
 
   dispatch(
     apiRequest({

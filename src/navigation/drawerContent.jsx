@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Title, Caption, Drawer} from 'react-native-paper';
+import { View, StyleSheet, Image } from 'react-native';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import { Title, Caption, Drawer } from 'react-native-paper';
 import LogoRound from '../assets/mm_logo_top_m_round.svg';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {DrawerActions} from '@react-navigation/native';
-import {useNavigation, StackActions} from '@react-navigation/native';
+import { DrawerActions } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import RNRestart from 'react-native-restart';
-import {getUserInfo} from '../store/bugs';
-import {signoutRequest} from '../store/api';
-import {useDispatch, useSelector} from 'react-redux';
+import { getUserInfo } from '../store/bugs';
+import { signoutRequest } from '../store/api';
+import { useDispatch, useSelector } from 'react-redux';
 import colors from '../config/colors';
 
 export function DrawerContent(props) {
@@ -30,7 +30,7 @@ export function DrawerContent(props) {
   }
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <View style={styles.userInfoSection}>
@@ -88,7 +88,7 @@ export function DrawerContent(props) {
               )}
               label="KYC Verification"
               labelStyle={styles.label}
-              // onPress={() => navigation.navigate('KycVerification')}
+            // onPress={() => navigation.navigate('KycVerification')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -102,7 +102,7 @@ export function DrawerContent(props) {
               )}
               label="Bank Account"
               labelStyle={styles.label}
-              // onPress={() => navigation.navigate('BankAccount')}
+            // onPress={() => navigation.navigate('BankAccount')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -116,7 +116,7 @@ export function DrawerContent(props) {
               )}
               label="Gifting Card Coupns"
               labelStyle={styles.label}
-              // onPress={() => navigation.navigate('GiftCard')}
+            // onPress={() => navigation.navigate('GiftCard')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -130,7 +130,7 @@ export function DrawerContent(props) {
               )}
               label="Settings"
               labelStyle={styles.label}
-              // onPress={() => navigation.navigate('Settings')}
+            // onPress={() => navigation.navigate('Settings')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -144,7 +144,7 @@ export function DrawerContent(props) {
               )}
               label="Supports"
               labelStyle={styles.label}
-              // onPress={() => navigation.navigate('Supports')}
+            // onPress={() => navigation.navigate('Supports')}
             />
           </View>
           <View style={styles.drawerDivider}>
@@ -156,7 +156,7 @@ export function DrawerContent(props) {
                   source={require('../assets/icons/logout.png')}
                 />
               )}
-              labelStyle={{color: '#FE1D1D', marginLeft: -14}}
+              labelStyle={{ color: '#FE1D1D', marginLeft: -14 }}
               label="Logout"
               onPress={() => handleLogout()}
             />

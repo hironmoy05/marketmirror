@@ -12,4 +12,17 @@ export default {
   lightGrey3: '#C9C9C9',
 
   borderColor: '#267DCE12',
+
+
+  primaryColor: '#13b763',
+  secondaryColor: '#0c733e',
+  teriaryColor: '#4a90e2',
+
+  accentColor: '#46ec96',
+  accentColor2: '#ffd500',
+  accentColor3: '#F7E594',
+
+  gray: '#ccc',
+
+  whiteOpacity5: 'rgba(255, 255, 255, .5)',
 };

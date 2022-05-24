@@ -14,6 +14,8 @@ target 'marketmirror' do
 
   pod 'react-native-restart', :path => '../node_modules/react-native-restart'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
   target 'marketmirrorTests' do
     inherit! :complete
     # Pods for testing

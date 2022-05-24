@@ -13,7 +13,15 @@ export const VERIFY_PHONE_OTP = '/VerifyMobileOtp';
 export const YOUR_CLIENT_ID = 'mon3223231';
 
 export const UPDATE_PROFILE = '/update_profile';
+// Gallery
 export const GET_BUSINESS_PROFILE_GALLERY = '/GetBusinessProfileGallery';
+export const GET_BUSINESS_PROFILE_VIDEO_GALLERY = '/GetBusinessProfileVideoGallery';
+
+export const ADD_MONEY = '/add_money';
+export const CHECK_ADD_MONEY = '/check_add_money';
+export const TRANSACTION_HISTORY = '/transactions_history';
+export const GET_WITHDRAWAL = '/get_withdrawal';
+export const GET_WITHDRAWAL_HISTORY = '/get_withdrawal_history';
 
 export const GET_STATELISTING = '/GetStateList';
 export const GET_CITYLISTING = '/GetCityList';
@@ -21,6 +29,10 @@ export const GET_COUNTRYLISTING = '/GetCountryList';
 export const GET_DASHBOARD_CATEGORY_List = '/GetDashboardCategoryList';
 export const GET_LISTING = '/GetListing';
 export const GET_LISTINGDETAIL = '/GetListingDetail';
+
+export const UPIAddress = '8923962012@paytm';
+export const Payeename = 'Market Mirror';
+
 
 // Firebase
 export const SERVICE_ID = 482431739326;

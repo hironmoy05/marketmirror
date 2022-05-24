@@ -36,7 +36,7 @@ export default slice.reducer;
 // Action creators
 
 export const dashLists =
-  (userId, countryId, stateId, cityId) => (dispatch, getState) => {
+  (userId, countryId, stateId, cityId) => (dispatch) => {
     const url = GET_DASHBOARD_CATEGORY_List;
 
     const dataToSend = {
@@ -69,7 +69,7 @@ export const dashLists =
     );
   };
 
-export const loadLists = (deviceId, userId, keyword, category) => (dispatch, getState) => {
+export const loadLists = (deviceId, userId, keyword, category) => (dispatch) => {
   const url = GET_LISTING;
 
   const dataToSend = {
@@ -120,7 +120,6 @@ export const listDetails = (userId, listId) => (dispatch, getState) => {
   }
 
   const body = formDetails.join('&');
-  console.log('check get Listing from listing reducer', body);
 
   dispatch(
     apiRequest({

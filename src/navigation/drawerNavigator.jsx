@@ -1,17 +1,16 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {View, Image, Pressable, TouchableOpacity} from 'react-native';
-import {TabsCotainer} from '../containers/tabsContainer';
+import { useEffect } from 'react';
+import { View, Image, Pressable, TouchableOpacity } from 'react-native';
+import { TabsCotainer } from '../containers/tabsContainer';
 import {
   createDrawerNavigator,
-  DrawerContentScrollView,
 } from '@react-navigation/drawer';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
-import {loadBugs, getUserIdFromStore} from '../store/bugs';
-import {useDispatch, useSelector} from 'react-redux';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { loadBugs, getUserIdFromStore } from '../store/bugs';
+import { useDispatch, useSelector } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import {deviceWidth} from '../responsive';
+import { deviceWidth } from '../responsive';
 import colors from '../config/colors';
 
 const Stack = createNativeStackNavigator();
@@ -24,12 +23,12 @@ const NavigationDrawerStructure = props => {
   };
 
   return (
-    <View style={{flexDirection: 'row'}}>
+    <View style={{ flexDirection: 'row' }}>
       <TouchableOpacity onPress={() => toggleDrawer()}>
         {/*Hamburger Button Image */}
         <Image
           source={require('../assets/icons/menu.png')}
-          style={{width: 25, height: 25, marginLeft: 5}}
+          style={{ width: 25, height: 25, marginLeft: 5 }}
         />
       </TouchableOpacity>
 
@@ -51,8 +50,8 @@ const getHeaderTitle = route => {
   switch (routeName) {
     case 'HomeTabScreen':
       return 'Dashboard';
-    case 'PortfolioTabScreen':
-      return 'Porfolio';
+    case 'WalletTabContainer':
+      return 'Wallet';
     case 'HistoryTabScreen':
       return 'History';
     case 'NotificationTabScreen':
@@ -63,13 +62,13 @@ const getHeaderTitle = route => {
 };
 
 // bottom Stack
-const HomeScreenStack = ({navigation}) => {
+const HomeScreenStack = ({ navigation }) => {
   return (
     <Stack.Navigator initialRouteName="HomeTabScreen">
       <Stack.Screen
         name="MarketMirror"
         component={TabsCotainer}
-        options={({route}) => ({
+        options={({ route }) => ({
           title: getHeaderTitle(route),
           headerLeft: () => (
             <NavigationDrawerStructure navigationProps={navigation} />
@@ -88,7 +87,7 @@ const HomeScreenStack = ({navigation}) => {
   );
 };
 
-import {DrawerContent} from './drawerContent';
+import { DrawerContent } from './drawerContent';
 
 const Drawer = createDrawerNavigator();
 
@@ -105,12 +104,12 @@ export default function DrawerNavigator() {
       drawerContent={props => <DrawerContent {...props} />}
       screenOptions={{
         headerShown: false,
-        itemStyle: {marginVertical: 5, width: 90},
-        drawerStyle: {width: 78 + '%'},
+        itemStyle: { marginVertical: 5, width: 90 },
+        drawerStyle: { width: 78 + '%' },
       }}>
       <Drawer.Screen
         name="HomeScreenStack"
-        options={{drawerLabel: 'Home'}}
+        options={{ drawerLabel: 'Home' }}
         component={HomeScreenStack}
       />
     </Drawer.Navigator>

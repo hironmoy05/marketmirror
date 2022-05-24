@@ -7,6 +7,8 @@ import listingsReducer from './listing';
 import locationListingReducer from './localtionListing';
 import usersReducer from './users';
 import galleryReducer from './gallery';
+import videoGalleryReducer from './videoGallery';
+import resultsReducer from './result';
 
 export default combineReducers({
   bugs: bugsReducer,
@@ -17,4 +19,6 @@ export default combineReducers({
   locationListings: locationListingReducer,
   users: usersReducer,
   gallerys: galleryReducer,
+  videoGallerys: videoGalleryReducer,
+  results: resultsReducer,
 });

@@ -8,6 +8,7 @@ const slice = createSlice({
     initialState: [],
     reducers: {
         getProfilePhotos: (gallery, action) => {
+            gallery.splice(0, gallery.length)
             gallery.push(action.payload);
         }
     }
@@ -51,5 +52,5 @@ export const loadImages = (userId, listId) => (dispatch) => {
 // Selectors
 export const pics = createSelector(
     state => state.entities.gallerys,
-    gallerys => gallerys.map(gallery => gallery),
+    gallerys => gallerys,
 )

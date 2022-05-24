@@ -91,7 +91,7 @@ export const RegisterationContainer = ({ navigation }) => {
   const mailOtpStatus = useSelector(sentEmailOtpStatus);
   const phoneStatus = useSelector(sentPhoneStatus);
   const phoneOtpStatus = useSelector(sentPhoneOtpStatus);
-  const countryLists = useSelector(countryListing);
+  // const countryLists = useSelector(countryListing);
   const stateLists = useSelector(statesListing);
   const cityLists = useSelector(cityListing);
 
@@ -147,6 +147,17 @@ export const RegisterationContainer = ({ navigation }) => {
 
   const [clicked, setClicked] = useState(false);
   const [phoneClicked, setPhoneClicked] = useState(false);
+
+  const countryLists = [
+    {
+      id: 1,
+      title: 'India',
+    },
+    {
+      id: 2,
+      title: 'Nepal'
+    }
+  ]
 
   useEffect(() => {
     setTimeout(() => setClicked(false), 5000)
@@ -827,6 +838,64 @@ export const RegisterationContainer = ({ navigation }) => {
                     <ErrorMessage error={errors.name} visible={touched.name} />
 
                     <Login.FormBox>
+                      <Login.Label>Mobile</Login.Label>
+                      <Login.IconBox>
+                        <Mobile />
+                      </Login.IconBox>
+                      <Registeration.FormBoxPicker
+                        phoneNumberInputColor={phoneNumber ? true : false}>
+
+                        {verifyPhoneOtp ? (
+                          <View
+                            style={[styles.inputTextPosition, { top: 20 }]}>
+                            <VerifyCheck />
+                          </View>
+                        ) : (
+                          <Pressable
+                            disabled={phoneClicked}
+                            style={styles.inputTextPosition}
+                            onPress={() => {
+                              dispatch(sendOtpToVerifyPhone(values.phone));
+                              setFormikPhone(values.phone);
+                              setPhoneClicked(true);
+                            }}>
+                            <Text
+                              style={
+                                values.phone ? [styles.textVerifyShown, { top: -29, right: -10, padding: 5 }] : styles.textVerify
+                              }>
+                              Verify
+                            </Text>
+                          </Pressable>
+                        )}
+
+                        <View style={styles.container}>
+                          <PhoneInput
+                            ref={phoneInput}
+                            defaultValue={phoneNumber}
+                            placeholder="Phone number"
+                            // value={phoneNumber}
+                            defaultCode="IN"
+                            layout="second"
+                            codeTextStyle={styles.container}
+                            textInputStyle={styles.textInput}
+                            containerStyle={{ width: '100%', height: 50 }}
+                            textContainerStyle={styles.textInput}
+                            onBlur={() => setFieldTouched('phone')}
+                            onChangeText={handleChange('phone')}
+                            onChangeCountry={item =>
+                              setCountryCode(item.callingCode[0])
+                            }
+                          />
+                        </View>
+                      </Registeration.FormBoxPicker>
+                    </Login.FormBox>
+
+                    <ErrorMessage
+                      error={errors.phone}
+                      visible={touched.phone}
+                    />
+
+                    <Login.FormBox>
                       <Login.Label>Email ID</Login.Label>
                       <Login.IconBox>
                         <Email />
@@ -1011,64 +1080,6 @@ export const RegisterationContainer = ({ navigation }) => {
                         </Text>
                       )
                     ) : null}
-
-                    <Login.FormBox>
-                      <Login.Label>Mobile</Login.Label>
-                      <Login.IconBox>
-                        <Mobile />
-                      </Login.IconBox>
-                      <Registeration.FormBoxPicker
-                        phoneNumberInputColor={phoneNumber ? true : false}>
-
-                        {verifyPhoneOtp ? (
-                          <View
-                            style={[styles.inputTextPosition, { top: 20 }]}>
-                            <VerifyCheck />
-                          </View>
-                        ) : (
-                          <Pressable
-                            disabled={phoneClicked}
-                            style={styles.inputTextPosition}
-                            onPress={() => {
-                              dispatch(sendOtpToVerifyPhone(values.phone));
-                              setFormikPhone(values.phone);
-                              setPhoneClicked(true);
-                            }}>
-                            <Text
-                              style={
-                                values.phone ? [styles.textVerifyShown, { top: -29, right: -10, padding: 5 }] : styles.textVerify
-                              }>
-                              Verify
-                            </Text>
-                          </Pressable>
-                        )}
-
-                        <View style={styles.container}>
-                          <PhoneInput
-                            ref={phoneInput}
-                            defaultValue={phoneNumber}
-                            placeholder="Phone number"
-                            // value={phoneNumber}
-                            defaultCode="IN"
-                            layout="second"
-                            codeTextStyle={styles.container}
-                            textInputStyle={styles.textInput}
-                            containerStyle={{ width: '100%', height: 50 }}
-                            textContainerStyle={styles.textInput}
-                            onBlur={() => setFieldTouched('phone')}
-                            onChangeText={handleChange('phone')}
-                            onChangeCountry={item =>
-                              setCountryCode(item.callingCode[0])
-                            }
-                          />
-                        </View>
-                      </Registeration.FormBoxPicker>
-                    </Login.FormBox>
-
-                    <ErrorMessage
-                      error={errors.phone}
-                      visible={touched.phone}
-                    />
 
                     <Login.FormBox>
                       <Login.Label>Password</Login.Label>

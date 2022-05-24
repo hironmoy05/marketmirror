@@ -135,8 +135,8 @@ android {
         applicationId "com.marketmirror"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "1.6"
+        versionCode 10
+        versionName "1.9"
     }
     splits {
         abi {
@@ -192,7 +192,6 @@ android {
                 output.versionCodeOverride =
                         defaultConfig.versionCode * 1000 + versionCodes.get(abi)
             }
-
         }
     }
 }
@@ -205,6 +204,10 @@ dependencies {
     implementation project(':react-native-restart')
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+     implementation project(':react-native-upi-payment')
+
+     implementation project(':react-native-maps')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
