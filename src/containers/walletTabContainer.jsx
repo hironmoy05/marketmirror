@@ -77,12 +77,24 @@ export const WalletTabContainer = () => {
     const upi = UPIAddress.split('@')[1];
 
     function initPayment(amt, payeename) {
+        let text = '';
+        let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+        for (let i = 0; i < 14; i++) {
+            if (i === 4 || i === 8 || i === 12) {
+                text += '-';
+            }
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        console.log(text)
+
         RNUpiPayment.initializePayment(
             {
                 vpa: UPIAddress, // or can be john@ybl or mobileNo@upi
                 payeeName: 'Narendera Kumar',
                 amount: amt,
-                transactionRef: 'aasf-332-aoei-fn',
+                transactionRef: 'OpIK-2YtJ-qR02-OE',
             },
             successCallback,
             failureCallback,

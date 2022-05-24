@@ -29,8 +29,6 @@ export const SearchContainer = () => {
   const [search, setSearch] = useState(false);
   const [key, setKey] = useState('');
 
-  const [filteredDataSource, setFilteredDataSource] = useState(null);
-
   const navigation = useNavigation();
   const Route = useRoute();
   const details = useSelector(getListings);
