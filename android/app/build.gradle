@@ -205,8 +205,6 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
-     implementation project(':react-native-upi-payment')
-
      implementation project(':react-native-maps')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
@@ -240,3 +238,18 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 apply plugin: 'com.google.gms.google-services'
+
+configurations {
+    // A configuration meant for consumers that need the API of this component
+    exposedApi {
+        // This configuration is an "outgoing" configuration, it's not meant to be resolved
+        canBeResolved = false
+        // As an outgoing configuration, explain that consumers may want to consume it
+        canBeConsumed = true
+    }
+    // A configuration meant for consumers that need the implementation of this component
+    exposedRuntime {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}

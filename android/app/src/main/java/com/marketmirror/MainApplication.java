@@ -18,7 +18,6 @@ import com.facebook.react.bridge.JSIModulePackage; // <- add
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
 import com.facebook.react.bridge.JSIModulePackage; // <- add
 import com.swmansion.reanimated.ReanimatedJSIModulePackage; // <- add
-import com.upi.payment.UpiPaymentPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

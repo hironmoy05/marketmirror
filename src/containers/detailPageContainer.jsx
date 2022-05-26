@@ -19,6 +19,7 @@ import Share from 'react-native-share';
 import Modal from 'react-native-modal';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import { getYoutubeMeta } from 'react-native-youtube-iframe';
+import RazorpayCheckout from 'react-native-razorpay';
 
 import AppText from '../components/appText';
 import Whatsapp from '../assets/whatsapp.svg';
@@ -66,7 +67,6 @@ export const DetailPageContainer = () => {
     dispatch(loadImages(id, detailsId));
 
     dispatch(loadVideos(id, detailsId));
-
   }
 
   useEffect(() => {

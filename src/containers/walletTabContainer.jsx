@@ -18,7 +18,6 @@ import {
     scale,
 } from 'react-native-size-matters';
 import { useNavigation } from '@react-navigation/native';
-import RNUpiPayment from 'react-native-upi-payment';
 
 import { BASE_URL, CHECK_ADD_MONEY, ADD_MONEY } from '../constants/urls';
 import colors from '../config/colors';
@@ -40,7 +39,6 @@ import {
     withdrawalStatus
 } from '../store/withdrawal';
 // import { userProfile } from '../../store/users';
-import { UPIAddress, Payeename } from '../constants/urls';
 
 export const WalletTabContainer = () => {
     const dispatch = useDispatch();
@@ -63,43 +61,6 @@ export const WalletTabContainer = () => {
     const userWallet = userDetails[0]?.Data.wallet;
 
     const pickerRef = useRef();
-
-    function successCallback(data) {
-        // do whatever with the data
-        setpaymentStatus(data);
-    }
-
-    function failureCallback(data) {
-        // do whatever with the data
-        setpaymentStatus(data);
-    }
-
-    const upi = UPIAddress.split('@')[1];
-
-    function initPayment(amt, payeename) {
-        let text = '';
-        let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-        for (let i = 0; i < 14; i++) {
-            if (i === 4 || i === 8 || i === 12) {
-                text += '-';
-            }
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
-        }
-
-        console.log(text)
-
-        RNUpiPayment.initializePayment(
-            {
-                vpa: UPIAddress, // or can be john@ybl or mobileNo@upi
-                payeeName: 'Narendera Kumar',
-                amount: amt,
-                transactionRef: 'OpIK-2YtJ-qR02-OE',
-            },
-            successCallback,
-            failureCallback,
-        );
-    }
 
     async function getId() {
         const userId = await AsyncStorage.getItem('user_Id').then(id => setId(id));
@@ -153,16 +114,26 @@ export const WalletTabContainer = () => {
         }
     }, [amount]);
 
-    const payStatus = paymentStatus?.status;
-    useEffect(() => {
+
+    async function addMoneyRequest() {
+        const amount = changeText.value;
+
+        if (amount === 10) {
+            return setShowError(true);
+        } else {
+            setShowError(false);
+        }
+
+        setAddMoneyVisible(false);
+
         if (amount > 0) {
             const DataToSend = {
                 device_id: YOUR_CLIENT_ID,
                 uid: id,
                 amount,
-                mode: upi,
-                gstatus: paymentStatus?.status,
-                txnid: paymentStatus?.txnId,
+                mode: 'any',
+                // gstatus: paymentStatus?.status,
+                // txnid: paymentStatus?.txnId,
             };
 
             let formDetails = [];
@@ -187,20 +158,6 @@ export const WalletTabContainer = () => {
                 .then(res => res.json())
                 .then(data => console.log('from wallet tab container', data.Message));
         }
-    }, [payStatus]);
-
-    async function addMoneyRequest() {
-        const amount = changeText.value;
-
-        if (amount === 10) {
-            return setShowError(true);
-        } else {
-            setShowError(false);
-        }
-
-        setAddMoneyVisible(false);
-
-        initPayment(amount, Payeename);
     }
 
     async function submitAmount() {

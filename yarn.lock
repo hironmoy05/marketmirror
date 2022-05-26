@@ -6894,6 +6894,11 @@ react-native-phone-number-input@^2.1.0:
     google-libphonenumber "^3.2.10"
     react-native-country-picker-modal "^2.0.0"
 
+react-native-razorpay@^2.2.9:
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-razorpay/-/react-native-razorpay-2.2.9.tgz#895ba57084466ad89777c158edc56e9ceaad4999"
+  integrity sha512-88k38mW+XcENaJPfEN7qaOjMT2e8ueEcFTIGAov2H8h4+NnMlwQ1cjEHK0T5oixCJrekWBh2lpZAf2pVEUR84w==
+
 react-native-reanimated@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.4.1.tgz#4e33876fba525ce60ac13ab3c81fc3a9f8b132fe"
@@ -7000,11 +7005,6 @@ react-native-tab-view@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-3.1.1.tgz#1f8d7a835ab4f5b1b1407ec8dddc1053b53fa3c6"
   integrity sha512-M5pRN6utQfytKWoKlKVzg5NbkYu308qNoW1khGTtEOTs1k14p2dHJ/BWOJoJYHKbPVUyZldbG9MFT7gUl4YHnw==
-
-react-native-upi-payment@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-upi-payment/-/react-native-upi-payment-1.0.3.tgz#ee041e565d29acd908b8c0e9e13310071cc02978"
-  integrity sha512-vr3/+jKuYy618rQJg0L5yjzpxZf4+6TTPakc2szPHO3TY+KknuSeogf8583I9O8K1QGW4CzeWhVfhw4S8bFt2A==
 
 react-native-vector-icons@^9.1.0:
   version "9.1.0"

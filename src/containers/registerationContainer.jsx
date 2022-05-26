@@ -309,14 +309,10 @@ export const RegisterationContainer = ({ navigation }) => {
         }
       })
       .catch(error => {
+        console.log(error);
         setLoading(false);
       });
 
-
-    // name,
-    // email,
-    // phone,
-    // password
     setSelectedCountry();
     setSelectedState();
     setSelectedCity();
